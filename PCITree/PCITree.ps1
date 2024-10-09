@@ -1,15 +1,17 @@
 <#
 .SYNOPSIS
-Display the PCI devices together with their BDF
+Display the PCI devices together with their BDF.
 
 .DESCRIPTION
-Launch it without admin privileges. For each devnode display: BDF, DeviceID, Service, Caption, BARs, Driver Stack.
+Launch it without admin privileges. For each devnode display: BDF, DeviceID,
+Service, Caption, BARs, Driver Stack.
 
 .PARAMETER AsHTML
-Generate html file on the current directory. The layout is identical to AsVT.
+Generate html file on the current directory. Each devnode shows relevant
+properties, with additional information being displayed as a tooltip.
 
 .PARAMETER AsVT
-Highlight BDF status, display the tree on the console using virtual terminal escape sequences.
+Highlight BDF status, display the tree using virtual terminal escape sequences.
 
 .PARAMETER AsText
 Suppress VT sequences.
@@ -23,8 +25,12 @@ AsHTML rendering:
 devnodes have a Caption that surpass it in length, so a line break is
 applied.
 - hover on each entry to see what Status and Problem fields represent.
+
+.LINK
+https://github.com/armaber/articles/blob/main/PCITree/pcitree.md
 #>
 #Requires -PSEdition Desktop -Version 5
+
 [CmdletBinding(DefaultParameterSetName = "HTML")]
 param(
     [Parameter(ParameterSetName = "Text")]
