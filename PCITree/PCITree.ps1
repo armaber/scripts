@@ -128,6 +128,20 @@ function ImportNative
             public static extern UInt32
                 CM_Free_Log_Conf_Handle(IntPtr Conf);
         };
+
+        public class DevnodeHR {
+            public string BDF;
+            public string InstanceID;
+            public string MatchingID;
+            public string Multiple;
+            public string LinkMPS;
+            public string ACS;
+            public string Human;
+            public string BARs;
+            public string CompatibleID;
+            public string NUMA;
+            public string[] DriverStack;
+        };
 "@;
 }
 
@@ -472,22 +486,6 @@ function ConvertFromFileTime([String]$Tobe)
     return Get-Date ([DateTime]::ParseExact($m, "yyyyMMddHHmmss.ffffffzzz", $null, "AssumeLocal")) `
                 -Format "u";
 }
-
-Add-Type @"
-    public class DevnodeHR {
-        public string BDF;
-        public string InstanceID;
-        public string MatchingID;
-        public string Multiple;
-        public string LinkMPS;
-        public string ACS;
-        public string Human;
-        public string BARs;
-        public string CompatibleID;
-        public string NUMA;
-        public string[] DriverStack;
-    }
-"@;
 
 function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$Width)
 {
