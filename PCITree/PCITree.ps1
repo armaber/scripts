@@ -27,7 +27,7 @@ applied.
 - hover on each entry to see what Status and Problem fields represent.
 
 .LINK
-https://github.com/armaber/articles/blob/main/PCITree/pcitree.md
+https://github.com/armaber/articles/blob/main/PCITree/brief.md
 #>
 #Requires -PSEdition Desktop -Version 5
 
