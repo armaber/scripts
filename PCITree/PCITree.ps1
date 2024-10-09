@@ -131,7 +131,7 @@ function ImportNative
 
         public class DevnodeHR {
             public string BDF;
-            public string InstanceID;
+            public string DeviceID;
             public string MatchingID;
             public string Multiple;
             public string LinkMPS;
@@ -232,10 +232,9 @@ function PrintHeader([Switch]$AsHTML)
     $sys = Get-CimInstance Win32_ComputerSystem;
     $rs =  @(Get-CimInstance Win32_PhysicalMemory -Filter "ConfiguredClockSpeed != 0")[0].ConfiguredClockSpeed;
     $bios = Get-CimInstance Win32_BIOS;
-    #A simple gwmi win32_processor takes 1.5 seconds
-    $cpu = @(Get-CimInstance Win32_Processor -Property Name,Caption,AddressWidth,NumberOfEnabledCore,NumberOfLogicalProcessors);
+    $cpu = @(Get-CimInstance Win32_Processor -Property Name, Caption, AddressWidth, NumberOfEnabledCore, NumberOfLogicalProcessors);
+
     [Int]$cr = 0;
-    #With false = SetResolution, the return value is STATUS_TIMER_RESOLUTION_NOT_SET  ((NTSTATUS)0xC0000245L)
     [NativeMethod]::NtSetTimerResolution(10000, $false, [ref]$cr) | Out-Null;
     $lp = [NativeMethod]::GetLargePageMinimum();
     [Int]$hn = 0;
@@ -246,7 +245,7 @@ function PrintHeader([Switch]$AsHTML)
     } else {
         $crs += " = "
     }
-    $crs += "" + [Int](10e+6/$cr) +"Hz";
+    $crs += "" + [Int](10e+6 / $cr) + "Hz";
     $hvci = "off";
     if ((Get-ItemProperty "HKLM:\System\CurrentControlSet\Control\CI\State" HVCIEnabled -EA SilentlyContinue).HVCIEnabled) {
         $hvci = "on";
@@ -255,13 +254,14 @@ function PrintHeader([Switch]$AsHTML)
     $box_line = $sys.Manufacturer+", "+$sys.Model+", "+("{0:F2}" -f ($sys.TotalPhysicalMemory/1GB))+"GB @${rs}MHz, Timer $crs, Large $lp, NUMA "+($hn+1)+", HVCI $hvci";
     $cpu_line = $cpu0.Name.Replace("@ ", "@")+", "+$cpu0.Caption+", "+$cpu0.AddressWidth+" bit, "+$cpu0.NumberOfEnabledCore+" cores, "+$cpu0.NumberOfLogicalProcessors+" threads";
     $cpu_line = "$($cpu.Count)S, $cpu_line";
-    $bios_line = $bios.Manufacturer+", "+$bios.Name+", "+$bios.Version+", SecureBoot ";
+    $bios_line = $bios.Manufacturer + ", " + $bios.Name + ", " + $bios.Version + ", SecureBoot ";
     $sb = [Int](Get-ItemProperty -EA SilentlyContinue HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State).UEFISecureBootEnabled;
     if ($sb) {
         $bios_line += "on";
     } else {
         $bios_line += "off";
     }
+
     if ($AsHTML) {
         return @"
         <table>
@@ -546,7 +546,7 @@ function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$W
         }
     }
     Write-Host ("$Spaces->"+$Entry.BDF),
-               ("`n$Spaces  "+$Entry.InstanceID) -NoNewline;
+               ("`n$Spaces  "+$Entry.DeviceID) -NoNewline;
     foreach ($k in "MatchingID", "Multiple", "LinkMPS", "ACS") {
         if ($Entry.$k) {
             Write-Host ("`n$Spaces  " + $Entry.$k) -NoNewline;    
@@ -569,7 +569,7 @@ function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$W
 function CombineHTML([DevnodeHR]$Node, [String]$Status, [String]$Problem, [String]$Subproblem, [Int]$Index, [Switch]$Expand, [String]$Grow, [Int]$Padding)
 {
     if ($Node.BARs) {
-        $Node.BARs = "BARs: " + ($Node.BARs -replace " ",("`n"+" "*16+"<br/>"+"&nbsp;"*6));
+        $Node.BARs = "BARs: " + ($Node.BARs -replace " ", ("`n" + " " * 16 + "<br/>" + "&nbsp;" * 6));
     }
     $CompatibleID = $Node.CompatibleID.Replace('\', '\\');
     $LinkAndMPS = $Node.LinkMPS;
@@ -584,7 +584,7 @@ function CombineHTML([DevnodeHR]$Node, [String]$Status, [String]$Problem, [Strin
             </tr>
             <tr>
                 <td onmouseover="ExtendedInfo(0x$Status, 0x$Problem, 0x$Subproblem, '$CompatibleID', $LinkAndMPS, $ACS, $NUMA, '$DriverStack')" onmouseout="ExtendedOut()">
-                    @InstanceID@
+                    @DeviceID@
                     @MatchingID@
                     @Multiple@
                     @Human@
@@ -593,12 +593,12 @@ function CombineHTML([DevnodeHR]$Node, [String]$Status, [String]$Problem, [Strin
             </tr>
 "@;
     $max = "";
-    foreach ($i in @("InstanceID", "MatchingID")) {
+    foreach ($i in "DeviceID", "MatchingID") {
         if ($Node.$i.Length -gt $max.Length) {
             $max = $Node.$i;
         }
     }
-    foreach ($i in @("InstanceID", "MatchingID", "Multiple", "Human")) {
+    foreach ($i in @("DeviceID", "MatchingID", "Multiple", "Human")) {
         $t = $Node.$i;
         if ($t -and ($t.Length -lt $Padding)) {
             $t += "&nbsp;" * ($Padding - $t.Length);
@@ -700,10 +700,10 @@ function RecursiveHTML([PSObject[]]$List, [ref][Int]$Index, [Int]$Padding)
         $lm[2] = $i.DeviceType;
         #We pass the value to ExtendedInfo() js function. It remains unused.
 
-        [DevnodeHR]$ow = New-Object -TypeName DevnodeHR;
+        [DevnodeHR]$ow = New-Object DevnodeHR;
         $ow = @{
             BDF = $bdf;
-            InstanceID = $i.DeviceID;
+            DeviceID = $i.DeviceID;
             MatchingID = $i.MatchingID;
 
             Multiple = $dt;
@@ -795,7 +795,7 @@ function RenderHTML([PSObject[]]$List)
         </style>
 
         <script type="text/javascript">
-        pciClassMap = "\n\
+            pciClassMap = "\n\
 C 00  Unclassified device\n\
     00  Non-VGA unclassified device\n\
     01  VGA compatible unclassified device\n\
@@ -1315,18 +1315,18 @@ function DisplayConsole([PSObject[]]$List, [Int]$Padding = 0, [Int]$Width = 0)
             $acstr = $acstr.Substring(0, $acstr.Length-4);
         }
 
-        [DevnodeHR]$ow = New-Object -TypeName DevnodeHR;
+        [DevnodeHR]$ow = New-Object DevnodeHR;
         $ow = @{
-                BDF = $bdf;
-                InstanceID = $i.DeviceID;
-                MatchingID = $i.MatchingID;
-                Multiple = $dt;
-                LinkMPS = $lm;
-                ACS = $acstr;
-                Human = $i.Caption;
-                BARs = $i.BARs -join "`n";
-                NUMA = $null;
-            };
+            BDF = $bdf;
+            DeviceID = $i.DeviceID;
+            MatchingID = $i.MatchingID;
+            Multiple = $dt;
+            LinkMPS = $lm;
+            ACS = $acstr;
+            Human = $i.Caption;
+            BARs = $i.BARs -join "`n";
+            NUMA = $null;
+        };
         $max = PrintDevNode $ow $pr $spaces $Width;
         $i.Displayed = $true;
         foreach ($j in $i.Descendant) {
