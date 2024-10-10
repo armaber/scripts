@@ -29,6 +29,7 @@ applied.
 .LINK
 https://github.com/armaber/articles/blob/main/PCITree/brief.md
 #>
+
 #Requires -PSEdition Desktop -Version 5
 
 [CmdletBinding(DefaultParameterSetName = "HTML")]
@@ -67,7 +68,7 @@ function ImportNative
             public Guid ClassGuid;
             public UInt32 DevInst;
             public IntPtr Reserved;
-        };    
+        };
 
         public static class NativeMethod {
             [DllImport("ntdll.dll")]
@@ -239,6 +240,7 @@ function PrintHeader([Switch]$AsHTML)
     $rs =  @(Get-CimInstance Win32_PhysicalMemory -Filter "ConfiguredClockSpeed != 0")[0].ConfiguredClockSpeed;
     $bios = Get-CimInstance Win32_BIOS;
     $cpu = @(Get-CimInstance Win32_Processor -Property Name, Caption, AddressWidth, NumberOfEnabledCore, NumberOfLogicalProcessors);
+    $os = Get-CimInstance Win32_OperatingSystem -Property Caption, Version;
 
     [Int]$cr = 0;
     [NativeMethod]::NtSetTimerResolution(10000, $false, [ref]$cr) | Out-Null;
@@ -257,8 +259,10 @@ function PrintHeader([Switch]$AsHTML)
         $hvci = "on";
     }
     $cpu0 = $cpu[0];
-    $box_line = $sys.Manufacturer+", "+$sys.Model+", "+("{0:F2}" -f ($sys.TotalPhysicalMemory/1GB))+"GB @${rs}MHz, Timer $crs, Large $lp, NUMA "+($hn+1)+", HVCI $hvci";
-    $cpu_line = $cpu0.Name.Replace("@ ", "@")+", "+$cpu0.Caption+", "+$cpu0.AddressWidth+" bit, "+$cpu0.NumberOfEnabledCore+" cores, "+$cpu0.NumberOfLogicalProcessors+" threads";
+    $box_line = $sys.Manufacturer + ", " + $sys.Model + ", " + ("{0:F2}" -f ($sys.TotalPhysicalMemory/1GB)) +
+                "GB @${rs}MHz, Timer $crs, Large $lp, NUMA " + ($hn+1) + ", HVCI $hvci";
+    $cpu_line = $cpu0.Name.Replace("@ ", "@") + ", " + $cpu0.Caption + ", " + $cpu0.AddressWidth + " bit, " +
+                $cpu0.NumberOfEnabledCore + " cores, " + $cpu0.NumberOfLogicalProcessors + " threads";
     $cpu_line = "$($cpu.Count)S, $cpu_line";
     $bios_line = $bios.Manufacturer + ", " + $bios.Name + ", " + $bios.Version + ", SecureBoot ";
     $sb = [Int](Get-ItemProperty -EA SilentlyContinue HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State).UEFISecureBootEnabled;
@@ -267,6 +271,7 @@ function PrintHeader([Switch]$AsHTML)
     } else {
         $bios_line += "off";
     }
+    $os_line = $os.Caption + ", " + $os.Version;
 
     if ($AsHTML) {
         return @"
@@ -280,10 +285,13 @@ function PrintHeader([Switch]$AsHTML)
             <tr>
                 <td class="wheader">CPU:</td><td>$cpu_line</td>
             </tr>
+            <tr>
+                <td>OS:</td><td class="wheader">$os_line</td>
+            </tr>
         </table>
 "@;
     } else {
-        "BOX: $box_line", "BIOS: $bios_line", "CPU: $cpu_line", "" | Write-Host;
+        "BOX: $box_line", "BIOS: $bios_line", "CPU: $cpu_line", "OS: $os_line", "" | Write-Host;
     }
 }
 
@@ -459,7 +467,7 @@ function GetPCIeDevNodes
         };
     $v = $ap.Count;
     Write-Progress -PercentComplete 100 -Activity "Retrieve properties for devnode $v of $v" -Status "100% completed" -Id 1 -Completed;
-    
+
     return $ret;
 }
 
@@ -555,7 +563,7 @@ function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$W
                ("`n$Spaces  "+$Entry.DeviceID) -NoNewline;
     foreach ($k in "MatchingID", "Multiple", "LinkMPS", "ACS") {
         if ($Entry.$k) {
-            Write-Host ("`n$Spaces  " + $Entry.$k) -NoNewline;    
+            Write-Host ("`n$Spaces  " + $Entry.$k) -NoNewline;
         }
     }
     Write-Host ("`n$Spaces  " + $Entry.Human) -NoNewLine;
