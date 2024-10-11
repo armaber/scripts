@@ -507,7 +507,7 @@ function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$W
                 $nv += $v.Substring($b, $Width);
                 $l -= $Width;
                 $b += $Width;
-                $nv += "`n$Spaces  ";
+                $nv += "`n";
             }
             if ($l) {
                 $nv += $v.Substring($b);
@@ -515,22 +515,23 @@ function PrintDevNode([DevnodeHR]$Entry, [String]$Code, [String]$Spaces, [Int]$W
             $k.Value = $nv;
         }
     }
-    Write-Host ("$Spaces->"+$Entry.BDF),
-               ("`n$Spaces  "+$Entry.DeviceID) -NoNewline;
-    foreach ($k in "MatchingID", "Multiple", "LinkMPS", "ACS") {
-        if ($Entry.$k) {
-            Write-Host ("`n$Spaces  " + $Entry.$k) -NoNewline;
+    ("$Spaces->" + $Entry.BDF), ("$Spaces  " + $Entry.DeviceID) | Write-Host;
+    foreach ($k in "MatchingID", "Multiple", "LinkMPS", "ACS", "Human") {
+        if (-not $Entry.$k) {
+            continue;
+        }
+        $cts = @($Entry.$k -split "`n");
+        foreach ($i in $cts) {
+            Write-Host "$Spaces  $i";
         }
     }
-    Write-Host ("`n$Spaces  " + $Entry.Human) -NoNewLine;
     if ($Entry.BARs) {
         $b = $Entry.BARs -split "`n";
-        Write-Host ("`n$Spaces  BARs: "+$b[0]) -NoNewLine;
+        Write-Host ("$Spaces  BARs: "+$b[0]);
         for ($i = 1; $i -ne $b.Count; $i ++) {
-            Write-Host ("`n$Spaces        "+$b[$i]) -NoNewLine;
+            Write-Host ("$Spaces        " + $b[$i]);
         }
     }
-    Write-Host "";
 
     $max += $Spaces.Length + 2;
     return $max;
