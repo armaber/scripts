@@ -16,6 +16,7 @@ function reloadSymbols(ctl)
 {
     var output = ctl.ExecuteCommand(".sympath");
 
+    output = toString(output);
     if (output.match("https://msdl.microsoft.com/download/symbols")) {
         return;
     }
@@ -99,5 +100,5 @@ function invokeScript()
         }
     }
     output = ctl.ExecuteCommand("!sysinfo cpuinfo");
-    host.diagnostics.debugLog(output[4] + "\n" + output[5] + "\n");
+    host.diagnostics.debugLog("\n" + output[5] + "\n" + output[4] + "\n");
 }

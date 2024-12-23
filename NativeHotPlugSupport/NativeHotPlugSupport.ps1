@@ -21,7 +21,8 @@ and disable SecureBoot in the firmware menu = BIOS.
 .LINK
 https://github.com/armaber/articles/blob/main/PCIeHP/notes.md
 #>
-[CmdletBindig(DefaultParameterSetName = "DMP")]
+
+[CmdletBinding(DefaultParameterSetName = "DMP")]
 param(
     [Parameter(ParameterSetName = "DMP")]
     [String]$Path,
@@ -29,13 +30,13 @@ param(
     [Switch]$LocalKD
 );
 
-if ($Path -notlike "*.dmp") {
-    throw "The path must be a memory file";
-}
-
 $kd = "${env:ProgramFiles(x86)}\Windows Kits\10\Debuggers\x64\kd.exe";
 $st = ".load jsprovider.dll; .scriptrun ""$PSScriptRoot\Detect_OSC.js""; q";
+
 if ($PSCmdlet.ParameterSetName -eq "DMP") {
+    if ($Path -notlike "*.dmp") {
+        throw "The path must be a memory file";
+    }
     $output = & $kd -c $st -kqm -z $Path;
 } else {
     $output = & $kd -c $st -kqm -kl;
