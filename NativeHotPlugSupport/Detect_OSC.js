@@ -64,7 +64,9 @@ function invokeScript()
  
             disassembly = "!amli dns /v " + pci0 + ".SUPP";
             dout = ctl.ExecuteCommand(disassembly);
-            host.diagnostics.debugLog(dout[2] + "\n");
+            if (!dout[0].match("AMLI_DBGERR:")) {
+                host.diagnostics.debugLog(dout[2] + "\n");
+            }
 
             disassembly = "!amli dns /v " + pci0 + ".CTRL";
             dout = ctl.ExecuteCommand(disassembly);
@@ -73,9 +75,6 @@ function invokeScript()
 
             break;
         }
-    }
-    if (CTRL & 1 == 0) {
-        return;
     }
     output = ctl.ExecuteCommand("!arbiter 4");
     for (var line of output) {
