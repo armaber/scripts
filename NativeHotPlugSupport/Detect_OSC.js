@@ -95,7 +95,8 @@ function invokeScript()
             dout = ctl.ExecuteCommand("dx ((nt!_DEVICE_OBJECT *)" + arbiter.get(gsiv) + ")->DeviceExtension");
             devext = dout[0].split("\: ")[1].split(" ")[0];
             dout = ctl.ExecuteCommand("!devext " + devext);
-            host.diagnostics.debugLog(dout[0] + "\n" + dout[1] + "\n" + dout[3] + "\n" + dout[4] + "\n");
+            first = dout[0].replace("PDO Extension, ", "Location: ");
+            host.diagnostics.debugLog(first + "\n" + dout[1] + "\n" + dout[3] + "\n" + dout[4] + "\n");
         }
     }
     output = ctl.ExecuteCommand("!sysinfo cpuinfo");
