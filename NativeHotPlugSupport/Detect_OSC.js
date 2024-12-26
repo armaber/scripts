@@ -39,28 +39,27 @@ function invokeScript()
             var pci0 = line.replace("\._OSC","");
  
             hid = ctl.ExecuteCommand("!amli dns /v " + pci0 + "._HID");
-            //EISAID("PNP0A08")
+            // EISAID("PNP0A08")
             if (hid[2] != "Integer(_HID:Value=0x00000000080ad041[134926401])") {
                 continue;
             }
-
-            line = "!amli dns /v " + line;
-            dout = ctl.ExecuteCommand(line);
-            var disassembly = "!amli u " + dout[2].split("CodeBuff=")[1].split(",")[0];
+            // Disassemble _OSC from the 1st host bridge
+            var disassembly = "!amli u " + line;
             dout = ctl.ExecuteCommand(disassembly);
             dout = toString(dout);
             host.diagnostics.debugLog(dout);
+            // If native hot plug granted, show the implementation
             if (dout.match(/ NHPG\(\)/g)) {
-                dout = ctl.ExecuteCommand("!amli dns /v " + pci0 + ".NHPG");
-                if (dout[0].match("AMLI_DBGERR:")) {
-                    dout = ctl.ExecuteCommand("!amli dns /v \\NHPG");
-                }
-                disassembly = "!amli u " + dout[2].split("CodeBuff=")[1].split(",")[0];
+                disassembly = "!amli u " + pci0 + ".NHPG";
                 dout = ctl.ExecuteCommand(disassembly);
+                if (dout[0].match("AMLI_DBGERR:")) {
+                    disassembly = "!amli u \\NHPG";
+                    dout = ctl.ExecuteCommand(disassembly);
+                }
                 dout = toString(dout);
                 host.diagnostics.debugLog(dout);
             }
- 
+
             disassembly = "!amli dns /v " + pci0 + ".SUPP";
             dout = ctl.ExecuteCommand(disassembly);
             if (!dout[0].match("AMLI_DBGERR:")) {
@@ -75,6 +74,7 @@ function invokeScript()
             break;
         }
     }
+    // From the interrupt arbiter, select all entries owned by the PCI driver
     output = ctl.ExecuteCommand("!arbiter 4");
     for (var line of output) {
         if (line.match("\(pci\)")) {
@@ -83,6 +83,7 @@ function invokeScript()
             arbiter.set(first, devobj);
         }
     }
+    // Process all ISRs owning the hot plug controller, connect with device object
     output = ctl.ExecuteCommand("!idt");
     for (var line of output) {
         if (line.match("pci!(ExpressRootPortMessageRoutine|ExpressDownstreamSwitchPortInterruptRoutine)")) {
@@ -98,6 +99,7 @@ function invokeScript()
             host.diagnostics.debugLog(first + "\n" + dout[1] + "\n" + dout[3] + "\n" + dout[4] + "\n");
         }
     }
+    // Show CPU string and model
     output = ctl.ExecuteCommand("!sysinfo cpuinfo");
     host.diagnostics.debugLog("\n" + output[5] + "\n" + output[4] + "\n");
 }
