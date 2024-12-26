@@ -17,10 +17,9 @@ function reloadSymbols(ctl)
     var output = ctl.ExecuteCommand(".sympath");
 
     output = toString(output);
-    if (output.match("https://msdl.microsoft.com/download/symbols")) {
-        return;
+    if (!output.match("https://msdl.microsoft.com/download/symbols")) {
+        ctl.ExecuteCommand(".sympath+ srv*https://msdl.microsoft.com/download/symbols");
     }
-    ctl.ExecuteCommand(".sympath+ srv*https://msdl.microsoft.com/download/symbols");
     ctl.ExecuteCommand(".reload");
 }
 
