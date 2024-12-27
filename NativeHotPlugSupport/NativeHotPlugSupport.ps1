@@ -41,6 +41,10 @@ if ($PSCmdlet.ParameterSetName -eq "DMP") {
 } else {
     $output = & $kd -c $st -kqm -kl;
 }
+if ($LASTEXITCODE) {
+    $output;
+    exit $LASTEXITCODE;
+}
 $output = $output -join "`n";
-$parse = ([regex]::Matches($output, "JavaScript script successfully loaded.+(.*`n)+quit:").Value -split "`n");
-$parse[1..($parse.Count-2)];
+$parse = [regex]::Matches($output, "(?<=JavaScript script successfully loaded.+`n)((.*`n)+)(?=quit:)").Groups[0];
+$parse.Value;
