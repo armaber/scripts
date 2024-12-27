@@ -46,5 +46,5 @@ if ($LASTEXITCODE) {
     exit $LASTEXITCODE;
 }
 $output = $output -join "`n";
-$parse = [regex]::Matches($output, "(?<=JavaScript script successfully loaded.+`n)((.*`n)+)(?=quit:)").Groups[0];
+$parse = [regex]::Matches($output, "(?<=JavaScript script successfully loaded.+`n)(.*`n)+(?=quit:)").Groups[0];
 $parse.Value;
