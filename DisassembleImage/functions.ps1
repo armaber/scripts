@@ -5,7 +5,7 @@ $MetaVersion = 1;
 $Statistics = $true;
 #Print a warning if other files have been decompiled in 5 minutes or more.
 $TestDuration = 300;
-$SearchSymbolProfile = "$PSScriptRoot\SearchSymbol.json";
+$UfSymbolProfile = "$PSScriptRoot\UfSymbol.json";
 #When these functions are encountered, the disassembly stops.
 $StopDisassembly = @(
     "!memset$",
@@ -27,6 +27,7 @@ $StopDisassembly = @(
     "!strtok_s$",
     "!atoi$",
     "!atoi64$",
+    "!atol$",
     "!DbgPrintEx$",
     "!_security_check_cookie$",
     "!guard_dispatch_icall \(.+?\)$",
@@ -75,6 +76,7 @@ $StopDisassembly = @(
     "!KeSetTimerEx$",
     "!KeCancelTimer$",
     "!KeStallExecutionProcessor$",
+    "!KeQueryPerformanceCounter$",
     "!KeSynchronizeExecution$",
     "!KeYieldProcessorEx$",
     "!KeBugCheck$",
@@ -91,8 +93,8 @@ function TraceMemoryUsage
 }
 function LoadScriptProfile
 {
-    if (Test-Path $script:SearchSymbolProfile) {
-        $json = Get-Content -Raw $script:SearchSymbolProfile | ConvertFrom-Json;
+    if (Test-Path $script:UfSymbolProfile) {
+        $json = Get-Content -Raw $script:UfSymbolProfile | ConvertFrom-Json;
         $script:KD = $json.kd;
         $script:Database = $json.database;
         $script:Sympath = $json.sympath;
