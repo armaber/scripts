@@ -1,0 +1,1309 @@
+PS > (Measure-Command { & '.\UfSymbol.ps1' -Symbol nt!KiSystemStartup -Image 'D:\DataLake\2025-04-28\MEMORY.DMP' -Depth 4 -Down | Out-Default }).TotalSeconds
+File "D:\DataLake\2025-01-28\MEMORY.DMP" of 1194.36 Mb has been processed in 4570 seconds.
+D:\Processing\53c6f2af-38db-4219-9f41-f794c7897f5a\53c6f2af-38db-4219-9f41-f794c7897f5a.disassembly
+D:\Processing\53c6f2af-38db-4219-9f41-f794c7897f5a\53c6f2af-38db-4219-9f41-f794c7897f5a.meta
+D:\Processing\53c6f2af-38db-4219-9f41-f794c7897f5a\53c6f2af-38db-4219-9f41-f794c7897f5a.retpoline
+uf nt!KiSystemStartup
+├───────────────────▷uf nt!KdInitSystem
+│                    ├────────────────▷uf nt!KeQueryPerformanceCounter
+│                    │                                                uf nt!HalpTimerGetInternalData
+│                    │                                                uf nt!guard_dispatch_icall (nt!HalpTimerReferencePage)
+│                    │                                                uf nt!HalpTimerScaleCounter
+│                    │                 uf nt!ExAllocatePool2
+│                    │                 uf nt!_security_check_cookie
+│                    │                 uf nt!MmGetPagedPoolCommitPointer
+│                    ├────────────────▷uf nt!KdRegisterDebuggerDataBlock
+│                    │                 │                                uf nt!KeAcquireSpinLockRaiseToDpc
+│                    │                 ├───────────────────────────────▷uf nt!KxReleaseSpinLock
+│                    │                 │                                                       uf nt!KiReleaseSpinLockInstrumented
+│                    │                 └───────────────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                      uf nt!EtwTraceKernelEvent
+│                    │                                                                                      uf nt!HvlpSetRegister64
+│                    │                                                                                      uf nt!_security_check_cookie
+│                    │                 uf nt!strupr
+│                    │                 uf nt!strstr
+│                    │                 uf nt!strncmp
+│                    │                 uf nt!KeInitializeDpc
+│                    │                 uf nt!KeInitializeTimerEx
+│                    │                 uf nt!KeIsKernelCetEnabled
+│                    │                 uf nt!RtlInitAnsiString
+│                    ├────────────────▷uf nt!DbgLoadImageSymbols
+│                    │                 └───────────────────────▷uf nt!RtlImageNtHeader
+│                    │                                                                uf nt!RtlImageNtHeaderEx
+│                    │                                          uf nt!DebugService2
+│                    ├────────────────▷uf nt!KdPollBreakIn
+│                    │                 ├─────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                 │                                                      uf nt!EtwTraceKernelEvent
+│                    │                 │                                                      uf nt!HvlpSetRegister64
+│                    │                 │                                                      uf nt!_security_check_cookie
+│                    │                 ├─────────────────▷uf nt!KiTryToAcquireSpinLockInstrumented
+│                    │                 │                                                          uf nt!PerfLogSpinLockAcquire
+│                    │                 └─────────────────▷uf nt!KiReleaseSpinLockInstrumented
+│                    │                                                                       uf nt!PerfLogSpinLockRelease
+│                    ├────────────────▷uf nt!_report_rangecheckfailure
+│                    │                                                uf nt!KeBugCheckEx
+│                    │                 uf nt!memset
+│                    ├────────────────▷uf nt!atol
+│                    │                 └────────▷uf nt!strtolX
+│                    │                                        uf nt!strtoxlX
+│                    ├────────────────▷uf nt!KdDisableDebuggerWithLock
+│                    │                 │                              uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                 ├─────────────────────────────▷uf nt!KdpAllowDisable
+│                    │                 │                                                   uf nt!KeQueryActiveProcessorCountEx
+│                    │                 ├─────────────────────────────▷uf nt!KxReleaseSpinLock
+│                    │                 │                                                     uf nt!KiReleaseSpinLockInstrumented
+│                    │                 ├─────────────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                 │                                                                  uf nt!EtwTraceKernelEvent
+│                    │                 │                                                                  uf nt!HvlpSetRegister64
+│                    │                 │                                                                  uf nt!_security_check_cookie
+│                    │                 ├─────────────────────────────▷uf nt!KdpSuspendAllBreakpoints
+│                    │                 │                                                            uf nt!KdpLowWriteContent
+│                    │                 └─────────────────────────────▷uf nt!KdPowerTransitionEx
+│                    │                                                                         uf nt!PpmCancelExitLatencyTrace
+│                    │                                                                         uf nt!KeGetEffectiveIrql
+│                    │                                                                         uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x1a8=nt!HalpTimerNotifyProcessorFreeze)
+│                    │                                                                         uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                                                                         uf nt!KxReleaseSpinLock
+│                    │                                                                         uf nt!KiRemoveSystemWorkPriorityKick
+│                    ├────────────────▷uf nt!KdpSetCommonState
+│                    │                 │                      uf nt!KeQueryActiveProcessorCountEx
+│                    │                 ├─────────────────────▷uf nt!KdpCopyMemoryChunks
+│                    │                 │                                               uf nt!MmDbgCopyMemory
+│                    │                 └─────────────────────▷uf nt!KdpDeleteBreakpointRange
+│                    │                                                                      uf nt!KdpDeleteBreakpoint
+│                    │                 uf nt!KdpQuickMoveMemory
+│                    │                 uf nt!KdpSetContextState
+│                    └────────────────▷uf nt!KdpSendWaitContinue
+│                                      └───────────────────────▷uf nt!KeQueryPerformanceCounter
+│                                                                                              uf nt!HalpTimerGetInternalData
+│                                                                                              uf nt!guard_dispatch_icall (nt!HalpTimerReferencePage)
+│                                                                                              uf nt!HalpTimerScaleCounter
+│                                                               uf nt!_security_check_cookie
+│                    uf nt!KiInitializeKernelShadowStacks
+├───────────────────▷uf nt!KiInitializeBootStructures
+│                    ├──────────────────────────────▷uf nt!KiGetProcessorSignature
+│                    │                               └───────────────────────────▷uf nt!KiGetCpuVendor
+│                    │                                                                                uf nt!strncmp
+│                    │                                                                                uf nt!_security_check_cookie
+│                    │                                                            uf nt!_security_check_cookie
+│                    ├──────────────────────────────▷uf nt!HalInitializeProcessor
+│                    │                               └──────────────────────────▷uf nt!HalpInitSystemHelper
+│                    │                                                                                     uf nt!guard_dispatch_icall (N/A)
+│                    │                                                                                     uf nt!KeBugCheckEx
+│                    │                                                                                     uf nt!KiSetHardwareSpeculationControlFeatures
+│                    │                                                                                     uf nt!KiCheckMicrocode
+│                    │                                                                                     uf nt!memset
+│                    │                                                                                     uf nt!KiSetPageAttributesTable
+│                    │                                                                                     uf nt!KiInitializeTopologyStructures
+│                    │                                                                                     uf nt!KiSetCacheInformation
+│                    │                                                                                     uf nt!PoInitializePrcb
+│                    │                                                                                     uf nt!KeGetXSaveFeatureFlags
+│                    │                                                                                     uf nt!HvlEnlightenProcessor
+│                    │                                                                                     uf nt!KiEnableXSave
+│                    │                                                                                     uf nt!KiStartIdleThread
+│                    │                                                                                     uf nt!KiStartPrcbThreads
+│                    │                                                                                     uf nt!HalpInitSystemPhase1
+│                    │                                                                                     uf nt!KeBugCheck
+│                    │                                                                                     uf nt!InitBootProcessor
+│                    │                                                                                     uf nt!KiCompleteKernelInit
+│                    │                                                                                     uf nt!KeYieldProcessorEx
+│                    │                                                                                     uf nt!KeInitializeClockOtherProcessors
+│                    │                                                                                     uf nt!_security_check_cookie
+│                    │                                                                                     uf nt!KiDetectFpuLeakage
+│                    │                                                                                     uf nt!KiConfigureInitialNodes
+│                    │                                                                                     uf nt!KiConfigureProcessorBlock
+│                    │                                                                                     uf nt!KeCompactServiceTable
+│                    │                                                                                     uf nt!KiInitSystem
+│                    │                                                                                     uf nt!HviGetHypervisorFeatures
+│                    │                                                                                     uf nt!KiIsKernelCfgActive
+│                    │                                                                                     uf nt!KiInitializeAndStartInitialThread
+│                    │                                                                                     uf nt!KiSetUserTbFlushPending
+│                    │                                                                                     uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                     uf nt!RtlInitKernelModeSpecialMachineFrameEntries
+│                    │                                                                                     uf nt!KeGetTopologyIdForProcessor
+│                    ├──────────────────────────────▷uf nt!KiSetFeatureBits
+│                    │                               ├────────────────────▷uf nt!KiGetProcessorSignature
+│                    │                               │                                                  uf nt!KiGetCpuVendor
+│                    │                               │                                                  uf nt!_security_check_cookie
+│                    │                               ├────────────────────▷uf nt!KiSetProcessorSignature
+│                    │                               │                                                  uf nt!KeGetPrcb
+│                    │                               │                                                  uf nt!KiPublishProcessorFeatures
+│                    │                               │                                                  uf nt!_security_check_cookie
+│                    │                               │                                                  uf nt!KeBugCheckEx
+│                    │                               │                                                  uf nt!KdInitSystem
+│                    │                               │                                                  uf nt!KeGetThreadWorkloadClassCount
+│                    │                               │                                                  uf nt!ExAllocatePool2
+│                    │                               ├────────────────────▷uf nt!KiDetectKvaLeakage
+│                    │                               │                                             uf nt!KiIsKvaShadowNeededForBranchConfusion
+│                    │                               │                                             uf nt!HvlGetImplementedPhysicalBits
+│                    │                               │                                             uf nt!_security_check_cookie
+│                    │                               │                                             uf nt!KiIsFbClearSupported
+│                    │                               │                                             uf nt!KeBugCheckEx
+│                    │                               ├────────────────────▷uf nt!KiComputeTopologyConstants
+│                    │                               │                                                     uf nt!_security_check_cookie
+│                    │                               │                     uf nt!HalIsHyperThreadingEnabled
+│                    │                               │                     uf nt!HvlSetHardwareMbecAvailable
+│                    │                               ├────────────────────▷uf nt!KiInitializeHgsPlusWorkloadClasses
+│                    │                               │                                                             uf nt!_security_check_cookie
+│                    │                               │                                                             uf nt!KeBugCheckEx
+│                    │                               ├────────────────────▷uf nt!KiInitializeHresetSupport
+│                    │                               │                                                    uf nt!_security_check_cookie
+│                    │                               │                                                    uf nt!KeBugCheckEx
+│                    │                               │                     uf nt!_security_check_cookie
+│                    │                               │                     uf nt!HvlSetApicVirtualizationAvailable
+│                    │                               ├────────────────────▷uf nt!HviIsAnyHypervisorPresent
+│                    │                               │                                                    uf nt!_security_check_cookie
+│                    │                               └────────────────────▷uf nt!KdInitSystem
+│                    │                                                                       uf nt!KeQueryPerformanceCounter
+│                    │                                                                       uf nt!ExAllocatePool2
+│                    │                                                                       uf nt!_security_check_cookie
+│                    │                                                                       uf nt!MmGetPagedPoolCommitPointer
+│                    │                                                                       uf nt!KdRegisterDebuggerDataBlock
+│                    │                                                                       uf nt!strupr
+│                    │                                                                       uf nt!strstr
+│                    │                                                                       uf nt!strncmp
+│                    │                                                                       uf nt!KeInitializeDpc
+│                    │                                                                       uf nt!KeInitializeTimerEx
+│                    │                                                                       uf nt!KeIsKernelCetEnabled
+│                    │                                                                       uf nt!RtlInitAnsiString
+│                    │                                                                       uf nt!DbgLoadImageSymbols
+│                    │                                                                       uf nt!KdPollBreakIn
+│                    │                                                                       uf nt!_report_rangecheckfailure
+│                    │                                                                       uf nt!memset
+│                    │                                                                       uf nt!atol
+│                    │                                                                       uf nt!KdDisableDebuggerWithLock
+│                    │                                                                       uf nt!KdpSetCommonState
+│                    │                                                                       uf nt!KdpQuickMoveMemory
+│                    │                                                                       uf nt!KdpSetContextState
+│                    │                                                                       uf nt!KdpSendWaitContinue
+│                    │                                                     uf nt!KeBugCheckEx
+│                    ├──────────────────────────────▷uf nt!KiInitPrcb
+│                    │                               ├──────────────▷uf nt!KiInitializeSharedReadyQueue
+│                    │                               │                                                 uf nt!memset
+│                    │                               │               uf nt!KiInitializeDpcList
+│                    │                               │               uf nt!KeInitializeDpc
+│                    │                               │               uf nt!KiInitializeBugcheckRecoveryProcessor
+│                    │                               ├──────────────▷uf nt!InitializeSListHead
+│                    │                               │                                        uf nt!RtlRaiseStatus
+│                    │                               │                                        uf nt!KiCopyAffinityEx
+│                    │                               │                                        uf nt!KiIntSteerCalculateDistribution
+│                    │                               │                                        uf nt!KiIntSteerLogStatus
+│                    │                               │                                        uf nt!KiIntSteerDistributeInterrupts
+│                    │                               │                                        uf nt!KxReleaseSpinLock
+│                    │                               │                                        uf nt!_security_check_cookie
+│                    │                               │                                        uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                               │               uf nt!KiIntSteerInitPrcb
+│                    │                               └──────────────▷uf nt!KiInitializeSoftwareInterruptBatch
+│                    │                                                                                       uf nt!memset
+│                    │                                               uf nt!memset
+│                    ├──────────────────────────────▷uf nt!ExInitPoolLookasidePointers
+│                    │                               └───────────────────────────────▷uf nt!ExInitializeSystemLookasideList
+│                    │                                                                                                     uf nt!InitializeSListHead
+│                    │                                                                                                     uf nt!KeBugCheckEx
+│                    │                                                                                                     uf nt!HalInitializeProcessor
+│                    │                                                                                                     uf nt!KiSetFeatureBits
+│                    │                                                                                                     uf nt!KiInitPrcb
+│                    │                                                                                                     uf nt!ExInitPoolLookasidePointers
+│                    │                                                                                                     uf nt!KiSaveInitialProcessorControlState
+│                    │                                                                                                     uf nt!KiInitializeIdt
+│                    │                                                                                                     uf nt!HalInitializeBios
+│                    │                                                                                                     uf nt!InbvDriverInitialize
+│                    │                                                                                                     uf nt!strstr
+│                    │                                                                                                     uf nt!KiInitializeNxSupportDiscard
+│                    │                                                                                                     uf nt!KiEnableKvaShadowing
+│                    │                                                                                                     uf nt!KiDetectTsx
+│                    │                                                                                                     uf nt!memset
+│                    │                                                                                                     uf nt!KeAddProcessorAffinityEx
+│                    │                                                                                                     uf nt!atoi
+│                    │                               uf nt!KiSaveInitialProcessorControlState
+│                    │                               uf nt!InitializeBuildStrings
+│                    │                               uf nt!CmInitBootFeatureConfigurations
+│                    ├──────────────────────────────▷uf nt!KiSetProcessorSignature
+│                    │                               │                            uf nt!KeGetPrcb
+│                    │                               │                            uf nt!KiPublishProcessorFeatures
+│                    │                               │                            uf nt!_security_check_cookie
+│                    │                               │                            uf nt!KeBugCheckEx
+│                    │                               └───────────────────────────▷uf nt!KdInitSystem
+│                    │                                                                              uf nt!KeQueryPerformanceCounter
+│                    │                                                                              uf nt!ExAllocatePool2
+│                    │                                                                              uf nt!_security_check_cookie
+│                    │                                                                              uf nt!MmGetPagedPoolCommitPointer
+│                    │                                                                              uf nt!KdRegisterDebuggerDataBlock
+│                    │                                                                              uf nt!strupr
+│                    │                                                                              uf nt!strstr
+│                    │                                                                              uf nt!strncmp
+│                    │                                                                              uf nt!KeInitializeDpc
+│                    │                                                                              uf nt!KeInitializeTimerEx
+│                    │                                                                              uf nt!KeIsKernelCetEnabled
+│                    │                                                                              uf nt!RtlInitAnsiString
+│                    │                                                                              uf nt!DbgLoadImageSymbols
+│                    │                                                                              uf nt!KdPollBreakIn
+│                    │                                                                              uf nt!_report_rangecheckfailure
+│                    │                                                                              uf nt!memset
+│                    │                                                                              uf nt!atol
+│                    │                                                                              uf nt!KdDisableDebuggerWithLock
+│                    │                                                                              uf nt!KdpSetCommonState
+│                    │                                                                              uf nt!KdpQuickMoveMemory
+│                    │                                                                              uf nt!KdpSetContextState
+│                    │                                                                              uf nt!KdpSendWaitContinue
+│                    │                                                            uf nt!KeGetThreadWorkloadClassCount
+│                    │                                                            uf nt!ExAllocatePool2
+│                    │                               uf nt!HvlEnableVsmCalls
+│                    │                               uf nt!ExRngInitializeSystem
+│                    ├──────────────────────────────▷uf nt!KiDetermineRetpolineEnablement
+│                    │                               │                                   uf nt!strstr
+│                    │                               ├──────────────────────────────────▷uf nt!KiIsPgiKernel
+│                    │                               │                                                      uf nt!RtlImageDirectoryEntryToData
+│                    │                               └──────────────────────────────────▷uf nt!KiDetectHardwareSpecControlFeatures
+│                    │                                                                                                            uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                                                                                                            uf nt!HviGetEnlightenmentInformation
+│                    │                                                                                                            uf nt!HviGetHypervisorFeatures
+│                    │                                                                                                            uf nt!HviIsAnyHypervisorPresent
+│                    │                                                                                                            uf nt!KiIsBranchConfusionPresent
+│                    │                                                                                                            uf nt!KiIsSrsoPresent
+│                    │                                                                                                            uf nt!KiIsRfdsPresent
+│                    │                                                                                                            uf nt!_security_check_cookie
+│                    │                               uf nt!KasanInitSystem
+│                    │                               uf nt!MmInitSystem
+│                    │                               uf nt!KiInitializeIdt
+│                    ├──────────────────────────────▷uf nt!HalInitializeBios
+│                    │                               │                      uf nt!strupr
+│                    │                               │                      uf nt!strstr
+│                    │                               │                      uf nt!ExAllocatePool2
+│                    │                               ├─────────────────────▷uf nt!MmMapLockedPagesSpecifyCache
+│                    │                               │                                                        uf nt!MiReservePtes
+│                    │                               │                                                        uf nt!MiFillSystemPtes
+│                    │                               │                                                        uf nt!MiMapLockedPagesInUserSpace
+│                    │                               │                                                        uf nt!MiMappingHasIoReferences
+│                    │                               │                                                        uf nt!MiIssueNoPtesBugcheck
+│                    │                               │                                                        uf nt!MiReleasePtes
+│                    │                               │                                                        uf nt!MiProtectionToCacheAttribute
+│                    │                               │                                                        uf nt!MiInsertPteTracker
+│                    │                               ├─────────────────────▷uf nt!MmMapIoSpaceEx
+│                    │                               │                                          uf nt!MiMakeProtectionMask
+│                    │                               │                                          uf nt!MiMapContiguousMemory
+│                    │                               ├─────────────────────▷uf nt!HalpMmAllocCtxAlloc
+│                    │                               │                                               uf nt!KeAcquireSpinLockRaiseToDpc
+│                    │                               │                                               uf nt!RtlSetBits
+│                    │                               │                                               uf nt!KxReleaseSpinLock
+│                    │                               │                                               uf nt!HalpMmAllocCtxAllocBuffer
+│                    │                               │                                               uf nt!KeBugCheckEx
+│                    │                               │                                               uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                               │                                               uf nt!HalpMmAllocCtxBufferCleanup
+│                    │                               ├─────────────────────▷uf nt!x86BiosInitializeBiosEx
+│                    │                               │                                                   uf nt!memset
+│                    │                               │                                                   uf nt!XmInitializeEmulator
+│                    │                               │                      uf nt!x86BiosTranslateAddress
+│                    │                               │                      uf nt!memcpy
+│                    │                               ├─────────────────────▷uf nt!MmUnmapIoSpace
+│                    │                               │                                          uf nt!MiMappingHasIoTracker
+│                    │                               │                                          uf nt!MI_IS_PHYSICAL_ADDRESS
+│                    │                               │                                          uf nt!MiZeroAndFlushPtes
+│                    │                               │                                          uf nt!MiReleasePtes
+│                    │                               │                                          uf nt!_security_check_cookie
+│                    │                               │                                          uf nt!MiUnmapLargePages
+│                    │                               │                                          uf nt!MiRemovePteTracker
+│                    │                               │                                          uf nt!memset
+│                    │                               │                                          uf nt!MiSwizzleInvalidPte
+│                    │                               │                                          uf nt!MiPteInShadowRange
+│                    │                               │                                          uf nt!MiPteHasShadow
+│                    │                               │                                          uf nt!MiWritePteShadow
+│                    │                               │                                          uf nt!MiInsertLargeTbFlushEntry
+│                    │                               │                                          uf nt!MiInsertCachedPte
+│                    │                               │                                          uf nt!MiFlushTbList
+│                    │                               │                      uf nt!ExFreePoolWithTag
+│                    │                               └─────────────────────▷uf nt!MmUnmapLockedPages
+│                    │                                                                              uf nt!MiReleasePtes
+│                    │                                                                              uf nt!MiUnmapLockedPagesInUserSpace
+│                    │                                                                              uf nt!MiZeroAndFlushPtes
+│                    │                                                                              uf nt!MiRetardMdl
+│                    │                                                                              uf nt!MiRemovePteTracker
+│                    │                               uf nt!InbvDriverInitialize
+│                    │                               uf nt!strstr
+│                    │                               uf nt!KiInitializeNxSupportDiscard
+│                    ├──────────────────────────────▷uf nt!KiEnableKvaShadowing
+│                    │                               │                         uf nt!KiIsKvaShadowDisabled
+│                    │                               │                         uf nt!KiIsKvaLeakSimulated
+│                    │                               │                         uf nt!KiInitializeDescriptorIst
+│                    │                               ├────────────────────────▷uf nt!KiShadowProcessorAllocation
+│                    │                               │                                                          uf nt!MmCreateShadowMapping
+│                    │                               │                                                          uf nt!RtlImageNtHeader
+│                    │                               │                                                          uf nt!RtlSectionTableFromVirtualAddress
+│                    │                               │                                                          uf nt!MmDeleteShadowMapping
+│                    │                               │                         uf nt!KeGetPrcb
+│                    │                               │                         uf nt!KiInitializeIdt
+│                    │                               └────────────────────────▷uf nt!KiSetAddressPolicy
+│                    │                                                                                 uf nt!KxSetAddressPolicy
+│                    │                                                                                 uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                         uf nt!HvlRescindEnlightenments
+│                    │                                                         uf nt!KeBugCheckEx
+│                    └──────────────────────────────▷uf nt!KiDetectTsx
+│                                                                     uf nt!_security_check_cookie
+│                                                    uf nt!memset
+│                                                    uf nt!KeAddProcessorAffinityEx
+│                                                    uf nt!atoi
+├───────────────────▷uf nt!KiInitializeXSave
+│                    │                      uf nt!memset
+│                    ├─────────────────────▷uf nt!KiGetXSaveSupportedFeatures
+│                    │                                                       uf nt!_security_check_cookie
+│                    ├─────────────────────▷uf nt!KiGetIptInfo
+│                    │                      ├────────────────▷uf nt!KiGetCpuVendor
+│                    │                      │                                     uf nt!strncmp
+│                    │                      │                                     uf nt!_security_check_cookie
+│                    │                      │                 uf nt!_security_check_cookie
+│                    │                      └────────────────▷uf nt!HviGetIptFeatures
+│                    │                                                               uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                                                               uf nt!HviGetHypervisorVendorAndMaxFunction
+│                    │                                                               uf nt!HviGetHypervisorFeatures
+│                    │                                                               uf nt!_security_check_cookie
+│                    │                      uf nt!_security_check_cookie
+│                    ├─────────────────────▷uf nt!KiParseLoadOptions
+│                    │                      └──────────────────────▷uf nt!KiMatchLoadOption
+│                    │                                                                     uf nt!strstr
+│                    │                                                                     uf nt!atoi64
+│                    │                      uf nt!KiIntersectFeaturesWithLoader
+│                    ├─────────────────────▷uf nt!KiIntersectFeaturesWithPolicy
+│                    │                      ├─────────────────────────────────▷uf nt!KiLoadPolicyFromImage
+│                    │                      │                                                             uf nt!KeHwPolicyLocateResource
+│                    │                      └─────────────────────────────────▷uf nt!KiGetProcessorInformation
+│                    │                                                                                        uf nt!_security_check_cookie
+│                    │                                                         uf nt!_security_check_cookie
+│                    │                                                         uf nt!KiIsXSaveFeatureAllowed
+│                    │                      uf nt!KiUpdateXSaveSizeAndVolatileFeatures
+│                    │                      uf nt!KeBugCheckEx
+│                    └─────────────────────▷uf nt!KiMatchLoadOption
+│                                                                  uf nt!strstr
+│                                                                  uf nt!atoi64
+├───────────────────▷uf nt!KzSetIrqlUnsafe
+│                    └───────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                                         ├──────────────────────────────────▷uf nt!EtwTraceKernelEvent
+│                                         │                                                            uf nt!EtwpLogKernelEvent
+│                                         └──────────────────────────────────▷uf nt!HvlpSetRegister64
+│                                                                                                    uf nt!RtlRaiseException
+│                                                                             uf nt!_security_check_cookie
+├───────────────────▷uf nt!KiInitializeKernel
+│                    ├──────────────────────▷uf nt!KiSetHardwareSpeculationControlFeatures
+│                    │                       └───────────────────────────────────────────▷uf nt!KiDetectHardwareSpecControlFeatures
+│                    │                                                                                                             uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                                                                                                             uf nt!HviGetEnlightenmentInformation
+│                    │                                                                                                             uf nt!HviGetHypervisorFeatures
+│                    │                                                                                                             uf nt!HviIsAnyHypervisorPresent
+│                    │                                                                                                             uf nt!KiIsBranchConfusionPresent
+│                    │                                                                                                             uf nt!KiIsSrsoPresent
+│                    │                                                                                                             uf nt!KiIsRfdsPresent
+│                    │                                                                                                             uf nt!_security_check_cookie
+│                    │                                                                    uf nt!KeBugCheckEx
+│                    ├──────────────────────▷uf nt!KiCheckMicrocode
+│                    │                       │                     uf nt!_security_check_cookie
+│                    │                       │                     uf nt!KeBugCheckEx
+│                    │                       ├────────────────────▷uf nt!KeAttachProcess
+│                    │                       │                                          uf nt!KiAttachProcess
+│                    │                       │                                          uf nt!KeYieldProcessorEx
+│                    │                       │                                          uf nt!KeBugCheckEx
+│                    │                       │                                          uf nt!VfDevObjPreAddDevice
+│                    │                       │                                          uf nt!guard_dispatch_icall (N/A)
+│                    │                       │                                          uf nt!VfDevObjPostAddDevice
+│                    │                       ├────────────────────▷uf nt!KiInitializeThreadCycleTable
+│                    │                       │                                                       uf nt!KeGetThreadWorkloadClassCount
+│                    │                       │                                                       uf nt!KeGetProcessorNodeNumber
+│                    │                       │                                                       uf nt!ExAllocatePool3
+│                    │                       ├────────────────────▷uf nt!KiAcquirePrcbLocksForIsolationUnit
+│                    │                       │                                                             uf nt!KeYieldProcessorEx
+│                    │                       ├────────────────────▷uf nt!KiSetProcessorIdle
+│                    │                       │                                             uf nt!KeYieldProcessorEx
+│                    │                       ├────────────────────▷uf nt!KiUpdateThreadPriority
+│                    │                       │                                                 uf nt!KiAbQueueAutoBoostDpc
+│                    │                       │                                                 uf nt!KiIsThreadRankNonZero
+│                    │                       │                                                 uf nt!KiSetThreadQosLevelUnsafe
+│                    │                       │                                                 uf nt!KiSetSchedulerAssistPriority
+│                    │                       │                     uf nt!KiReleasePrcbLocksForIsolationUnit
+│                    │                       ├────────────────────▷uf nt!KiAddCpuToSystemCpuPartition
+│                    │                       │                                                       uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                                                       uf nt!KeAddProcessorAffinityEx
+│                    │                       │                                                       uf nt!KxReleaseSpinLock
+│                    │                       ├────────────────────▷uf nt!KiCreateCpuSetForProcessor
+│                    │                       │                                                     uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                                                     uf nt!RtlWriteAcquireTickLock
+│                    │                       │                                                     uf nt!RtlWriteReleaseTickLock
+│                    │                       │                                                     uf nt!KxReleaseSpinLock
+│                    │                       │                                                     uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                       │                     uf nt!KeInitializeTimer2
+│                    │                       │                     uf nt!KeInitializeDpc
+│                    │                       ├────────────────────▷uf nt!KiAllocateHeteroConfigBuffer
+│                    │                       │                                                       uf nt!KeGetThreadWorkloadClassCount
+│                    │                       │                                                       uf nt!ExAllocatePool2
+│                    │                       │                     uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                     uf nt!RtlWriteAcquireTickLock
+│                    │                       │                     uf nt!RtlWriteReleaseTickLock
+│                    │                       ├────────────────────▷uf nt!KxReleaseSpinLock
+│                    │                       │                                            uf nt!KiReleaseSpinLockInstrumented
+│                    │                       └────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                 uf nt!EtwTraceKernelEvent
+│                    │                                                                                 uf nt!HvlpSetRegister64
+│                    │                                                                                 uf nt!_security_check_cookie
+│                    │                       uf nt!memset
+│                    ├──────────────────────▷uf nt!KiSetPageAttributesTable
+│                    │                       │                             uf nt!_security_check_cookie
+│                    │                       │                             uf nt!KeFlushCurrentTbImmediately
+│                    │                       └────────────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                         uf nt!EtwTraceKernelEvent
+│                    │                                                                                         uf nt!HvlpSetRegister64
+│                    │                                                                                         uf nt!_security_check_cookie
+│                    ├──────────────────────▷uf nt!KiInitializeTopologyStructures
+│                    │                       │                                   uf nt!memset
+│                    │                       │                                   uf nt!KeAddProcessorAffinityEx
+│                    │                       │                                   uf nt!KeCountSetBitsAffinityEx
+│                    │                       └──────────────────────────────────▷uf nt!KiAddProcessorToCoreControlBlock
+│                    │                                                                                                 uf nt!qsort
+│                    │                                                                                                 uf nt!KeBugCheckEx
+│                    │                                                                                                 uf nt!KiIsBranchConfusionMitigationDesired
+│                    │                                                                                                 uf nt!KiIsBranchConfusionMitigationSupported
+│                    │                                                           uf nt!KeGetProcessorNode
+│                    │                                                           uf nt!_security_check_cookie
+│                    │                                                           uf nt!KeBugCheckEx
+│                    ├──────────────────────▷uf nt!KiSetCacheInformation
+│                    │                       ├─────────────────────────▷uf nt!KiSetCacheInformationIntel
+│                    │                       │                                                          uf nt!KiSetStandardizedCacheInformation
+│                    │                       │                                                          uf nt!_security_check_cookie
+│                    │                       │                          uf nt!KeBugCheck
+│                    │                       └─────────────────────────▷uf nt!KiSetCacheInformationAmd
+│                    │                                                                                uf nt!KiSetStandardizedCacheInformation
+│                    │                                                                                uf nt!KiGetL2L3AssociativityAmd
+│                    │                                                                                uf nt!KeCheckProcessorAffinityEx
+│                    │                                                                                uf nt!KeGetProcessorNode
+│                    │                                                                                uf nt!_security_check_cookie
+│                    ├──────────────────────▷uf nt!PoInitializePrcb
+│                    │                       │                     uf nt!memset
+│                    │                       │                     uf nt!KeInitializeDpc
+│                    │                       ├────────────────────▷uf nt!PpmHeteroHgsProcessorInit
+│                    │                       │                                                    uf nt!_security_check_cookie
+│                    │                       │                                                    uf nt!PpmHeteroHgsProcessorThreadFeedbackInit
+│                    │                       │                                                    uf nt!PpmHeteroInitializeFeedbackClass
+│                    │                       │                                                    uf nt!KeBugCheckEx
+│                    │                       │                                                    uf nt!KeYieldProcessorEx
+│                    │                       └────────────────────▷uf nt!PpmHeteroAmdProcessorInit
+│                    │                                                                            uf nt!_security_check_cookie
+│                    │                                             uf nt!PpmHvUseNativeAlgorithms
+│                    │                       uf nt!KeGetXSaveFeatureFlags
+│                    ├──────────────────────▷uf nt!HvlEnlightenProcessor
+│                    │                       ├─────────────────────────▷uf nt!HvlpGetRegister64
+│                    │                       │                                                 uf nt!RtlRaiseException
+│                    │                       ├─────────────────────────▷uf nt!MmGetPhysicalAddress
+│                    │                       │                                                    uf nt!MiGetPhysicalAddress
+│                    │                       ├─────────────────────────▷uf nt!MmMapIoSpaceEx
+│                    │                       │                                              uf nt!MiMakeProtectionMask
+│                    │                       │                                              uf nt!MiMapContiguousMemory
+│                    │                       │                          uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x190=nt!HalpMapEarlyPages)
+│                    │                       ├─────────────────────────▷uf nt!HvlpSetRegister64
+│                    │                       │                                                 uf nt!RtlRaiseException
+│                    │                       ├─────────────────────────▷uf nt!HvlpSetupSchedulerAssist
+│                    │                       │                                                        uf nt!HvlpAcquireHypercallPage
+│                    │                       │                                                        uf nt!MmGetPhysicalAddress
+│                    │                       │                                                        uf nt!HvcallInitiateHypercall
+│                    │                       │                                                        uf nt!HvlpReleaseHypercallPage
+│                    │                       │                          uf nt!HvlGetLpIndexFromProcessorIndex
+│                    │                       │                          uf nt!HvlpGetLpcbByLpIndex
+│                    │                       ├─────────────────────────▷uf nt!HvlSharedIsr
+│                    │                       │                                            uf nt!HvlGetLpIndexFromProcessorIndex
+│                    │                       │                                            uf nt!HvlpGetLpcbByLpIndex
+│                    │                       │                                            uf nt!HvlpHandleIommuFaultMessage
+│                    │                       │                                            uf nt!KiInsertQueueDpc
+│                    │                       └─────────────────────────▷uf nt!HvlpDiscoverTopologyLocal
+│                    │                                                                                 uf nt!HvlpDiscoverTopologyWorker
+│                    │                       uf nt!KiEnableXSave
+│                    ├──────────────────────▷uf nt!KiStartIdleThread
+│                    │                       │                      uf nt!memset
+│                    │                       ├─────────────────────▷uf nt!KiInitializeContextThread
+│                    │                       │                                                     uf nt!memset
+│                    │                       │                                                     uf nt!KxContextToKframes
+│                    │                       │                                                     uf nt!KiSetSwitchingNpxState
+│                    │                       │                                                     uf nt!_security_check_cookie
+│                    │                       │                                                     uf nt!RtlLocateExtendedFeature2
+│                    │                       │                                                     uf nt!RtlLocateSupervisorFeature
+│                    │                       ├─────────────────────▷uf nt!KiStartPrcbThread
+│                    │                       │                                             uf nt!memset
+│                    │                       │                                             uf nt!KeAddProcessorAffinityEx
+│                    │                       │                                             uf nt!KeStartThread
+│                    │                       │                                             uf nt!KiCopyAffinityEx
+│                    │                       │                                             uf nt!_security_check_cookie
+│                    │                       │                                             uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                                             uf nt!RtlWriteAcquireTickLock
+│                    │                       │                                             uf nt!KeIsEmptyAffinityEx
+│                    │                       │                                             uf nt!KiGetProcessorEfficiencyClass
+│                    │                       │                                             uf nt!KxReleaseSpinLock
+│                    │                       │                                             uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                       │                      uf nt!KeInterlockedSetProcessorAffinityEx
+│                    │                       └─────────────────────▷uf nt!KiInitializePriorityState
+│                    │                                                                             uf nt!KiIsThreadRankNonZero
+│                    ├──────────────────────▷uf nt!KiStartPrcbThreads
+│                    │                       └──────────────────────▷uf nt!KiStartPrcbThread
+│                    │                                                                      uf nt!memset
+│                    │                                                                      uf nt!KeAddProcessorAffinityEx
+│                    │                                                                      uf nt!KeStartThread
+│                    │                                                                      uf nt!KiCopyAffinityEx
+│                    │                                                                      uf nt!_security_check_cookie
+│                    │                                                                      uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                                                                      uf nt!RtlWriteAcquireTickLock
+│                    │                                                                      uf nt!KeIsEmptyAffinityEx
+│                    │                                                                      uf nt!KiGetProcessorEfficiencyClass
+│                    │                                                                      uf nt!KxReleaseSpinLock
+│                    │                                                                      uf nt!KiRemoveSystemWorkPriorityKick
+│                    ├──────────────────────▷uf nt!HalpInitSystemPhase1
+│                    │                       └────────────────────────▷uf nt!HalpInitSystemHelper
+│                    │                                                                           uf nt!guard_dispatch_icall (N/A)
+│                    │                                                                           uf nt!KeBugCheckEx
+│                    │                                                                           uf nt!KiSetHardwareSpeculationControlFeatures
+│                    │                                                                           uf nt!KiCheckMicrocode
+│                    │                                                                           uf nt!memset
+│                    │                                                                           uf nt!KiSetPageAttributesTable
+│                    │                                                                           uf nt!KiInitializeTopologyStructures
+│                    │                                                                           uf nt!KiSetCacheInformation
+│                    │                                                                           uf nt!PoInitializePrcb
+│                    │                                                                           uf nt!KeGetXSaveFeatureFlags
+│                    │                                                                           uf nt!HvlEnlightenProcessor
+│                    │                                                                           uf nt!KiEnableXSave
+│                    │                                                                           uf nt!KiStartIdleThread
+│                    │                                                                           uf nt!KiStartPrcbThreads
+│                    │                                                                           uf nt!HalpInitSystemPhase1
+│                    │                                                                           uf nt!KeBugCheck
+│                    │                                                                           uf nt!InitBootProcessor
+│                    │                                                                           uf nt!KiCompleteKernelInit
+│                    │                                                                           uf nt!KeYieldProcessorEx
+│                    │                                                                           uf nt!KeInitializeClockOtherProcessors
+│                    │                                                                           uf nt!_security_check_cookie
+│                    │                                                                           uf nt!KiDetectFpuLeakage
+│                    │                                                                           uf nt!KiConfigureInitialNodes
+│                    │                                                                           uf nt!KiConfigureProcessorBlock
+│                    │                                                                           uf nt!KeCompactServiceTable
+│                    │                                                                           uf nt!KiInitSystem
+│                    │                                                                           uf nt!HviGetHypervisorFeatures
+│                    │                                                                           uf nt!KiIsKernelCfgActive
+│                    │                                                                           uf nt!KiInitializeAndStartInitialThread
+│                    │                                                                           uf nt!KiSetUserTbFlushPending
+│                    │                                                                           uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                           uf nt!RtlInitKernelModeSpecialMachineFrameEntries
+│                    │                                                                           uf nt!KeGetTopologyIdForProcessor
+│                    │                       uf nt!KeBugCheck
+│                    │                       uf nt!InitBootProcessor
+│                    ├──────────────────────▷uf nt!KiCompleteKernelInit
+│                    │                       ├────────────────────────▷uf nt!KeAttachProcess
+│                    │                       │                                              uf nt!KiAttachProcess
+│                    │                       │                                              uf nt!KeYieldProcessorEx
+│                    │                       │                                              uf nt!KeBugCheckEx
+│                    │                       │                                              uf nt!VfDevObjPreAddDevice
+│                    │                       │                                              uf nt!guard_dispatch_icall (N/A)
+│                    │                       │                                              uf nt!VfDevObjPostAddDevice
+│                    │                       ├────────────────────────▷uf nt!KiInitializeThreadCycleTable
+│                    │                       │                                                           uf nt!KeGetThreadWorkloadClassCount
+│                    │                       │                                                           uf nt!KeGetProcessorNodeNumber
+│                    │                       │                                                           uf nt!ExAllocatePool3
+│                    │                       ├────────────────────────▷uf nt!KiAcquirePrcbLocksForIsolationUnit
+│                    │                       │                                                                 uf nt!KeYieldProcessorEx
+│                    │                       ├────────────────────────▷uf nt!KiSetProcessorIdle
+│                    │                       │                                                 uf nt!KeYieldProcessorEx
+│                    │                       ├────────────────────────▷uf nt!KiUpdateThreadPriority
+│                    │                       │                                                     uf nt!KiAbQueueAutoBoostDpc
+│                    │                       │                                                     uf nt!KiIsThreadRankNonZero
+│                    │                       │                                                     uf nt!KiSetThreadQosLevelUnsafe
+│                    │                       │                                                     uf nt!KiSetSchedulerAssistPriority
+│                    │                       │                         uf nt!KiReleasePrcbLocksForIsolationUnit
+│                    │                       ├────────────────────────▷uf nt!KiAddCpuToSystemCpuPartition
+│                    │                       │                                                           uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                                                           uf nt!KeAddProcessorAffinityEx
+│                    │                       │                                                           uf nt!KxReleaseSpinLock
+│                    │                       ├────────────────────────▷uf nt!KiCreateCpuSetForProcessor
+│                    │                       │                                                         uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                                                         uf nt!RtlWriteAcquireTickLock
+│                    │                       │                                                         uf nt!RtlWriteReleaseTickLock
+│                    │                       │                                                         uf nt!KxReleaseSpinLock
+│                    │                       │                                                         uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                       │                         uf nt!KeInitializeTimer2
+│                    │                       │                         uf nt!KeInitializeDpc
+│                    │                       ├────────────────────────▷uf nt!KiAllocateHeteroConfigBuffer
+│                    │                       │                                                           uf nt!KeGetThreadWorkloadClassCount
+│                    │                       │                                                           uf nt!ExAllocatePool2
+│                    │                       │                         uf nt!KeBugCheckEx
+│                    │                       │                         uf nt!KeAcquireSpinLockAtDpcLevel
+│                    │                       │                         uf nt!RtlWriteAcquireTickLock
+│                    │                       │                         uf nt!RtlWriteReleaseTickLock
+│                    │                       ├────────────────────────▷uf nt!KxReleaseSpinLock
+│                    │                       │                                                uf nt!KiReleaseSpinLockInstrumented
+│                    │                       └────────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                     uf nt!EtwTraceKernelEvent
+│                    │                                                                                     uf nt!HvlpSetRegister64
+│                    │                                                                                     uf nt!_security_check_cookie
+│                    │                       uf nt!KeYieldProcessorEx
+│                    ├──────────────────────▷uf nt!KeInitializeClockOtherProcessors
+│                    │                       │                                     uf nt!KiGetClockTimerState
+│                    │                       │                                     uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x2f8=nt!HalpTimerClockStop
+│                    │                       │                                                                 nt!HalPrivateDispatchTable+0x2f0=nt!HalpTimerClockInitialize
+│                    │                       │                                                                 nt!HalPrivateDispatchTable+0x2e8=nt!HalpTimerClockActivate
+│                    │                       │                                                                 nt!HalPrivateDispatchTable+0x300=nt!HalpTimerClockArm)
+│                    │                       │                                     uf nt!KiSetPendingTick
+│                    │                       └────────────────────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                    │                                                                                                 uf nt!EtwTraceKernelEvent
+│                    │                                                                                                 uf nt!HvlpSetRegister64
+│                    │                                                                                                 uf nt!_security_check_cookie
+│                    │                       uf nt!_security_check_cookie
+│                    ├──────────────────────▷uf nt!HvlPhase0Initialize
+│                    │                       ├───────────────────────▷uf nt!HviIsAnyHypervisorPresent
+│                    │                       │                                                       uf nt!_security_check_cookie
+│                    │                       │                        uf nt!HvlQueryConnection
+│                    │                       ├───────────────────────▷uf nt!HvlpTryConfigureInterface
+│                    │                       │                                                       uf nt!HviGetHypervisorFeatures
+│                    │                       │                                                       uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                       │                                                       uf nt!_security_check_cookie
+│                    │                       │                                                       uf nt!guard_dispatch_icall (nt!_security_cookie
+│                    │                       │                                                                                   nt!HalPrivateDispatchTable+0x190=nt!HalpMapEarlyPages)
+│                    │                       │                                                       uf nt!MmGetPhysicalAddress
+│                    │                       ├───────────────────────▷uf nt!HvlpSetupBootProcessorEarlyHypercallPages
+│                    │                       │                                                                       uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x188=nt!HalpAllocateEarlyPages)
+│                    │                       ├───────────────────────▷uf nt!HvlpDetermineEnlightenments
+│                    │                       │                                                         uf nt!HviGetEnlightenmentInformation
+│                    │                       │                                                         uf nt!HviGetHypervisorFeatures
+│                    │                       │                                                         uf nt!HviGetHardwareFeatures
+│                    │                       │                                                         uf nt!HvlpTryToLockCpuManagementVersion
+│                    │                       │                                                         uf nt!HvlpGetRegister128
+│                    │                       │                                                         uf nt!HvlpQueryHypervisorSchedulerType
+│                    │                       │                                                         uf nt!HvlpAcquireHypercallPage
+│                    │                       │                                                         uf nt!HvcallInitiateHypercall
+│                    │                       │                                                         uf nt!HvlpReleaseHypercallPage
+│                    │                       │                                                         uf nt!VslGetNestedPageProtectionFlags
+│                    │                       │                                                         uf nt!HvlpQueryExtendedCapabilities
+│                    │                       │                                                         uf nt!_security_check_cookie
+│                    │                       │                        uf nt!SC_DEVICE::GetStoragePropertyPost
+│                    │                       │                        uf nt!strstr
+│                    │                       ├───────────────────────▷uf nt!HvlpPhase0Enlightenments
+│                    │                       │                                                      uf nt!HvlpGetRegister64
+│                    │                       │                                                      uf nt!MmGetPhysicalAddress
+│                    │                       │                                                      uf nt!HvlpSetRegister64
+│                    │                       │                                                      uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x188=nt!HalpAllocateEarlyPages
+│                    │                       │                                                                                  nt!HalPrivateDispatchTable+0x190=nt!HalpMapEarlyPages)
+│                    │                       ├───────────────────────▷uf nt!HvlpInitializeBootProcessor
+│                    │                       │                                                         uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x188=nt!HalpAllocateEarlyPages
+│                    │                       │                                                                                     nt!HalPrivateDispatchTable+0x190=nt!HalpMapEarlyPages)
+│                    │                       │                                                         uf nt!memset
+│                    │                       │                                                         uf nt!HvlpMapStatisticsPage
+│                    │                       │                                                         uf nt!HvlEnlightenProcessor
+│                    │                       └───────────────────────▷uf nt!HviGetHypervisorVersion
+│                    │                                                                             uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                       uf nt!KiDetectFpuLeakage
+│                    ├──────────────────────▷uf nt!KiConfigureInitialNodes
+│                    │                       ├───────────────────────────▷uf nt!KiInitializeSchedulerSubNode
+│                    │                       │                                                              uf nt!memset
+│                    │                       ├───────────────────────────▷uf nt!KiAllocateProcessorNumber
+│                    │                       │                                                           uf nt!KiAdjustGroupConfiguration
+│                    │                       │                                                           uf nt!KiCommitGroupSubNodeAssignments
+│                    │                       │                                                           uf nt!KiAllocateSchedulerSubNode
+│                    │                       │                                                           uf nt!KiUncommitGroupSubNodeAssignments
+│                    │                       └───────────────────────────▷uf nt!KiAssignProcessorNumberToPrcb
+│                    │                                                                                       uf nt!KiFindSubNodeForProcessorNumber
+│                    │                                                                                       uf nt!KeQueryActiveProcessorCountEx
+│                    ├──────────────────────▷uf nt!KiConfigureProcessorBlock
+│                    │                                                      uf nt!KiGetSubNodeForGroup
+│                    ├──────────────────────▷uf nt!KeCompactServiceTable
+│                    │                       └─────────────────────────▷uf nt!KiLockServiceTable
+│                    │                                                                          uf nt!KeExitRetpoline
+│                    │                                                                          uf nt!KiLockExtendedServiceTable
+│                    │                                                                          uf nt!RtlCaptureImageExceptionValues
+│                    │                                                                          uf nt!KiFastGetCallersAddress
+│                    │                                                                          uf nt!RtlpConvertFunctionEntry
+│                    │                                                                          uf nt!RtlLookupExceptionHandler
+│                    │                                                                          uf nt!KeBugCheck
+│                    │                                                                          uf nt!KeBugCheckEx
+│                    │                                                                          uf nt!guard_dispatch_icall (N/A)
+│                    │                       uf nt!KiInitSystem
+│                    ├──────────────────────▷uf nt!HviGetHypervisorFeatures
+│                    │                       └────────────────────────────▷uf nt!HviIsHypervisorMicrosoftCompatible
+│                    │                                                                                             uf nt!HviGetHypervisorInterface
+│                    │                                                                                             uf nt!_security_check_cookie
+│                    │                       uf nt!KiIsKernelCfgActive
+│                    ├──────────────────────▷uf nt!KiInitializeAndStartInitialThread
+│                    │                       │                                      uf nt!memset
+│                    │                       ├─────────────────────────────────────▷uf nt!KeInitThread
+│                    │                       │                                                        uf nt!KeInitializeApc
+│                    │                       │                                                        uf nt!KeInitializeEvent
+│                    │                       │                                                        uf nt!KeInitializeTimerEx
+│                    │                       │                                                        uf nt!MmCreateKernelStack
+│                    │                       │                                                        uf nt!KeAbInitializeThreadState
+│                    │                       │                                                        uf nt!KiInitializeContextThread
+│                    │                       │                                                        uf nt!MmDeleteKernelStackEx
+│                    │                       │                                                        uf nt!KiDeleteKernelShadowStack
+│                    │                       │                                                        uf nt!KiCreateKernelShadowStack
+│                    │                       │                                                        uf nt!KeCopyXfdMaskToTeb
+│                    │                       │                                                        uf nt!memset
+│                    │                       └─────────────────────────────────────▷uf nt!KiStartIdleThread
+│                    │                                                                                     uf nt!memset
+│                    │                                                                                     uf nt!KiInitializeContextThread
+│                    │                                                                                     uf nt!KiStartPrcbThread
+│                    │                                                                                     uf nt!KeInterlockedSetProcessorAffinityEx
+│                    │                                                                                     uf nt!KiInitializePriorityState
+│                    │                       uf nt!KiSetUserTbFlushPending
+│                    └──────────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+│                                            ├──────────────────────────────────▷uf nt!EtwTraceKernelEvent
+│                                            │                                                            uf nt!EtwpLogKernelEvent
+│                                            └──────────────────────────────────▷uf nt!HvlpSetRegister64
+│                                                                                                       uf nt!RtlRaiseException
+│                                                                                uf nt!_security_check_cookie
+│                                            uf nt!RtlInitKernelModeSpecialMachineFrameEntries
+│                                            uf nt!KeGetTopologyIdForProcessor
+│                                            uf nt!KeBugCheckEx
+└───────────────────▷uf nt!KiIdleLoop
+                     ├──────────────▷uf nt!KzSetIrqlUnsafe
+                     │               └───────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+                     │                                                                        uf nt!EtwTraceKernelEvent
+                     │                                                                        uf nt!HvlpSetRegister64
+                     │                                                                        uf nt!_security_check_cookie
+                     ├──────────────▷uf nt!PoIdle
+                     │               │           uf nt!memset
+                     │               ├──────────▷uf nt!PpmIdleSelectStates
+                     │               │                                    uf nt!memset
+                     │               │                                    uf nt!KeQueryPerformanceCounter
+                     │               │                                    uf nt!KiGetNextTimerExpirationDueTime
+                     │               │                                    uf nt!guard_dispatch_icall (nt!_security_cookie
+                     │               │                                                                nt!PpmPerfQosIdleExpirationTimeout)
+                     │               │                                    uf nt!_security_check_cookie
+                     │               │                                    uf nt!KeQueryActiveProcessorCountEx
+                     │               │                                    uf nt!MmGetNextNode
+                     │               │                                    uf nt!PpmCheckPreConditionsForDeepSleep
+                     │               │                                    uf nt!PoCopyDeepIdleMask
+                     │               │                                    uf nt!KeAddProcessorAffinityEx
+                     │               │                                    uf nt!PpmEstimateIdleDuration
+                     │               │                                    uf nt!PpmIdleCheckCoordinatedStateEligibility
+                     │               │                                    uf nt!PpmIdleUpdateSelectionStatistics
+                     │               │                                    uf nt!PpmIdleUpdateIdleReevaluationDuration
+                     │               │                                    uf nt!PpmIdleRollbackCoordinatedSelection
+                     │               │                                    uf nt!KiSubtractAffinityEx
+                     │               │                                    uf nt!PpmUnlockProcessors
+                     │               │                                    uf nt!PpmIdleSetSynchronizationState
+                     │               │                                    uf nt!EtwTraceKernelEvent
+                     │               ├──────────▷uf nt!PpmIdleExecuteTransition
+                     │               │                                         uf nt!PpmUpdatePerformanceFeedback
+                     │               │                                         uf nt!guard_dispatch_icall (nt!_security_cookie
+                     │               │                                                                     nt!HalpOriginalPerformanceCounter
+                     │               │                                                                     nt!HalPrivateDispatchTable+0x1b0=nt!HalpProcessorPrepareForIdle
+                     │               │                                                                     nt!HalPrivateDispatchTable+0x1c0=nt!HalpProcessorResumeFromIdle
+                     │               │                                                                     nt!HalpTimerReferencePage
+                     │               │                                                                     nt!HalPrivateDispatchTable+0x418=nt!HalpLbrResumeRecording
+                     │               │                                                                     nt!HalPrivateDispatchTable+0x2f8=nt!HalpTimerClockStop
+                     │               │                                                                     nt!PopCsConsumption+0x140)
+                     │               │                                         uf nt!HalpTimerGetInternalData
+                     │               │                                         uf nt!memset
+                     │               │                                         uf nt!_security_check_cookie
+                     │               │                                         uf nt!KeResumeClockTimerFromIdle
+                     │               │                                         uf nt!KeAccumulateTicks
+                     │               │                                         uf nt!KePrepareNonClockOwnerForIdle
+                     │               │                                         uf nt!PpmConvertTime
+                     │               │                                         uf nt!PpmTestAndLockProcessors
+                     │               │                                         uf nt!HviIsXboxNanovisorPresent
+                     │               │                                         uf nt!KeInterlockedSetProcessorAffinityEx
+                     │               │                                         uf nt!KeWakeProcessor
+                     │               │                                         uf nt!KeAcquireSpinLockAtDpcLevel
+                     │               │                                         uf nt!KxReleaseSpinLock
+                     │               │                                         uf nt!PpmIdleUpdateConcurrency
+                     │               │                                         uf nt!KePrepareClockTimerForIdle
+                     │               │                                         uf nt!PpmIdleSetSynchronizationState
+                     │               │                                         uf nt!KiSetClockTimer
+                     │               │                                         uf nt!PpmGetExitSamplingCountdown
+                     │               │                                         uf nt!KeIsSubsetAffinityEx
+                     │               │                                         uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                         uf nt!HvlSetPlatformIdleState
+                     │               │                                         uf nt!PpmEventEnterPlatformIdleState
+                     │               │                                         uf nt!KdPowerTransitionEx
+                     │               │                                         uf nt!KdCallPowerHandlers
+                     │               │                                         uf nt!EtwTraceKernelEvent
+                     │               │                                         uf nt!KeInterlockedClearProcessorAffinityEx
+                     │               │                                         uf nt!KiSetUserTbFlushPending
+                     │               │                                         uf nt!HalpTimerScaleCounter
+                     │               │                                         uf nt!PpmPerfFeedbackCounterUpdate
+                     │               │                                         uf nt!KeBugCheckEx
+                     │               │                                         uf nt!KeQueryWakeSource
+                     │               │                                         uf nt!KiCancelClockTimer
+                     │               │                                         uf nt!KeCheckProcessorAffinityEx
+                     │               │                                         uf nt!PpmExitCoordinatedIdleState
+                     │               │                                         uf nt!PopIdleWakeNotifyWakeSource
+                     │               │                                         uf nt!PpmUpdatePlatformIdleAccounting
+                     │               │                                         uf nt!PpmEventCoordinatedIdleTransition
+                     │               │                                         uf nt!KeGetPrcb
+                     │               │                                         uf nt!KeAddProcessorAffinityEx
+                     │               │                                         uf nt!KeRemoveProcessorAffinityEx
+                     │               │                                         uf nt!HalRequestIpi
+                     │               │                                         uf nt!PpmIdleCompleteExitLatencyTrace
+                     │               │           uf nt!_security_check_cookie
+                     │               ├──────────▷uf nt!PpmIdlePrepare
+                     │               │                               uf nt!PpmIdleEvaluateConstraints
+                     │               │                               uf nt!PpmComputeIdleDurationHint
+                     │               │                               uf nt!guard_dispatch_icall (N/A)
+                     │               │                               uf nt!KeAddProcessorAffinityEx
+                     │               ├──────────▷uf nt!PpmEventIdleStateChange
+                     │               │                                        uf nt!_security_check_cookie
+                     │               │                                        uf nt!EtwTraceKernelEvent
+                     │               │           uf nt!MmGetNextNode
+                     │               │           uf nt!KeCheckProcessorAffinityEx
+                     │               │           uf nt!KeAddProcessorAffinityEx
+                     │               ├──────────▷uf nt!HalRequestIpi
+                     │               │                              uf nt!HalRequestIpiSpecifyVector
+                     │               │                              uf nt!KeBugCheckEx
+                     │               │                              uf nt!ExAllocatePoolWithTag
+                     │               │                              uf nt!FsRtlSendModernAppTermination
+                     │               │                              uf nt!ExFreePoolWithTag
+                     │               │                              uf nt!memset
+                     │               ├──────────▷uf nt!HalProcessorIdle
+                     │               │                                 uf nt!HalpTimerResetProfileAdjustment
+                     │               │           uf nt!KeAcquireSpinLockAtDpcLevel
+                     │               ├──────────▷uf nt!PpmPerfArbitratorApplyProcessorState
+                     │               │                                                     uf nt!guard_dispatch_icall (nt!_security_cookie)
+                     │               │                                                     uf nt!KiIsQosGroupingActive
+                     │               │                                                     uf nt!PpmEventProcessorPerfStateChange
+                     │               │                                                     uf nt!_security_check_cookie
+                     │               ├──────────▷uf nt!KeUpdatePendingQosRequest
+                     │               │                                          uf nt!KiInsertQueueDpc
+                     │               │                                          uf nt!KiSetVirtualHeteroClockIntervalRequest
+                     │               │                                          uf nt!KiCancelClockTimer
+                     │               │                                          uf nt!KiSetClockTimer
+                     │               │                                          uf nt!KiRemoveSystemWorkPriorityKick
+                     │               ├──────────▷uf nt!KxReleaseSpinLock
+                     │               │                                  uf nt!KiReleaseSpinLockInstrumented
+                     │               ├──────────▷uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                               uf nt!EtwTraceKernelEvent
+                     │               │                                               uf nt!HvlpSetRegister64
+                     │               │                                               uf nt!_security_check_cookie
+                     │               ├──────────▷uf nt!PpmResetProcessorIdleAccounting
+                     │               │                                                uf nt!memset
+                     │               └──────────▷uf nt!PpmSetPlatformIdleDurationHint
+                     │                                                               uf nt!KeQueryActiveProcessorCountEx
+                     ├──────────────▷uf nt!KiRetireDpcList
+                     │               │                    uf nt!memset
+                     │               ├───────────────────▷uf nt!KiExecuteAllDpcs
+                     │               │                                          uf nt!EtwTraceLongDpcDetectionEvent
+                     │               │                                          uf nt!KiEnterLongDpcProcessing
+                     │               │                                          uf nt!KiAcquireSpinLockInstrumented
+                     │               │                                          uf nt!KxWaitForSpinLockAndAcquire
+                     │               │                                          uf nt!KxReleaseSpinLock
+                     │               │                                          uf nt!KiReleaseSpinLockInstrumented
+                     │               │                                          uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                          uf nt!EtwTraceKernelEvent
+                     │               │                                          uf nt!EtwGetKernelTraceTimestampSilo
+                     │               │                                          uf nt!guard_dispatch_icall (nt!_security_cookie)
+                     │               │                                          uf nt!KiInsertNewDpcRuntime
+                     │               │                                          uf nt!EtwpLogKernelEvent
+                     │               │                                          uf nt!memset
+                     │               │                                          uf nt!KeYieldProcessorEx
+                     │               │                                          uf nt!KiUpdateVPBackingThreadPriority
+                     │               │                                          uf nt!KiFindRescheduleContextEntryForPrcb
+                     │               │                                          uf nt!KiDoesThreadDominateRescheduleContextEntry
+                     │               │                                          uf nt!KiIsPrcbThread
+                     │               │                                          uf nt!KiInsertDeferredReadyList
+                     │               │                                          uf nt!KiAdjustRescheduleContextEntryForThreadRemoval
+                     │               │                                          uf nt!KiStartReadyQueueEnumeratorForRescheduleContext
+                     │               │                                          uf nt!KiAdvanceReadyQueueEnumeratorToNextScb
+                     │               │                                          uf nt!KiReadyQueueEnumeratorStartNormalQueuesPhase
+                     │               │                                          uf nt!KiAdvanceReadyQueueEnumeratorToNextList
+                     │               │                                          uf nt!KiCheckThreadAffinity
+                     │               │                                          uf nt!KiRemoveCurrentlyEnumeratedThreadFromReadyQueue
+                     │               │                                          uf nt!KiGetThreadEffectiveRankNonZero
+                     │               │                                          uf nt!KiAddThreadToScbQueue
+                     │               │                                          uf nt!KiCanLocalReadyThreadBeScheduledToRescheduleContext
+                     │               │                                          uf nt!KiScheduleThreadToRescheduleContext
+                     │               │                                          uf nt!KiCommitRescheduleContextEntry
+                     │               │                                          uf nt!KiCompleteRescheduleContext
+                     │               │                                          uf nt!KiFlushSoftwareInterruptBatch
+                     │               │                                          uf nt!KiDeferredReadySingleThread
+                     │               │                                          uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               │                                          uf nt!_security_check_cookie
+                     │               │                                          uf nt!KeBugCheckEx
+                     │               │                                          uf nt!KiAcquirePrcbLocksForPreemptionAttemptSlowPath
+                     │               │                                          uf nt!KiAffinityContainsProcessorsOtherThanSelf
+                     │               │                                          uf nt!KiSearchForNewThreadsForRescheduleContext
+                     │               │                                          uf nt!EtwTraceLongDpcMitigationEvent
+                     │               │                    uf nt!_security_check_cookie
+                     │               │                    uf nt!KiSelectActiveTimerTable
+                     │               │                    uf nt!HalpTimerGetInternalData
+                     │               │                    uf nt!guard_dispatch_icall (nt!_security_cookie
+                     │               │                                                nt!HalpTimerReferencePage)
+                     │               ├───────────────────▷uf nt!KiProcessExpiredTimerList
+                     │               │                                                   uf nt!KiTimerWaitTest
+                     │               │                                                   uf nt!guard_dispatch_icall (nt!_security_cookie
+                     │               │                                                                               nt!EtwpHostSiloState)
+                     │               │                                                   uf nt!_security_check_cookie
+                     │               │                                                   uf nt!EtwpLogKernelEvent
+                     │               │                                                   uf nt!KiProcessThreadWaitList
+                     │               │                                                   uf nt!KeQueryPerformanceCounter
+                     │               │                                                   uf nt!KeYieldProcessorEx
+                     │               │                                                   uf nt!EtwTraceKernelEvent
+                     │               │                                                   uf nt!RtlGetSystemTimePrecise
+                     │               │                                                   uf nt!KeBugCheckEx
+                     │               │                                                   uf nt!KiInsertTimerTable
+                     │               │                                                   uf nt!KiTryUnwaitThread
+                     │               │                                                   uf nt!KiInsertQueueDpc
+                     │               │                                                   uf nt!KiAcquireKobjectLockSafe
+                     │               │                                                   uf nt!KiWakeQueueWaiter
+                     │               │                                                   uf nt!KiWakeOtherQueueWaiters
+                     │               │                                                   uf nt!PsTimerResolutionActive
+                     │               │                                                   uf nt!KeIsThreadRunning
+                     │               │                                                   uf nt!EtwTraceEnqueueWork
+                     │               │                    uf nt!PoGetFrequencyBucket
+                     │               │                    uf nt!RtlTimelineBitmapUpdate
+                     │               ├───────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                                        uf nt!EtwTraceKernelEvent
+                     │               │                                                        uf nt!HvlpSetRegister64
+                     │               │                                                        uf nt!_security_check_cookie
+                     │               ├───────────────────▷uf nt!KiTimer2Expiration
+                     │               │                                            uf nt!_security_check_cookie
+                     │               │                                            uf nt!KeAcquireSpinLockAtDpcLevel
+                     │               │                                            uf nt!KxReleaseSpinLock
+                     │               │                                            uf nt!KiAcquireKobjectLockSafe
+                     │               │                                            uf nt!KiExpireTimer2
+                     │               │                                            uf nt!KiProcessThreadWaitList
+                     │               │                                            uf nt!KiShouldActivateHRTimerClock
+                     │               │                                            uf nt!KiRemoveTimer2
+                     │               │                                            uf nt!KiSendClockInterruptToClockOwner
+                     │               │                                            uf nt!KiCheckAndRearmForceIdle
+                     │               │                                            uf nt!EtwTraceKernelEvent
+                     │               │                                            uf nt!KiInsertTimer2
+                     │               │                                            uf nt!KiUpdateTimer2Flags
+                     │               ├───────────────────▷uf nt!KiStartThreadCycleAccumulation
+                     │               │                                                        uf nt!PoGetFrequencyBucket
+                     │               │                                                        uf nt!HalRequestSoftwareInterrupt
+                     │               │                                                        uf nt!KiBeginCounterAccumulation
+                     │               ├───────────────────▷uf nt!KiNormalPriorityReadyScan
+                     │               │                                                   uf nt!KiShouldScanSharedReadyQueue
+                     │               │                                                   uf nt!KiAcquirePrcbLocksForIsolationUnit
+                     │               │                                                   uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               │                                                   uf nt!KiRemoveThreadFromSharedReadyQueue
+                     │               │                                                   uf nt!KiInsertDeferredReadyList
+                     │               │                                                   uf nt!KiSetPriorityBoost
+                     │               │                                                   uf nt!KiReadyDeferredReadyList
+                     │               │                                                   uf nt!KeYieldProcessorEx
+                     │               │                                                   uf nt!KiReadGuestSchedulerAssistPriority
+                     │               │                                                   uf nt!EtwTraceAntiStarvationBoost
+                     │               │                                                   uf nt!KiRemoveThreadFromReadyQueue
+                     │               │                    uf nt!KeYieldProcessorEx
+                     │               ├───────────────────▷uf nt!KiUpdateThreadHgsFeedback
+                     │               │                                                   uf nt!KiIsPrcbThread
+                     │               │                                                   uf nt!EtwTraceThreadFeedbackRead
+                     │               │                                                   uf nt!KiEvaluateHgsClassChange
+                     │               │                                                   uf nt!EtwTraceWorkloadClassUpdate
+                     │               │                                                   uf nt!KiRequestSoftwareInterrupt
+                     │               │                    uf nt!HalpTimerScaleCounter
+                     │               ├───────────────────▷uf nt!EtwTraceKernelEvent
+                     │               │                                             uf nt!EtwpLogKernelEvent
+                     │               └───────────────────▷uf nt!KeSignalGate
+                     │                                                      uf nt!KiAcquireKobjectLockSafe
+                     │                                                      uf nt!KiTryUnwaitThread
+                     │                                                      uf nt!KiExitDispatcher
+                     │                                                      uf nt!KeIsThreadRunning
+                     │                                                      uf nt!EtwTraceEnqueueWork
+                     │                                                      uf nt!KiWakeQueueWaiter
+                     │                                                      uf nt!KiWakeOtherQueueWaiters
+                     │                                                      uf nt!KiInsertQueueDpc
+                     │                                    uf nt!KiBeginCounterAccumulation
+                     │                                    uf nt!KeBugCheckEx
+                     │                                    uf nt!RtlBackoff
+                     ├──────────────▷uf nt!KiQuantumEnd
+                     │               │                 uf nt!memset
+                     │               │                 uf nt!KeYieldProcessorEx
+                     │               │                 uf nt!KiComputeNewPriority
+                     │               ├────────────────▷uf nt!KiAcquirePrcbLocksForIsolationUnit
+                     │               │                                                         uf nt!KeYieldProcessorEx
+                     │               ├────────────────▷uf nt!KiUpdateVPBackingThreadPriority
+                     │               │                                                      uf nt!KiReadGuestSchedulerAssistPriority
+                     │               │                                                      uf nt!KeBugCheckEx
+                     │               │                                                      uf nt!KiComputePriorityFloor
+                     │               │                                                      uf nt!KiSetBasePriorityAndClearDecrement
+                     │               │                                                      uf nt!KiUpdateThreadPriority
+                     │               │                                                      uf nt!KiCheckAssistDataForBamQosLevelOverride
+                     │               │                                                      uf nt!KiSetThreadQosLevelUnsafe
+                     │               │                                                      uf nt!EtwTraceXSchedulerPriorityUpdate
+                     │               ├────────────────▷uf nt!KiUpdateThreadPriority
+                     │               │                                             uf nt!KiAbQueueAutoBoostDpc
+                     │               │                                             uf nt!KiIsThreadRankNonZero
+                     │               │                                             uf nt!KiSetThreadQosLevelUnsafe
+                     │               │                                             uf nt!KiSetSchedulerAssistPriority
+                     │               │                 uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               ├────────────────▷uf nt!KiTryScheduleNextForegroundBoost
+                     │               │                                                       uf nt!KiScheduleNextForegroundBoost
+                     │               ├────────────────▷uf nt!KiAcquireThreadStateLockForWrite
+                     │               │                                                       uf nt!KiAcquirePrcbLocksForIsolationUnit
+                     │               │                                                       uf nt!KeYieldProcessorEx
+                     │               │                                                       uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               ├────────────────▷uf nt!KzHeteroRefreshWorkloadProperties
+                     │               │                                                        uf nt!KiComputeHeteroThreadQos
+                     │               │                                                        uf nt!KiSetThreadQosLevelUnsafe
+                     │               ├────────────────▷uf nt!KiReleaseThreadStateLock
+                     │               │                                               uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               ├────────────────▷uf nt!KiCheckPreferredHeteroProcessor
+                     │               │                                                      uf nt!KiHeteroComputeThreadWorkloadProperties
+                     │               │                                                      uf nt!KiGenerateHeteroSets
+                     │               │                                                      uf nt!KiIsQosGroupingActive
+                     │               │                                                      uf nt!KiGetProcessorClassForPolicy
+                     │               │                                                      uf nt!KiIsThreadEligibleForPreemptionSwap
+                     │               │                                                      uf nt!KiFindBiasedSetMember
+                     │               │                                                      uf nt!KiHeteroScanQueueForPreemptionSwapTarget
+                     │               │                 uf nt!KiShouldScanSharedReadyQueue
+                     │               │                 uf nt!KiReadGuestSchedulerAssistPriority
+                     │               ├────────────────▷uf nt!KiRemoveThreadFromSharedReadyQueue
+                     │               │                                                         uf nt!KiUpdateSoftParkElectionStatisticsOnRemoval
+                     │               │                                                         uf nt!KiAcquireSoftParkElectionLock
+                     │               ├────────────────▷uf nt!KiInsertDeferredReadyList
+                     │               │                                                uf nt!KiEnterDeferredReadyState
+                     │               ├────────────────▷uf nt!KiSetPriorityBoost
+                     │               │                                         uf nt!KiSetPriorityThread
+                     │               │                                         uf nt!KiUpdateThreadPriority
+                     │               ├────────────────▷uf nt!EtwTraceAntiStarvationBoost
+                     │               │                                                  uf nt!EtwTraceKernelEvent
+                     │               │                                                  uf nt!_security_check_cookie
+                     │               ├────────────────▷uf nt!KiReadyDeferredReadyList
+                     │               │                                               uf nt!KiDeferredReadySingleThread
+                     │               │                                               uf nt!KiSendSoftwareInterrupt
+                     │               │                                               uf nt!HalRequestIpiSpecifyVector
+                     │               │                                               uf nt!memset
+                     │               │                                               uf nt!KiFlushSoftwareInterruptBatch
+                     │               ├────────────────▷uf nt!KiGroupSchedulingQuantumEnd
+                     │               │                                                  uf nt!memset
+                     │               │                                                  uf nt!KiAcquirePrcbLocksForIsolationUnit
+                     │               │                                                  uf nt!_security_check_cookie
+                     │               │                                                  uf nt!KiGroupSchedulingGenerationEnd
+                     │               │                                                  uf nt!KiComputeGroupSchedulingRank
+                     │               │                                                  uf nt!KiStartRescheduleContext
+                     │               │                                                  uf nt!KiCommitRescheduleContext
+                     │               │                                                  uf nt!KiIsThreadConstrainedBySchedulingGroup
+                     │               │                                                  uf nt!KiShouldPreemptionBeDeferred
+                     │               │                                                  uf nt!KiReleasePrcbLocksForIsolationUnit
+                     │               │                                                  uf nt!KiInsertDeferredPreemptionApc
+                     │               │                                                  uf nt!KiCheckMaxOverQuotaTransition
+                     │               │                                                  uf nt!KiRecomputeGroupSchedulingRank
+                     │               │                                                  uf nt!KiFindRescheduleContextEntryForPrcb
+                     │               │                                                  uf nt!KiSearchForNewThreadsForRescheduleContext
+                     │               │                                                  uf nt!KiCheckForMaxOverQuotaScb
+                     │               │                                                  uf nt!KiRemoveSchedulingGroupQueue
+                     │               │                                                  uf nt!KiAdjustRescheduleContextEntryForThreadRemoval
+                     │               │                                                  uf nt!KiCompleteRescheduleContext
+                     │               │                                                  uf nt!KiFlushSoftwareInterruptBatch
+                     │               │                                                  uf nt!KiDeferredReadySingleThread
+                     │               ├────────────────▷uf nt!KiRemoveThreadFromReadyQueue
+                     │               │                                                   uf nt!EtwWriteEx
+                     │               │                                                   uf nt!KiUpdateLocalReadyQueueStatisticsOnRemoval
+                     │               │                                                   uf nt!IopIsActivityTracingEventEnabled
+                     │               ├────────────────▷uf nt!KiStartRescheduleContext
+                     │               │                                               uf nt!KiUpdateVPBackingThreadPriority
+                     │               │                 uf nt!KiFindRescheduleContextEntryForPrcb
+                     │               │                 uf nt!KiAdjustRescheduleContextEntryForThreadRemoval
+                     │               ├────────────────▷uf nt!KiSearchForNewThreadsForRescheduleContext
+                     │               │                                                                uf nt!memset
+                     │               │                                                                uf nt!KiStartReadyQueueEnumeratorForRescheduleContext
+                     │               │                                                                uf nt!KiReadyQueueEnumeratorStartScbQueuesPhase
+                     │               │                                                                uf nt!KiReadyQueueEnumeratorStartNormalQueuesPhase
+                     │               │                                                                uf nt!_security_check_cookie
+                     │               │                                                                uf nt!KiCheckThreadAffinity
+                     │               │                                                                uf nt!KiCanLocalReadyThreadBeScheduledToRescheduleContext
+                     │               │                                                                uf nt!KiRemoveCurrentlyEnumeratedThreadFromReadyQueue
+                     │               │                                                                uf nt!KiScheduleThreadToRescheduleContext
+                     │               │                                                                uf nt!KeYieldProcessorEx
+                     │               │                                                                uf nt!KiGetThreadEffectiveRankNonZero
+                     │               │                                                                uf nt!KiAddThreadToScbQueue
+                     │               │                                                                uf nt!KiAdvanceReadyQueueEnumeratorToNextList
+                     │               │                                                                uf nt!KiInsertDeferredReadyList
+                     │               ├────────────────▷uf nt!KiCommitRescheduleContext
+                     │               │                                                uf nt!KiCommitRescheduleContextEntry
+                     │               ├────────────────▷uf nt!KiCompleteRescheduleContext
+                     │               │                                                  uf nt!KiCompleteRescheduleContextEntry
+                     │               ├────────────────▷uf nt!KiFlushSoftwareInterruptBatch
+                     │               │                                                    uf nt!HalSendSoftwareInterrupt
+                     │               │                                                    uf nt!HalRequestIpiSpecifyVector
+                     │               │                                                    uf nt!memset
+                     │               ├────────────────▷uf nt!KiDeferredReadySingleThread
+                     │               │                                                  uf nt!ExpApplyPrewaitBoost
+                     │               │                                                  uf nt!ExpWaitForResource
+                     │               │                                                  uf nt!ExpBoostIoAfterAcquire
+                     │               │                                                  uf nt!KxWaitForLockOwnerShip
+                     │               │                                                  uf nt!KxWaitForLockChainValid
+                     │               │                                                  uf nt!KxReleaseQueuedSpinLock
+                     │               │                                                  uf nt!KiAcquireQueuedSpinLockInstrumented
+                     │               │                                                  uf nt!KiReleaseQueuedSpinLockInstrumented
+                     │               │                                                  uf nt!KiHaltOnAddressWakeEntireList
+                     │               │                                                  uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                                  uf nt!PerfLogExecutiveResourceAcquire
+                     │               │                                                  uf nt!PerfLogExecutiveResourceWait
+                     │               │                                                  uf nt!KeYieldProcessorEx
+                     │               │                                                  uf nt!KiReadGuestSchedulerAssistPriority
+                     │               │                                                  uf nt!KiComputePriorityFloor
+                     │               │                                                  uf nt!KiSetBasePriorityAndClearDecrement
+                     │               │                                                  uf nt!KiUpdateThreadPriority
+                     │               │                                                  uf nt!KiCheckAssistDataForBamQosLevelOverride
+                     │               │                                                  uf nt!KiSetThreadQosLevelUnsafe
+                     │               │                                                  uf nt!EtwTraceXSchedulerPriorityUpdate
+                     │               │                                                  uf nt!KiComputeNewPriority
+                     │               │                                                  uf nt!KiTryScheduleNextForegroundBoost
+                     │               │                                                  uf nt!KiAbQueueAutoBoostDpc
+                     │               │                                                  uf nt!KiComputeHeteroThreadQos
+                     │               │                                                  uf nt!KiSetSchedulerAssistPriority
+                     │               │                                                  uf nt!KiScheduleNextForegroundBoost
+                     │               │                                                  uf nt!KiSetPriorityBoost
+                     │               │                                                  uf nt!KiComputeThreadAffinity
+                     │               │                                                  uf nt!KiCheckPrcbAffinityEx
+                     │               │                                                  uf nt!KeFindFirstSetLeftAffinityEx
+                     │               │                                                  uf nt!KiPopulateTrivialProcessorSelectionResult
+                     │               │                                                  uf nt!KiIsThreadRankBiased
+                     │               │                                                  uf nt!KiChooseTargetProcessor
+                     │               │                                                  uf nt!KiHeteroChooseTargetProcessor
+                     │               │                                                  uf nt!KiAcquirePrcbLocksForPreemptionAttempt
+                     │               │                                                  uf nt!KiIsThreadConstrainedBySchedulingGroup
+                     │               │                                                  uf nt!KiCheckForMaxOverQuotaScb
+                     │               │                                                  uf nt!memset
+                     │               │                                                  uf nt!KiStartRescheduleContext
+                     │               │                                                  uf nt!KiScheduleThreadToRescheduleContext
+                     │               │                                                  uf nt!KiCommitRescheduleContextEntry
+                     │               │                                                  uf nt!KeAddProcessorAffinityEx
+                     │               │                                                  uf nt!KiHvEnlightenedGuestPriorityKick
+                     │               │                                                  uf nt!KiUpdateVPBackingThreadPriority
+                     │               │                                                  uf nt!KiEvaluateGroupSchedulingPreemption
+                     │               │                                                  uf nt!KiGetThreadEffectiveRankNonZero
+                     │               │                                                  uf nt!KiAddThreadToScbQueue
+                     │               │                                                  uf nt!KiDoesThreadDominateRescheduleContextEntry
+                     │               │                                                  uf nt!KiSearchForNewThreadsForRescheduleContext
+                     │               │                                                  uf nt!KiCompleteRescheduleContextEntry
+                     │               │                                                  uf nt!KiAddThreadToPrcbQueue
+                     │               │                                                  uf nt!EtwTraceIdealProcessor
+                     │               │                                                  uf nt!_security_check_cookie
+                     │               │                                                  uf nt!KeBugCheckEx
+                     │               │                 uf nt!KzReleaseAdditionalPrcbLocks
+                     │               ├────────────────▷uf nt!KiEndThreadCycleAccumulation
+                     │               │                                                   uf nt!KiEndThreadAccountingPeriodEx
+                     │               ├────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                                     uf nt!EtwTraceKernelEvent
+                     │               │                                                     uf nt!HvlpSetRegister64
+                     │               │                                                     uf nt!_security_check_cookie
+                     │               ├────────────────▷uf nt!KiQueueReadyThread
+                     │               │                                         uf nt!KiComputeNewPriority
+                     │               │                                         uf nt!KiUpdateVPBackingThreadPriority
+                     │               │                                         uf nt!KiUpdateThreadPriority
+                     │               │                                         uf nt!KiTryScheduleNextForegroundBoost
+                     │               │                                         uf nt!KiCheckThreadAffinity
+                     │               │                                         uf nt!KiComputeThreadAffinity
+                     │               │                                         uf nt!KiCheckPrcbAffinityEx
+                     │               │                                         uf nt!EtwTraceIdealProcessor
+                     │               │                                         uf nt!KiComputeGroupSchedulingRank
+                     │               │                                         uf nt!KiCheckMaxOverQuotaTransition
+                     │               │                                         uf nt!KiRecomputeGroupSchedulingRank
+                     │               │                                         uf nt!KiRemoveSchedulingGroupQueue
+                     │               │                                         uf nt!KiIsThreadConstrainedBySchedulingGroup
+                     │               │                                         uf nt!KiShouldPreemptionBeDeferred
+                     │               │                                         uf nt!KiCheckForMaxOverQuotaScb
+                     │               │                                         uf nt!KiAddThreadToReadyQueue
+                     │               │                                         uf nt!KiEnterDeferredReadyState
+                     │               │                                         uf nt!KiDeferredReadyThread
+                     │               │                                         uf nt!KiRequestSoftwareInterrupt
+                     │               ├────────────────▷uf nt!KiAbProcessContextSwitch
+                     │               │                                               uf nt!KiAbProcessThreadLocks
+                     │               │                                               uf nt!KiAbPropagateBoosts
+                     │               │                                               uf nt!KiReadyDeferredReadyList
+                     │               │                                               uf nt!KiCheckForThreadDispatch
+                     │               │                 uf nt!KeIsUserVaAccessAllowed
+                     │               ├────────────────▷uf nt!KiSwapContext
+                     │               │                                    uf nt!SwapContext
+                     │               ├────────────────▷uf nt!PoSetProcessorQoS
+                     │               │                                        uf nt!KeAcquireSpinLockAtDpcLevel
+                     │               │                                        uf nt!PpmHvSetVirtualProcessorQos
+                     │               │                                        uf nt!PpmPerfArbitratorApplyProcessorState
+                     │               │                                        uf nt!KxReleaseSpinLock
+                     │               │                                        uf nt!KiRemoveSystemWorkPriorityKick
+                     │               └────────────────▷uf nt!KeUpdatePendingQosRequest
+                     │                                                                uf nt!KiInsertQueueDpc
+                     │                                                                uf nt!KiSetVirtualHeteroClockIntervalRequest
+                     │                                                                uf nt!KiCancelClockTimer
+                     │                                                                uf nt!KiSetClockTimer
+                     │                                                                uf nt!KiRemoveSystemWorkPriorityKick
+                     │                                 uf nt!_security_check_cookie
+                     │               uf nt!KiCheckVpBackingLongSpinWaitHypercall
+                     ├──────────────▷uf nt!HvlNotifyLongSpinWait
+                     │               └─────────────────────────▷uf nt!HvcallInitiateHypercall
+                     │                                                                       uf nt!_security_check_cookie
+                     │                                                                       uf nt!EtwGetKernelTraceTimestamp
+                     │                                                                       uf nt!EtwTraceTimedEvent
+                     ├──────────────▷uf nt!SwapContext
+                     │               │                uf nt!KiCheckAndApplyCacheIsolation
+                     │               ├───────────────▷uf nt!KeCheckAndApplyBamQos
+                     │               │                                           uf nt!PoSetProcessorQoS
+                     │               │                                           uf nt!KeUpdatePendingQosRequest
+                     │               │                                           uf nt!KiRemoveSystemWorkPriorityKick
+                     │               ├───────────────▷uf nt!KiSaveThreadIptState
+                     │               │                                          uf nt!KiSaveIptState
+                     │               ├───────────────▷uf nt!KiUpdateSpeculationControl
+                     │               │                                                uf nt!PsGetProcessSecurityDomain
+                     │               │                                                uf nt!KiUpdateSpecCtrlEnhancedIBRS
+                     │               │                                                uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                                uf nt!KiIsSrsoMitigationEnabled
+                     │               │                                                uf nt!KiFlushCurrentRsb
+                     │               │                                                uf nt!KiUpdateStibpPairing
+                     │               │                                                uf nt!KiSynchronizeStibpPairing
+                     │               ├───────────────▷uf nt!HvlSwitchVirtualAddressSpace
+                     │               │                                                  uf nt!HvcallInitiateHypercall
+                     │               ├───────────────▷uf nt!KiRestoreThreadIptState
+                     │               │                                             uf nt!KiInitIptState
+                     │               │                                             uf nt!KiRestoreIptState
+                     │               ├───────────────▷uf nt!KiBeginThreadAccountingPeriod
+                     │               │                                                   uf nt!KiBeginCounterAccumulation
+                     │               │                                                   uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                                                   uf nt!KiIsThreadConstrainedBySchedulingGroup
+                     │               │                                                   uf nt!KiCheckForMaxOverQuotaScb
+                     │               │                                                   uf nt!KiInsertDeferredPreemptionApc
+                     │               ├───────────────▷uf nt!EtwTraceContextSwap
+                     │               │                                         uf nt!EtwpLogContextSwapEvent
+                     │               │                                         uf nt!PsGetEffectiveServerSilo
+                     │               │                                         uf nt!EtwpCoverageSamplerContextSwap
+                     │               ├───────────────▷uf nt!KiClearLastBranchRecordStack
+                     │               │                                                  uf nt!guard_dispatch_icall (nt!HalPrivateDispatchTable+0x400=nt!HalpLbrClearStack)
+                     │               ├───────────────▷uf nt!KiResetProcessorTraceBuffer
+                     │               │                                                 uf nt!KiRemoveSystemWorkPriorityKick
+                     │               │                uf nt!KeBugCheckEx
+                     │               │                uf nt!KiCheckVpBackingLongSpinWaitHypercall
+                     │               └───────────────▷uf nt!HvlNotifyLongSpinWait
+                     │                                                           uf nt!HvcallInitiateHypercall
+                     └──────────────▷uf nt!KiIdleSchedule
+                                     ├──────────────────▷uf nt!KiAcquirePrcbLocksForIsolationUnit
+                                     │                                                           uf nt!KeYieldProcessorEx
+                                     ├──────────────────▷uf nt!KiEndThreadCycleAccumulation
+                                     │                                                     uf nt!KiEndThreadAccountingPeriodEx
+                                     ├──────────────────▷uf nt!KiSearchForNewThread
+                                     │                                             uf nt!KiDowngradeIsolationUnitLockHandle
+                                     │                                             uf nt!memset
+                                     │                                             uf nt!KiUpdateVPBackingThreadPriority
+                                     │                                             uf nt!KiFindRescheduleContextEntryForPrcb
+                                     │                                             uf nt!KiAdjustRescheduleContextEntryForThreadRemoval
+                                     │                                             uf nt!KeYieldProcessorEx
+                                     │                                             uf nt!KiStartReadyQueueEnumeratorForRescheduleContext
+                                     │                                             uf nt!KiReadyQueueEnumeratorStartScbQueuesPhase
+                                     │                                             uf nt!KiReadyQueueEnumeratorStartNormalQueuesPhase
+                                     │                                             uf nt!KiAdvanceReadyQueueEnumeratorToNextList
+                                     │                                             uf nt!KiRemoveCurrentlyEnumeratedThreadFromReadyQueue
+                                     │                                             uf nt!KiInsertDeferredReadyList
+                                     │                                             uf nt!KiGetThreadEffectiveRankNonZero
+                                     │                                             uf nt!KiAddThreadToScbQueue
+                                     │                                             uf nt!KiCanLocalReadyThreadBeScheduledToRescheduleContextEntry
+                                     │                                             uf nt!KiEvaluateGroupSchedulingPreemption
+                                     │                                             uf nt!KiDoesThreadDominateRescheduleContextEntry
+                                     │                                             uf nt!KiScheduleThreadToRescheduleContext
+                                     │                                             uf nt!KiCommitRescheduleContextEntry
+                                     │                                             uf nt!KzReleaseAdditionalPrcbLocks
+                                     │                                             uf nt!KiReleasePrcbLocksForIsolationUnit
+                                     │                                             uf nt!KiCompleteRescheduleContext
+                                     │                                             uf nt!KiFlushSoftwareInterruptBatch
+                                     │                                             uf nt!KiReadyDeferredReadyList
+                                     │                                             uf nt!KiAcquirePrcbLocksForIsolationUnit
+                                     │                                             uf nt!KiSearchForNewThreadOnSubNode
+                                     │                                             uf nt!KiReparkIdlingProcessorIfNecessary
+                                     │                                             uf nt!_security_check_cookie
+                                     ├──────────────────▷uf nt!KiStartThreadCycleAccumulation
+                                     │                                                       uf nt!PoGetFrequencyBucket
+                                     │                                                       uf nt!HalRequestSoftwareInterrupt
+                                     │                                                       uf nt!KiBeginCounterAccumulation
+                                     ├──────────────────▷uf nt!KiRemoveSystemWorkPriorityKick
+                                     │                                                       uf nt!EtwTraceKernelEvent
+                                     │                                                       uf nt!HvlpSetRegister64
+                                     │                                                       uf nt!_security_check_cookie
+                                     │                   uf nt!KiReleasePrcbLocksForIsolationUnit
+                                     └──────────────────▷uf nt!KiSendHeteroRescheduleIntRequest
+                                                                                               uf nt!KeIsMultiCoreClassesEnabled
+                                                                                               uf nt!KiSendHeteroRescheduleIntRequestHelper
+5215.506918
