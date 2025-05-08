@@ -65,7 +65,7 @@ param(
       [switch]$Setup
 )
 
-$ErrorActionPreference = "Stop";
+$ErrorActionPreference = 'Break';
 
 . $PSScriptRoot\functions.ps1;
 

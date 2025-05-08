@@ -208,6 +208,7 @@ dpu mrxsmb!SmbCeContext+10 L0n4
 "@ $Path;
         [string[]]$list = & {
             $content | ForEach-Object {
+                #32 bit is possible
                 if ($_ -match "([0-9a-f]{8}(``[0-9a-f]{8})?\s+){2}""(?<part>.+)""`$") {
                     $Matches.part;
                 }
@@ -264,9 +265,9 @@ function BuildRetpoline
         return;
     }
     $body = SplitDisassembly $Disassembly;
-    $fbs = $body | Where-Object {
+    $fbs = $body.Where({
         $PSItem -match "call    \w+!guard_dispatch_icall";
-    }
+    });
     if (! $fbs) {
         return;
     }
@@ -295,9 +296,52 @@ $($dps -join "`n")
         $to = $m.Groups["part"].Value;
         Add-Member -NotePropertyName $from -NotePropertyValue $to -InputObject $result;
     }
-    $result | ConvertTo-Json | Set-Content $Path;
+    $result | ConvertTo-Json | Set-Content "$Path.retpoline";
 }
 
+function ProcessSingle
+{
+    param([string]$Path)
+
+    $kdprompt = Select-String "(\d+: kd>)" $Path -List;
+    if ($kdprompt) {
+        $kdprompt = $kdprompt.Matches.Value;
+    } else {
+        $kdprompt = "0:000>";
+    }
+    $content = Get-Content $Path -Raw;
+    $processed = $content.Split($kdprompt);
+    $content = $null;
+    #Text sections that are not locked in memory resolve to huge
+    #bodies due to paged out instructions
+    #    0000            add     byte ptr [rax],al
+    #    0000            add     byte ptr [rax],al
+    #                     Length Line
+    #                     ------ ----
+    #                   24061378 uf nt!SeInitSystem
+    #                   24059940 uf nt!SepVariableInitialization
+    #                   23836910 uf nt!SepInitSystemDacls
+    #                   23772382 uf nt!SepInitializationPhase0
+    #                   23765588 uf nt!SepInitializeSingletonAt…
+    #                   23735440 uf nt!SepInitializeAuthorizati…
+    #                   23730646 uf nt!SeMakeSystemToken
+    #                   23687006 uf nt!SeMakeAnonymousLogonToke…
+    #                   23667832 uf nt!SeMakeAnonymousLogonToken
+    #                   23647694 uf nt!SepInitializeWorkList
+    #If bodies are larger than 200K and contain "Flow analysis",
+    #then they will be excluded.
+    $processed = $processed.Where({
+        ($PSItem.Length -le 200E+3) -or
+        (! $PSItem.Contains("Flow analysis was incomplete, some code may be missing"))
+    });
+    $processed = $processed -join $kdprompt;
+    $processed | Set-Content $Path -NoNewline;
+    $processed = $null;
+    $content = Get-Content $Path -Raw;
+    $content = $content.Replace("`r", "");
+    $content | Set-Content $Path -NoNewline;
+    $content = $null;
+}
 function DisassembleParallel
 {
     param([int]$Cores,
@@ -320,7 +364,7 @@ function DisassembleParallel
     }
     $pool = [runspacefactory]::CreateRunspacePool(1, $Cores, $instate, $Host);
     $pool.Open();
-    $runspaces = @();
+    $runspaces = [System.Collections.Generic.List[psobject]]::new();
     for ($i = 0; $i -lt $Cores; $i ++) {
         $from = $i * $size;
         $to = $from + $size - 1;
@@ -330,18 +374,20 @@ function DisassembleParallel
         $space = [powershell]::Create();
         $script = @"
 $(
-"RunKd", "DisassembleSingle" | ForEach-Object {
+"RunKd", "DisassembleSingle", "ProcessSingle" | ForEach-Object {
     "function $PSItem {" + (Get-Content function:\$PSItem) + "}";
 }
 )
 DisassembleSingle `$Functions $from $to "$Image" "$Base-$i.txt";
+ProcessSingle "$Base-$i.txt";
 "@;
         $space.AddScript($script) | Out-Null;
         $space.RunspacePool = $pool;
-        $runspaces += [psobject] @{
+        $nr = [psobject] @{
             runspace = $space;
             state = $space.BeginInvoke();
         };
+        $runspaces.Add($nr);
     }
     $runspaces | ForEach-Object {
         $PSItem.state.AsyncWaitHandle.WaitOne() | Out-Null;
@@ -360,11 +406,7 @@ DisassembleSingle `$Functions $from $to "$Image" "$Base-$i.txt";
         Remove-Item "$Base-$i.txt";
     }
     $os.Close();
-    #Add this delimiter to facilitate regex. It is not in use, because -split
-    #gives better performance.
-    "0: kd> uf null!EOI" | Add-Content $disassembly;
-    (Get-Content $disassembly -Raw).Replace("`r", "") | Set-Content $disassembly;
-    BuildRetpoline $disassembly $Image "$Base.retpoline";
+    BuildRetpoline $disassembly $Image $Base;
 }
 
 function IdentifyFunctions
@@ -384,7 +426,7 @@ $($Meta.module | Foreach-Object {
 "x /v /f $PSItem!*`n";
 })
 "@ $Path;
-    $functions = @();
+    $functions = [System.Collections.Generic.List[string]]::new();
     $content | Foreach-Object {
         if (($PSItem -notlike "*[??]*") -and
             ($PSItem -notlike "*WPP_RECORDER*") -and
@@ -392,7 +434,7 @@ $($Meta.module | Foreach-Object {
             ($PSItem -notlike "*!`$`$*") -and
             ($PSItem -match "^(pub|prv) func "))
         {
-            $functions += "uf " + ($PSItem -split "\s+")[4];
+            $functions.Add("uf " + ($PSItem -split "\s+")[4]);
         }
     }
     #There may be duplicate functions at different addresses.
@@ -471,9 +513,13 @@ function BuildDisassembly
 }
 
 enum Expand {
+    #There are no descendants. There is a sibling that has descendants
     None;
+    #There are no descendants for all the remaining siblings.
     Empty;
+    #This node has descendants. Sibling nodes have descendants.
     ExpandMiddle;
+    #This is the last node that has descendants.
     ExpandLast;
 };
 
@@ -500,17 +546,18 @@ function IdentifyBodies
           [switch]$Callees)
 
     if ($Callees) {
-        $fns = @();
+        $fns = [System.Collections.Generic.List[string]]::new();
         [regex]::Matches($Block.Disassembly, "call    (\w+!.+?)\s.+") | ForEach-Object {
-            $fns += "uf $($PSItem.Groups[1].Value)";
+            $fns.Add("uf $($PSItem.Groups[1].Value)");
         }
-        if (! $fns) {
+        if (! $fns.Count) {
             return $null;
         }
         $fns = $fns | Select-Object -Unique;
-        $fbs = @();
+        $fbs = [System.Collections.Generic.List[string]]::new();
         $fns | ForEach-Object {
-            $fbs += IdentifySymbol "$PSItem`n" $Body;
+            $sym = IdentifySymbol "$PSItem`n" $Body;
+            $fbs.Add($sym);
         }
     } else {
         $fbs = IdentifySymbol "call    $($Block.Symbol -replace ""uf\s+"","""") " $Body;
@@ -530,13 +577,13 @@ function DecodeIndirectCall
     if (! $indirect) {
         return "N/A";
     }
-    $translated = @();
+    $translated = [System.Collections.Generic.List[string]]::new();
     foreach ($i in $indirect) {
         $r = $Json.$i;
         if ($r) {
-            $translated += "$i=$r";
+            $translated.Add("$i=$r");
         } else {
-            $translated += $i;
+            $translated.Add($i);
         }
     }
     return $translated -join ", ";
@@ -671,6 +718,11 @@ function DisplayTree
 {
     param([Node]$Tree)
 
+    if (! $Tree) {
+        "Symbol is not present in disassembly.";
+        return;
+    }
+
     Write-Host -ForegroundColor Black -BackgroundColor White $Tree.Symbol -NoNewline;
     Write-Host;
 
@@ -716,15 +768,16 @@ function DisplayTree
 
 function SplitDisassembly
 {
-    param([string]$Image)
+    param([string]$Path)
 
-    if (Select-String -Quiet "^\d+:\d+> " $Disassembly) {
-        $kdprompt = "\d+:\d+> ";
+    $kdprompt = Select-String "(\d+: kd>)" $Path -List;
+    if ($kdprompt) {
+        $kdprompt = $kdprompt.Matches.Value;
     } else {
-        $kdprompt = "\d+: kd> "
+        $kdprompt = "0:000>";
     }
-    $content = Get-Content -Raw $Disassembly;
-    $body = $content -split $kdprompt;
+    $content = Get-Content $Path -Raw;
+    $body = $content.Split($kdprompt);
     $content = $null;
     return $body;
 }
