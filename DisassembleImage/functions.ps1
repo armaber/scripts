@@ -290,7 +290,7 @@ $($dps -join "`n")
 "@ $Image;
     $result = [psobject]::new();
     $content = $content -join "`n";
-    $pattern = [regex]::new("dps (?<orig>.+?) L1`n([0-9a-f]{8}(``[0-9a-f]{8})?\s+){2}(?<part>\w+!\w+)", "Compiled, CultureInvariant");
+    $pattern = [regex]::new("dps (?<orig>.+?) L1`n([0-9a-f]{8}(``[0-9a-f]{8})?\s+){2}(?<part>\w+!\w+?[:\w]*?)`n", "Compiled, CultureInvariant");
     foreach ($m in [regex]::Matches($content, $pattern)) {
         $from = $m.Groups["orig"].Value;
         $to = $m.Groups["part"].Value;
