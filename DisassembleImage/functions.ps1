@@ -1,10 +1,10 @@
-$KD = "";
-$Database = "";
-$Sympath = "";
 $MetaVersion = 1;
+$KD = "";
+$Database = $PSScriptRoot;
+$Sympath = "";
 $Statistics = $true;
 #Print a warning if other files have been decompiled in 5 minutes or more.
-$TestDuration = 300;
+$AdviseLimit = 300;
 $UfSymbolProfile = "$PSScriptRoot\UfSymbol.json";
 #When these functions are encountered, the disassembly stops.
 $StopDisassembly = @(
@@ -97,9 +97,12 @@ function LoadScriptProfile
         $json = Get-Content -Raw $script:UfSymbolProfile | ConvertFrom-Json;
         $script:KD = $json.kd;
         $script:Database = $json.database;
-        $script:Sympath = $json.sympath;
+        $script:Sympath = "srv*${json.sympath}*https://msdl.microsoft.com/download/symbols";
         $script:Statistics = $json.statistics;
-        $script:StopDisassembly = $json.knownuf;
+        $script:AdviseLimit = $json.advise;
+        if ($json.knownuf) {
+            $script:StopDisassembly = $json.knownuf;
+        }
         return $true;
     }
     return $false;
@@ -569,7 +572,7 @@ function DecodeIndirectCall
 {
     param([string]$Body,
           $Json)
-    
+
     $indirect = & {
         [regex]::Matches($iter.Disassembly, "mov\s+rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall") |
         ForEach-Object { $PSItem.Groups[1].Value } | Select-Object -Unique;
@@ -787,7 +790,7 @@ function ParseDisassembly
           [string]$Key,
           [int]$Depth,
           [switch]$Callees)
-    
+
     $body = SplitDisassembly $Disassembly;
     $json = $Disassembly -replace "disassembly`$", "retpoline";
     $json = Get-Content -Raw $json -ErrorAction SilentlyContinue | ConvertFrom-Json;
@@ -826,7 +829,7 @@ function ParseDisassembly
 
 function AdviseDuration {
     param ([string]$Image)
-    
+
     $me = [psobject][ordered]@{
         inproc = $env:COMPUTERNAME;
         cpus = (GetLogicalCPUs) - 1;
@@ -837,10 +840,10 @@ function AdviseDuration {
     Get-ChildItem -Path $script:Database -Recurse -Include "*.meta" |
     ForEach-Object {
         $json = Get-Content $PSItem -Raw | ConvertFrom-Json;
-        if ($script:TestDuration -ne 0 -and
+        if ($script:AdviseLimit -ne 0 -and
             $json.stats.cpus -eq $me.cpus -and
             $json.stats.size -le $me.size -and
-            $script:TestDuration -lt $json.stats.duration) {
+            $script:AdviseLimit -lt $json.stats.duration) {
             if ($json.stats.duration -gt $closest.stats.duration) {
                 $closest = $json;
             }
@@ -921,4 +924,121 @@ function QuerySymbol
     }
     $tree = ParseDisassembly $file $Symbol $Depth -Callees:$Down;
     DisplayTree $tree;
+}
+
+function ConfigureInteractive
+{
+    @"
+
+The script requires kd.exe to be installed. Database = collection of disassembly folders
+can be placed on a different partition with fast read access.
+
+A timing limit is used to compare previous disassembly processes. If more than ${script:AdviseLimit} seconds
+are forecasted for disassembly, then the closest match is printed as a hint.
+
+Statistics can be turned off: .meta file stores the computer where disassembly took place,
+the CPU model, disassembly duration and file size.
+
+The configuration does not specify a stop disassembly table. Use the knownuf array to
+specify functions that are prevented from processing.
+
+The configuration is placed in "${script:UFSymbolProfile}" file.
+It can be edited at will.
+
+"@;
+
+    if (Test-Path $script:UfSymbolProfile) {
+        @"
+
+"${script:UFSymbolProfile}" is present.
+"@;
+        return;
+    }
+    "1/5) Testing for kd.exe presence";
+    $kd = @(Get-Item "$env:ProgramFiles\Windows Kits\10\Debuggers\x64\kd.exe",
+            "${env:ProgramFiles(x86)}\Windows Kits\10\Debuggers\x64\kd.exe" `
+            -ErrorAction SilentlyContinue)[0];
+    if ($kd) {
+        "     kd found at ""$($kd.FullName)""";
+        $kd = $kd.FullName;
+    } else {
+        @"
+
+Install Debugging Tools for Windows:
+    https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+    & winsdksetup.exe /features OptionId.WindowsDesktopDebuggers /quiet /ceip off
+"@;
+        return;
+    }
+    @"
+2/5) Specify the symbols path. This is a folder where the .pdb files are placed before the
+     one-time disassembly.
+"@;
+
+    do {
+        $sp = Read-Host "     Enter path";
+        if (Test-Path $sp -PathType Container) {
+            $sp = (Get-Item $sp).FullName;
+            break;
+        }
+        "     Path does not represent a folder";
+    } while ($true);
+
+    "3/5) Specify the base folder = database where all disassemblies are placed";
+    do {
+        $db = Read-Host "     Enter path";
+        if (Test-Path $db -PathType Container) {
+            $db = (Get-Item $db).FullName;
+            break;
+        }
+        "     Path does not represent a folder";
+    } while ($true);
+
+    @"
+4/5) Specify advise limit in seconds; default is ${script:AdviseLimit}. A comparison
+     is printed if the disssasembly is forecasted to outlast this setting.
+"@;
+    do {
+        $al = Read-Host "     Enter seconds";
+        if ($al.Trim() -eq "") {
+            $al = $script:AdviseLimit;
+        }
+        try {
+            $al = [System.Convert]::ToDecimal($al);
+        } catch {
+            "     Invalid value";
+            continue;
+        }
+        if ($al -gt 0) {
+            $al = [int]$al;
+            break;
+        }
+    } while ($true);
+
+    "5/5) Turn on/off disassembly statistics; default is ${script:Statistics}"
+    do {
+        $st = Read-Host "     Turn off statistics?[y/N]";
+        if (! $st) {
+            $st = "N";
+        }
+    } while ($st -notin "Y", "N");
+    if ($st -eq "N") {
+        $st = $true;
+    } else {
+        $st = $false;
+    }
+    $json = [psobject][ordered] @{
+        kd = $kd;
+        sympath = $sp;
+        database = $db;
+        advise = $al;
+        statistics = $st;
+        knownuf = @();
+    };
+    $json | ConvertTo-Json | Set-Content $script:UfSymbolProfile;
+    @"
+
+Configuration completed.
+"@;
+    & notepad.exe "${script:UfSymbolProfile}";
 }

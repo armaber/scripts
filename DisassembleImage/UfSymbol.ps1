@@ -40,7 +40,7 @@
     .\UfSymbol.ps1 -Symbol nt!KeQueryTimeIncrement -Caption "Windows 10 Pro 22631"
 
 .EXAMPLE
-    .\UfSymbol.ps1 -Symbol IoGetIommuInterface -Image "C:\Windows\System32\ntoskrnl.exe"  
+    .\UfSymbol.ps1 -Symbol IoGetIommuInterface -Image "C:\Windows\System32\ntoskrnl.exe"
 
 .NOTES
     PowerShell Core is mandatory: optimizations from Desktop 5.1 edition are substantial.
@@ -72,9 +72,9 @@ $ErrorActionPreference = 'Break';
 switch ($PSCmdLet.ParameterSetName)
 {
     "Process"
-    { 
+    {
         QuerySymbol $Symbol -Down:$Down $Depth -AsText:$AsText $Image;
         break;
     }
-    "Setup" { Setup; break; }
+    "Setup" { ConfigureInteractive; break; }
 }
