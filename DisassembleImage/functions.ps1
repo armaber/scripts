@@ -91,6 +91,7 @@ function TraceMemoryUsage
 {
     ("$($MyInvocation.ScriptLineNumber): Working set {0:f2}" -f ((Get-Process -Id $PID).WorkingSet64/1Mb)) | Write-Host;
 }
+
 function LoadScriptProfile
 {
     if (Test-Path $script:UfSymbolProfile) {
@@ -345,6 +346,7 @@ function ProcessSingle
     $content | Set-Content $Path -NoNewline;
     $content = $null;
 }
+
 function DisassembleParallel
 {
     param([int]$Cores,
@@ -449,6 +451,7 @@ $($Meta.module | Foreach-Object {
     return $functions;
 }
 
+#TODO  Prototype for disk measurement. Recommend the fastest IO with largest free space.
 function Setup
 {
     Set-Variable -Name LowerLimit -Option Constant -Value 400mb;
@@ -516,14 +519,10 @@ function BuildDisassembly
 }
 
 enum Expand {
-    #There are no descendants. There is a sibling that has descendants
-    None;
-    #There are no descendants for all the remaining siblings.
-    Empty;
-    #This node has descendants. Sibling nodes have descendants.
-    ExpandMiddle;
-    #This is the last node that has descendants.
-    ExpandLast;
+    None; #There are no descendants. There is a sibling that has descendants.
+    Empty; #There are no descendants for all the remaining siblings.
+    ExpandMiddle; #This node has descendants. Sibling nodes have descendants.
+    ExpandLast; #This is the last node that has descendants.
 };
 
 class Node {
@@ -571,7 +570,7 @@ function IdentifyBodies
 function DecodeIndirectCall
 {
     param([string]$Body,
-          $Json)
+          [psobject]$Json)
 
     $indirect = & {
         [regex]::Matches($iter.Disassembly, "mov\s+rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall") |
@@ -591,6 +590,7 @@ function DecodeIndirectCall
     }
     return $translated -join ", ";
 }
+
 function IdentifyBodyRecursive
 {
     param([int]$Current,
@@ -598,7 +598,7 @@ function IdentifyBodyRecursive
           [Node[]]$Level,
           [string[]]$Body,
           [switch]$Callees,
-          $Json)
+          [psobject]$Json)
 
     if ($Callees) {
         foreach ($iter in $Level) {
@@ -616,7 +616,6 @@ function IdentifyBodyRecursive
         $skip = $false;
         foreach ($stop in $script:StopDisassembly) {
             if ($iter.Symbol -match $stop) {
-                #("-"*80), "Symbol = $($iter.Symbol)" | Write-Host;
                 $skip = $true;
                 break;
             }
@@ -717,6 +716,7 @@ function AddExpand
         $Tree[$i].Expand = [Expand]::Empty;
     }
 }
+
 function DisplayTree
 {
     param([Node]$Tree)
