@@ -92,6 +92,13 @@ function TraceMemoryUsage
     ("$($MyInvocation.ScriptLineNumber): Working set {0:f2}" -f ((Get-Process -Id $PID).WorkingSet64/1Mb)) | Write-Host;
 }
 
+function TraceLine
+{
+    param($Content)
+
+    ("{0:u} $Content at line $($MyInvocation.ScriptLineNumber)" -f [datetime]::now) | Write-Host;
+}
+
 function LoadScriptProfile
 {
     if (Test-Path $script:UfSymbolProfile) {
@@ -185,9 +192,24 @@ q
         } else {
             $from = @(Select-String "Opened log file" $kdlogfile).LineNumber[0];
         }
-        $to = @(Select-String ".logclose`$" $kdlogfile).LineNumber[-1];
+        $to = @(Select-String "\.logclose`$" $kdlogfile).LineNumber[-1];
+        $to --;
         #ReadCount accelerates huge files with M lines.
-        (Get-Content $kdlogfile -ReadCount $to -First $to)[$from .. ($to - 2)] | Add-Content $OutputFile;
+        $istream = [System.IO.StreamReader]::new($kdlogfile);
+        $ostream = [System.IO.StreamWriter]::new($OutputFile);
+        $ostream.AutoFlush = $true;
+        while (! $istream.EndOfStream -and $to) {
+            $to -= $from;
+            while ($from) {
+                $null = $istream.ReadLine();
+                $from --;
+            }
+            $s = $istream.ReadLine();
+            $ostream.WriteLine($s);
+            $to --;
+        }
+        $ostream.Close();
+        $istream.Close();
         Remove-Item $kdlogfile;
     } else {
         & $script:KD -y "$script:Sympath" -cf $cmdfile -z $Path;
@@ -243,22 +265,6 @@ dpu mrxsmb!SmbCeContext+10 L0n4
             };
 }
 
-function DisassembleSingle
-{
-    param($Functions,
-          [int]$From,
-          [int]$To,
-          [string]$Image,
-          [string]$OutputFile)
-
-    RunKd @"
-.reload
-$(
-$Functions[$From .. $To] -join "`n";
-)
-"@ $Image $OutputFile;
-}
-
 function BuildRetpoline
 {
     param([string]$Disassembly,
@@ -303,19 +309,16 @@ $($dps -join "`n")
     $result | ConvertTo-Json | Set-Content "$Path.retpoline";
 }
 
-function ProcessSingle
+function Trim0000Cr
 {
     param([string]$Path)
 
-    $kdprompt = Select-String "(\d+: kd>)" $Path -List;
-    if ($kdprompt) {
-        $kdprompt = $kdprompt.Matches.Value;
+    $delimiter = Select-String "(\d+: kd> )" $Path -List;
+    if ($delimiter) {
+        $delimiter = $delimiter.Matches.Value;
     } else {
-        $kdprompt = "0:000>";
+        $delimiter = "0:000> ";
     }
-    $content = Get-Content $Path -Raw;
-    $processed = $content.Split($kdprompt);
-    $content = $null;
     #Text sections that are not locked in memory resolve to huge
     #bodies due to paged out instructions
     #    0000            add     byte ptr [rax],al
@@ -334,23 +337,64 @@ function ProcessSingle
     #                   23647694 uf nt!SepInitializeWorkList
     #If bodies are larger than 200K and contain "Flow analysis",
     #then they will be excluded.
-    $processed = $processed.Where({
-        ($PSItem.Length -le 200E+3) -or
-        (! $PSItem.Contains("Flow analysis was incomplete, some code may be missing"))
-    });
-    $processed = $processed -join $kdprompt;
-    $processed | Set-Content $Path -NoNewline;
-    $processed = $null;
-    $content = Get-Content $Path -Raw;
-    $content = $content.Replace("`r", "");
-    $content | Set-Content $Path -NoNewline;
-    $content = $null;
+    $body = [System.Collections.Generic.List[string]]::new();
+    $block = [System.Text.StringBuilder]::new();
+    $istream = [System.IO.StreamReader]::new($Path);
+    while (! $istream.EndOfStream) {
+        $s = $istream.ReadLine();
+        if ($s.Contains($delimiter)) {
+            $sblock = $block.ToString();
+            if ($sblock.Length -gt 100Kb -and $sblock.Contains("Flow analysis was incomplete, some code may be missing")) {
+                $null = $block.Clear();
+            } else {
+                $body.Add($sblock);
+                $null = $block.Clear();
+                $null = $block.Append($s);
+                $null = $block.Append("`n");
+            }
+        } else {
+            $null = $block.Append($s);
+            $null = $block.Append("`n");
+        }
+    }
+    $istream.Close();
+    if ($block.Length) {
+        $sblock = $block.ToString();
+        if (! ($sblock.Length -gt 100Kb -and 
+               $sblock.Contains("Flow analysis was incomplete, some code may be missing"))) {
+            $body.Add($sblock);
+        }
+    }
+    $sblock = $null;
+    $block = $null;
+    $ostream = [System.IO.StreamWriter]::new($Path);
+    foreach ($b in $body) { 
+        $ostream.Write($b);
+    }
+    $ostream.Close();
+    $body = $null;
+}
+
+function DisassembleSingle
+{
+    param([System.Collections.Generic.List[string]]$Functions,
+          [int]$From,
+          [int]$To,
+          [string]$Image,
+          [string]$OutputFile)
+
+    RunKd @"
+.reload
+$(
+$Functions[$From .. $To] -join "`n";
+)
+"@ $Image $OutputFile;
 }
 
 function DisassembleParallel
 {
     param([int]$Cores,
-          [string[]]$Functions,
+          [System.Collections.Generic.List[string]]$Functions,
           [string]$Image,
           [string]$Base)
 
@@ -379,12 +423,13 @@ function DisassembleParallel
         $space = [powershell]::Create();
         $script = @"
 $(
-"RunKd", "DisassembleSingle", "ProcessSingle" | ForEach-Object {
+"RunKd", "Trim0000Cr", "DisassembleSingle" | ForEach-Object {
     "function $PSItem {" + (Get-Content function:\$PSItem) + "}";
 }
 )
+
 DisassembleSingle `$Functions $from $to "$Image" "$Base-$i.txt";
-ProcessSingle "$Base-$i.txt";
+Trim0000Cr "$Base-$i.txt";
 "@;
         $space.AddScript($script) | Out-Null;
         $space.RunspacePool = $pool;
@@ -417,7 +462,7 @@ ProcessSingle "$Base-$i.txt";
 function IdentifyFunctions
 {
     param([string]$Path,
-          $Meta)
+          [psobject]$Meta)
 
     $gi = Get-Item $Path;
     if ($gi.Extension -eq ".dmp") {
@@ -451,7 +496,6 @@ $($Meta.module | Foreach-Object {
     return $functions;
 }
 
-#TODO  Prototype for disk measurement. Recommend the fastest IO with largest free space.
 function Setup
 {
     Set-Variable -Name LowerLimit -Option Constant -Value 400mb;
@@ -506,7 +550,7 @@ function LocateDisassembly
 
 function BuildDisassembly
 {
-    param([string[]]$Functions,
+    param([System.Collections.Generic.List[string]]$Functions,
           [string]$Image,
           [string]$Base)
 
@@ -519,10 +563,14 @@ function BuildDisassembly
 }
 
 enum Expand {
-    None; #There are no descendants. There is a sibling that has descendants.
-    Empty; #There are no descendants for all the remaining siblings.
-    ExpandMiddle; #This node has descendants. Sibling nodes have descendants.
-    ExpandLast; #This is the last node that has descendants.
+    #There are no descendants. There is a sibling that has descendants
+    None;
+    #There are no descendants for all the remaining siblings.
+    Empty;
+    #This node has descendants. Sibling nodes have descendants.
+    ExpandMiddle;
+    #This is the last node that has descendants.
+    ExpandLast;
 };
 
 class Node {
@@ -535,16 +583,16 @@ class Node {
 function IdentifySymbol
 {
     param([string]$Key,
-          [string[]]$Body)
+          [System.Collections.Generic.List[string]]$Body)
 
-    $level = @($Body | Where-Object { $PSItem.Contains($Key) });
+    $level = $Body.Where( { $PSItem.Contains($Key) } );
     return $level;
 }
 
 function IdentifyBodies
 {
     param([Node]$Block,
-          [string[]]$Body,
+          [System.Collections.Generic.List[string]]$Body,
           [switch]$Callees)
 
     if ($Callees) {
@@ -590,13 +638,12 @@ function DecodeIndirectCall
     }
     return $translated -join ", ";
 }
-
 function IdentifyBodyRecursive
 {
     param([int]$Current,
           [int]$Depth,
           [Node[]]$Level,
-          [string[]]$Body,
+          [System.Collections.Generic.List[string]]$Body,
           [switch]$Callees,
           [psobject]$Json)
 
@@ -616,6 +663,7 @@ function IdentifyBodyRecursive
         $skip = $false;
         foreach ($stop in $script:StopDisassembly) {
             if ($iter.Symbol -match $stop) {
+                #("-"*80), "Symbol = $($iter.Symbol)" | Write-Host;
                 $skip = $true;
                 break;
             }
@@ -663,7 +711,7 @@ function DisplayTreeRecursive
         } else {
             $cline = " " * $padding;
         }
-        $multi = @($desc.Symbol -split ", ");
+        $multi = $desc.Symbol.Split(", ");
         #$Line + $cline + $multi[0] + "[$($desc.Expand)]";
         $Line + $cline + $multi[0];
         $count = $multi.Count - 1;
@@ -716,7 +764,6 @@ function AddExpand
         $Tree[$i].Expand = [Expand]::Empty;
     }
 }
-
 function DisplayTree
 {
     param([Node]$Tree)
@@ -773,14 +820,14 @@ function SplitDisassembly
 {
     param([string]$Path)
 
-    $kdprompt = Select-String "(\d+: kd>)" $Path -List;
-    if ($kdprompt) {
-        $kdprompt = $kdprompt.Matches.Value;
+    $delimiter = Select-String "(\d+: kd> )" $Path -List;
+    if ($delimiter) {
+        $delimiter = $delimiter.Matches.Value;
     } else {
-        $kdprompt = "0:000>";
+        $delimiter = "0:000> ";
     }
     $content = Get-Content $Path -Raw;
-    $body = $content.Split($kdprompt);
+    [System.Collections.Generic.List[string]]$body = $content.Split($delimiter);
     $content = $null;
     return $body;
 }
