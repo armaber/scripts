@@ -275,19 +275,18 @@ function BuildRetpoline
         return;
     }
     $body = SplitDisassembly $Disassembly;
-    $fbs = $body.Where({
+    $guard = $body.Where({
         $PSItem -match "call    \w+!guard_dispatch_icall";
     });
-    if (! $fbs) {
+    if (! $guard) {
         return;
     }
     $dps = [System.Collections.Generic.List[string]]::new();
     $pattern = [regex]::new("mov\s+rax,qword ptr \[(?<key>\w+!\w+\+.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall", "Compiled, CultureInvariant");
-    for ($i = 0; $i -lt $fbs.Count; $i ++) {
-        $fb = $fbs[$i];
-        foreach ($m in [regex]::Matches($fb, $pattern)) {
+    foreach ($g in $guard) {
+        foreach ($m in [regex]::Matches($g, $pattern)) {
             $key = $m.Groups["key"].Value;
-            $dps.Add("dps $Key L1");
+            $dps.Add("dps $key L1");
         }
     }
     if (! $dps.Count) {
@@ -341,31 +340,31 @@ function Trim0000Cr
     $block = [System.Text.StringBuilder]::new();
     $istream = [System.IO.StreamReader]::new($Path);
     while (! $istream.EndOfStream) {
-        $s = $istream.ReadLine();
-        if ($s.Contains($delimiter)) {
-            $sblock = $block.ToString();
-            if ($sblock.Length -gt 100Kb -and $sblock.Contains("Flow analysis was incomplete, some code may be missing")) {
+        $line = $istream.ReadLine();
+        if ($line.Contains($delimiter)) {
+            $str = $block.ToString();
+            if ($str.Length -gt 100Kb -and $str.Contains("Flow analysis was incomplete, some code may be missing")) {
                 $null = $block.Clear();
             } else {
-                $body.Add($sblock);
+                $body.Add($str);
                 $null = $block.Clear();
-                $null = $block.Append($s);
+                $null = $block.Append($line);
                 $null = $block.Append("`n");
             }
         } else {
-            $null = $block.Append($s);
+            $null = $block.Append($line);
             $null = $block.Append("`n");
         }
     }
     $istream.Close();
     if ($block.Length) {
-        $sblock = $block.ToString();
-        if (! ($sblock.Length -gt 100Kb -and 
-               $sblock.Contains("Flow analysis was incomplete, some code may be missing"))) {
-            $body.Add($sblock);
+        $str = $block.ToString();
+        if (! ($str.Length -gt 100Kb -and 
+               $str.Contains("Flow analysis was incomplete, some code may be missing"))) {
+            $body.Add($str);
         }
     }
-    $sblock = $null;
+    $str = $null;
     $block = $null;
     $ostream = [System.IO.StreamWriter]::new($Path);
     foreach ($b in $body) { 
@@ -700,14 +699,19 @@ function DisplayTreeRecursive
           [string]$Line)
 
     $padding = $Node.Symbol.Length;
+    $tright = "$([char]0x251C)";
+    $corner = "$([char]0x2514)";
+    $vertical = "$([char]0x2502)";
+    $horizontal = "$([char]0x2500)";
+    $arrow = "$([char]0x25B7)";
     foreach ($desc in $Node.Descendants) {
         $pline = $Line;
         if ($desc.Expand -eq [Expand]::ExpandMiddle) {
-            $cline = "$([char]0x251C)" + ("$([char]0x2500)" * ($padding - 2)) + "$([char]0x25B7)";
+            $cline = $tright + $horizontal * ($padding - 2) + $arrow;
         } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $cline = "$([char]0x2514)" + ("$([char]0x2500)" * ($padding - 2)) + "$([char]0x25B7)";
+            $cline = $corner + $horizontal * ($padding - 2) + $arrow;
         } elseif ($desc.Expand -eq [Expand]::None) {
-            $cline = "$([char]0x2502)" + (" " * ($padding - 1));
+            $cline = $vertical + " " * ($padding - 1);
         } else {
             $cline = " " * $padding;
         }
@@ -722,7 +726,7 @@ function DisplayTreeRecursive
             }
         }
         if ($desc.Expand -in [Expand]::ExpandMiddle, [Expand]::None) {
-            $Line += "$([char]0x2502)" + (" " * ($padding - 1));
+            $Line += $vertical + " " * ($padding - 1);
         } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
             $Line += " " * $padding;
         }
@@ -776,6 +780,11 @@ function DisplayTree
     Write-Host -ForegroundColor Black -BackgroundColor White $Tree.Symbol -NoNewline;
     Write-Host;
 
+    $tright = "$([char]0x251C)";
+    $corner = "$([char]0x2514)";
+    $vertical = "$([char]0x2502)";
+    $horizontal = "$([char]0x2500)";
+    $arrow = "$([char]0x25B7)";
     if ($Tree.Descendants) {
         AddExpand $Tree.Descendants;
     } else {
@@ -786,11 +795,11 @@ function DisplayTree
     foreach ($desc in $Tree.Descendants) {
         $pline = $line;
         if ($desc.Expand -eq [Expand]::ExpandMiddle) {
-            $cline = "$([char]0x251C)" + ("$([char]0x2500)" * ($padding - 2)) + "$([char]0x25B7)";
+            $cline = $tright + $horizontal * ($padding - 2) + $arrow;
         } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $cline = "$([char]0x2514)" + ("$([char]0x2500)" * ($padding - 2)) + "$([char]0x25B7)";
+            $cline = $corner + $horizontal * ($padding - 2) + $arrow;
         } elseif ($desc.Expand -eq [Expand]::None) {
-            $cline = "$([char]0x2502)" + (" " * ($padding - 1));
+            $cline = $vertical + " " * ($padding - 1);
         } else {
             $cline = " " * $padding;
         }
@@ -805,7 +814,7 @@ function DisplayTree
             }
         }
         if ($desc.Expand -in [Expand]::ExpandMiddle, [Expand]::None) {
-            $line += "$([char]0x2502)" + (" " * ($padding - 1));
+            $line += $vertical + " " * ($padding - 1);
         } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
             $line += " " * $padding;
         }
