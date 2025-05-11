@@ -44,9 +44,7 @@
 
 .NOTES
     PowerShell Core is mandatory: optimizations since Desktop 5.1 are substantial.
-    SVG rendering will be implemented; use -AsText.
-    Hotpaths are scripted - ie not optimized. Likely, they will be ported to
-    inline assemblies.
+    Hotpaths are interpreted. Likely, they will be ported to inline assemblies.
 #>
 
 #requires -PSEdition Core

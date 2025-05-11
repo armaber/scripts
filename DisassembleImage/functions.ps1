@@ -334,7 +334,7 @@ function Trim0000Cr
     #                   23687006 uf nt!SeMakeAnonymousLogonToke…
     #                   23667832 uf nt!SeMakeAnonymousLogonToken
     #                   23647694 uf nt!SepInitializeWorkList
-    #If bodies are larger than 200K and contain "Flow analysis",
+    #If bodies are larger than 100K and contain "Flow analysis",
     #then they will be excluded.
     $body = [System.Collections.Generic.List[string]]::new();
     $block = [System.Text.StringBuilder]::new();
@@ -588,30 +588,43 @@ function IdentifySymbol
     return $level;
 }
 
-function IdentifyBodies
+function IdentifySections
 {
-    param([Node]$Block,
+    param([Node]$Node,
           [System.Collections.Generic.List[string]]$Body,
           [switch]$Callees)
 
     if ($Callees) {
-        $fns = [System.Collections.Generic.List[string]]::new();
-        [regex]::Matches($Block.Disassembly, "call    (\w+!.+?)\s.+") | ForEach-Object {
-            $fns.Add("uf $($PSItem.Groups[1].Value)");
-        }
-        if (! $fns.Count) {
+        $symbol = [System.Collections.Generic.List[string]]::new();
+        [regex]::Matches($Node.Disassembly, "call    (\w+!.+?)\s.+").ForEach( {
+            $symbol.Add("uf $($PSItem.Groups[1].Value)");
+        } );
+        if (! $symbol.Count) {
             return $null;
         }
-        $fns = $fns | Select-Object -Unique;
-        $fbs = [System.Collections.Generic.List[string]]::new();
-        $fns | ForEach-Object {
-            $sym = IdentifySymbol "$PSItem`n" $Body;
-            $fbs.Add($sym);
+        $symbol = $symbol | Select-Object -Unique;
+        $section = [System.Collections.Generic.List[string]]::new();
+        foreach ($sym in $symbol) {
+            $s = IdentifySymbol "$sym`n" $Body;
+            if (! $s) {
+                #We've found a callee that has no body due to trimming
+                #or it belongs to a different module.
+                foreach ($stop in $script:StopDisassembly) {
+                    if ($sym -match $stop) {
+                        $s = $PSItem;
+                        break;
+                    }
+                }
+                if (! $s) {
+                    $s = "$sym (N/A)";
+                }
+            }
+            $section.Add($s);
         }
     } else {
-        $fbs = IdentifySymbol "call    $($Block.Symbol -replace ""uf\s+"","""") " $Body;
+        $section = IdentifySymbol "call    $($Node.Symbol -replace ""uf\s+"","""") " $Body;
     }
-    return $fbs;
+    return $section;
 }
 
 function DecodeIndirectCall
@@ -670,7 +683,7 @@ function IdentifyBodyRecursive
         if ($skip) {
             continue;
         }
-        $next = IdentifyBodies $iter $Body -Callees:$Callees;
+        $next = IdentifySections $iter $Body -Callees:$Callees;
         if (! $next) {
             continue;
         }
@@ -693,47 +706,76 @@ function IdentifyBodyRecursive
     }
 }
 
+function DrawDescendantLine
+{
+    param([Node]$Node,
+          [int]$Padding)
+
+    $tright = "$([char]0x251C)";
+    $corner = "$([char]0x2514)";
+    $vertical = "$([char]0x2502)";
+    $horizontal = "$([char]0x2500)";
+    $arrow = "$([char]0x25B7)";
+    if ($Node.Expand -eq [Expand]::ExpandMiddle) {
+        $line = $tright + $horizontal * ($Padding - 2) + $arrow;
+    } elseif ($Node.Expand -eq [Expand]::ExpandLast) {
+        $line = $corner + $horizontal * ($Padding - 2) + $arrow;
+    } elseif ($Node.Expand -eq [Expand]::None) {
+        $line = $vertical + " " * ($Padding - 1);
+    } else {
+        $line = " " * $Padding;
+    }
+    return $line;
+}
+
+function DrawNextLine
+{
+    param([Node]$Node,
+          [int]$Padding)
+
+    $vertical = "$([char]0x2502)";
+    if ($Node.Expand -in [Expand]::ExpandMiddle, [Expand]::None) {
+        $line = $vertical + " " * ($Padding - 1);
+    } elseif ($Node.Expand -eq [Expand]::ExpandLast) {
+        $line = " " * $Padding;
+    } else {
+        $line = "";
+    }
+    return $line;
+}
+
+function PrintSymbol
+{
+    param([Node]$Node,
+          [string]$Left)
+
+    $multi = $Node.Symbol -split ", ";
+    #$Left + $multi[0] + "[$($Node.Expand)]";
+    $Left + $multi[0];
+    $count = $multi.Count - 1;
+    if ($count) {
+        $pt = $multi[0].Split("(")[0].Length + 1;
+        foreach ($m in $multi[1..$count]) {
+            $Left + (" " * $pt) + $m;
+        }
+    }
+
+}
 function DisplayTreeRecursive
 {
     param([Node]$Node,
           [string]$Line)
 
     $padding = $Node.Symbol.Length;
-    $tright = "$([char]0x251C)";
-    $corner = "$([char]0x2514)";
-    $vertical = "$([char]0x2502)";
-    $horizontal = "$([char]0x2500)";
-    $arrow = "$([char]0x25B7)";
     foreach ($desc in $Node.Descendants) {
-        $pline = $Line;
-        if ($desc.Expand -eq [Expand]::ExpandMiddle) {
-            $cline = $tright + $horizontal * ($padding - 2) + $arrow;
-        } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $cline = $corner + $horizontal * ($padding - 2) + $arrow;
-        } elseif ($desc.Expand -eq [Expand]::None) {
-            $cline = $vertical + " " * ($padding - 1);
-        } else {
-            $cline = " " * $padding;
-        }
-        $multi = $desc.Symbol.Split(", ");
-        #$Line + $cline + $multi[0] + "[$($desc.Expand)]";
-        $Line + $cline + $multi[0];
-        $count = $multi.Count - 1;
-        if ($count) {
-            $pt = ($multi[0] -split "\(")[0].Length + 1;
-            foreach ($m in $multi[1..$count]) {
-                $Line + $cline + (" " * $pt) + $m;
-            }
-        }
-        if ($desc.Expand -in [Expand]::ExpandMiddle, [Expand]::None) {
-            $Line += $vertical + " " * ($padding - 1);
-        } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $Line += " " * $padding;
-        }
+        $prev = $Line;
+        $inner = DrawDescendantLine $desc $padding;
+        PrintSymbol $desc ($Line + $inner);
         if ($desc.Descendants) {
+            $Line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $Line;
+            $Line = $prev;
         }
-        $Line = $pline;
     }
 }
 
@@ -776,15 +818,8 @@ function DisplayTree
         "Symbol is not present in disassembly.";
         return;
     }
+    $Tree.Symbol;
 
-    Write-Host -ForegroundColor Black -BackgroundColor White $Tree.Symbol -NoNewline;
-    Write-Host;
-
-    $tright = "$([char]0x251C)";
-    $corner = "$([char]0x2514)";
-    $vertical = "$([char]0x2502)";
-    $horizontal = "$([char]0x2500)";
-    $arrow = "$([char]0x25B7)";
     if ($Tree.Descendants) {
         AddExpand $Tree.Descendants;
     } else {
@@ -793,35 +828,14 @@ function DisplayTree
     $padding = $Tree.Symbol.Length;
     [string]$line = "";
     foreach ($desc in $Tree.Descendants) {
-        $pline = $line;
-        if ($desc.Expand -eq [Expand]::ExpandMiddle) {
-            $cline = $tright + $horizontal * ($padding - 2) + $arrow;
-        } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $cline = $corner + $horizontal * ($padding - 2) + $arrow;
-        } elseif ($desc.Expand -eq [Expand]::None) {
-            $cline = $vertical + " " * ($padding - 1);
-        } else {
-            $cline = " " * $padding;
-        }
-        $multi = @($desc.Symbol -split ", ");
-        #$line + $cline + $multi[0] + "[$($desc.Expand)]";
-        $line + $cline + $multi[0];
-        $count = $multi.Count - 1;
-        if ($count) {
-            $pt = ($multi[0] -split "\(")[0].Length + 1;
-            foreach ($m in $multi[1..$count]) {
-                $line + $cline + (" " * $pt) + $m;
-            }
-        }
-        if ($desc.Expand -in [Expand]::ExpandMiddle, [Expand]::None) {
-            $line += $vertical + " " * ($padding - 1);
-        } elseif ($desc.Expand -eq [Expand]::ExpandLast) {
-            $line += " " * $padding;
-        }
+        $prev = $line;
+        $inner = DrawDescendantLine $desc $padding;
+        PrintSymbol $desc ($line + $inner);
         if ($desc.Descendants) {
+            $line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $line;
+            $line = $prev;
         }
-        $line = $pline;
     }
 }
 
@@ -851,26 +865,26 @@ function ParseDisassembly
     $json = $Disassembly -replace "disassembly`$", "retpoline";
     $json = Get-Content -Raw $json -ErrorAction SilentlyContinue | ConvertFrom-Json;
     $tree = [Node]::new();
-    $fbs = IdentifySymbol "uf $Key`n" $body;
-    if ($fbs) {
+    $section = IdentifySymbol "uf $Key`n" $body;
+    if ($section) {
         $tree.Symbol = "uf $Key";
-        $tree.Disassembly = $fbs;
-        $fbs = IdentifyBodies $tree $body -Callees:$Callees;
+        $tree.Disassembly = $section;
+        $section = IdentifySections $tree $body -Callees:$Callees;
     } else {
-        $fbs = IdentifySymbol $Key $body;
-        if (! $fbs) {
+        $section = IdentifySymbol $Key $body;
+        if (! $section) {
             return $null;
         }
         $tree.Symbol = $Key;
     }
-    foreach ($fnb in $fbs) {
+    foreach ($r in $section) {
         $node = [Node]::new();
-        if ($fnb -match ".+") {
+        if ($r -match ".+") {
             $node.Symbol = $Matches[0];
             if ($Callees -and ($node.Symbol -match "uf \w+!guard_dispatch_icall")) {
                 $node.Disassembly = $tree.Disassembly;
             } else {
-                $node.Disassembly = $fnb;
+                $node.Disassembly = $r;
             }
         }
         $tree.Descendants += $node;
