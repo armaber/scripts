@@ -87,6 +87,89 @@ $StopDisassembly = @(
     "!RtlInitUnicodeString$"
 );
 
+$Inflight =  @"
+    using System;
+    using System.Text;
+    using System.IO;
+    using System.Collections.Generic;
+
+    public class TrimKD
+    {
+        public static void HotPath(string source, int from, int to, string destination)
+        {
+            var istream = new StreamReader(source);
+            var ostream = new StreamWriter(destination);
+
+            while (! istream.EndOfStream && to > 0)
+            {
+                to -= from;
+                while (from > 0)
+                {
+                    istream.ReadLine();
+                    from --;
+                }
+                var str = istream.ReadLine();
+                ostream.WriteLine(str);
+                to --;
+            }
+            ostream.Close();
+            istream.Close();
+        }
+    }
+
+    public class TrimDisassembly
+    {
+        private const int TrimCutout = (int)100E+3;
+
+        public static void HotPath(string delimiter, string path)
+        {
+            var body = new List<string>();
+            var block = new StringBuilder();
+            var istream = new StreamReader(path);
+            string str;
+
+            while (! istream.EndOfStream)
+            {
+                var line = istream.ReadLine();
+                if (line.StartsWith(delimiter))
+                {
+                    str = block.ToString();
+                    if (str.Length > TrimCutout &&
+                        str.Contains("Flow analysis was incomplete, some code may be missing"))
+                    {
+                        block.Clear();
+                    } else
+                    {
+                        body.Add(str);
+                        block.Clear();
+                        block.Append(line);
+                        block.Append("\n");
+                    }
+                } else
+                {
+                    block.Append(line);
+                    block.Append("\n");
+                }
+            }
+            istream.Close();
+            if (block.Length > 0)
+            {
+                str = block.ToString();
+                if (! (str.Length > TrimCutout &&
+                       str.Contains("Flow analysis was incomplete, some code may be missing")))
+                {
+                    body.Add(str);
+                }
+            }
+            var ostream = new StreamWriter(path);
+            foreach (var iter in body)
+            {
+                ostream.Write(iter);
+            }
+            ostream.Close();
+        }
+    }
+"@;
 function TraceMemoryUsage
 {
     ("$($MyInvocation.ScriptLineNumber): Working set {0:f2}" -f ((Get-Process -Id $PID).WorkingSet64/1Mb)) | Write-Host;
@@ -139,6 +222,11 @@ Install Debugging Tools for Windows:
         $script:Sympath = "srv*${script:Database}\Symbols*https://msdl.microsoft.com/download/symbols";
     }
     $script:Statistics = $true;
+}
+
+function LoadHotPath
+{
+    Add-Type -TypeDefinition $script:Inflight -Language CSharp;
 }
 
 function GetLogicalCPUs
@@ -194,22 +282,7 @@ q
         }
         $to = @(Select-String "\.logclose`$" $kdlogfile).LineNumber[-1];
         $to --;
-        #ReadCount accelerates huge files with M lines.
-        $istream = [System.IO.StreamReader]::new($kdlogfile);
-        $ostream = [System.IO.StreamWriter]::new($OutputFile);
-        $ostream.AutoFlush = $true;
-        while (! $istream.EndOfStream -and $to) {
-            $to -= $from;
-            while ($from) {
-                $null = $istream.ReadLine();
-                $from --;
-            }
-            $s = $istream.ReadLine();
-            $ostream.WriteLine($s);
-            $to --;
-        }
-        $ostream.Close();
-        $istream.Close();
+        [TrimKD]::HotPath($kdlogfile, $from, $to, $OutputFile);
         Remove-Item $kdlogfile;
     } else {
         & $script:KD -y "$script:Sympath" -cf $cmdfile -z $Path;
@@ -336,42 +409,11 @@ function Trim0000Cr
     #                   23647694 uf nt!SepInitializeWorkList
     #If bodies are larger than 100K and contain "Flow analysis",
     #then they will be excluded.
-    $body = [System.Collections.Generic.List[string]]::new();
-    $block = [System.Text.StringBuilder]::new();
-    $istream = [System.IO.StreamReader]::new($Path);
-    while (! $istream.EndOfStream) {
-        $line = $istream.ReadLine();
-        if ($line.Contains($delimiter)) {
-            $str = $block.ToString();
-            if ($str.Length -gt 100Kb -and $str.Contains("Flow analysis was incomplete, some code may be missing")) {
-                $null = $block.Clear();
-            } else {
-                $body.Add($str);
-                $null = $block.Clear();
-                $null = $block.Append($line);
-                $null = $block.Append("`n");
-            }
-        } else {
-            $null = $block.Append($line);
-            $null = $block.Append("`n");
-        }
-    }
-    $istream.Close();
-    if ($block.Length) {
-        $str = $block.ToString();
-        if (! ($str.Length -gt 100Kb -and 
-               $str.Contains("Flow analysis was incomplete, some code may be missing"))) {
-            $body.Add($str);
-        }
-    }
-    $str = $null;
-    $block = $null;
-    $ostream = [System.IO.StreamWriter]::new($Path);
-    foreach ($b in $body) { 
-        $ostream.Write($b);
-    }
-    $ostream.Close();
-    $body = $null;
+    #
+    #Trimming is implemented in C#. The hotpath takes a long time
+    #to be interpreted.
+
+    [TrimDisassembly]::HotPath($delimiter, $Path);
 }
 
 function DisassembleSingle
@@ -398,7 +440,7 @@ function DisassembleParallel
           [string]$Base)
 
     $instate = [System.Management.Automation.Runspaces.InitialSessionState]::CreateDefault();
-    "KD", "Database", "Sympath" | ForEach-Object {
+    "KD", "Database", "Sympath", "Inflight" | ForEach-Object {
         $var = [System.Management.Automation.Runspaces.SessionStateVariableEntry]::new("$PSItem", (Invoke-Expression "`${script:$PSItem}"), $null);
         $instate.Variables.Add($var);
     }
@@ -422,11 +464,12 @@ function DisassembleParallel
         $space = [powershell]::Create();
         $script = @"
 $(
-"RunKd", "Trim0000Cr", "DisassembleSingle" | ForEach-Object {
+"LoadHotPath", "RunKd", "DisassembleSingle", "Trim0000Cr" | ForEach-Object {
     "function $PSItem {" + (Get-Content function:\$PSItem) + "}";
 }
 )
 
+LoadHotPath;
 DisassembleSingle `$Functions $from $to "$Image" "$Base-$i.txt";
 Trim0000Cr "$Base-$i.txt";
 "@;
@@ -963,10 +1006,10 @@ function QuerySymbol
     param([string]$Symbol,
           [switch]$Down,
           [int]$Depth,
-          [switch]$AsText,
           [string]$Suggestion)
 
     LoadDefaultValues;
+    LoadHotPath;
     $file = $null;
     if (! (Test-Path $Suggestion)) {
         $file = LocateDisassembly -Caption $Suggestion;
