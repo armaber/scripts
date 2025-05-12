@@ -15,9 +15,6 @@
     the default is "called".
 .PARAMETER Depth
     Define the maximum depth of the tree. Default is 2 levels.
-.PARAMETER AsText
-    Show the dependencies in the console. Default is a visual graph rendered
-    in SVG.
 .PARAMETER Image
     Disassemble the image, if it is not found in the image database. It can
     be an .exe or a .dmp file. Optionally, scan for a caption representing
@@ -58,8 +55,6 @@ param(
       [Parameter(ParameterSetName = "Process")]
       [int]$Depth = 2,
       [Parameter(ParameterSetName = "Process")]
-      [switch]$AsText,
-      [Parameter(ParameterSetName = "Process")]
       [Alias("Caption")]
       [string]$Image,
       [Parameter(ParameterSetName = "Setup")]
@@ -74,7 +69,7 @@ switch ($PSCmdLet.ParameterSetName)
 {
     "Process"
     {
-        QuerySymbol $Symbol -Down:$Down $Depth -AsText:$AsText $Image;
+        QuerySymbol $Symbol -Down:$Down $Depth $Image;
         break;
     }
     "Setup" { ConfigureInteractive; break; }
