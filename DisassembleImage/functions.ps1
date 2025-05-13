@@ -605,13 +605,13 @@ function BuildDisassembly
 }
 
 enum Expand {
-    #There are no descendants. There is a sibling that has descendants
+    #There are no dependencies. There is a sibling that has dependencies
     None;
-    #There are no descendants for all the remaining siblings.
+    #There are no dependencies for all the remaining siblings.
     Empty;
-    #This node has descendants. Sibling nodes have descendants.
+    #This node has dependencies. Sibling nodes have dependencies.
     ExpandMiddle;
-    #This is the last node that has descendants.
+    #This is the last node that has dependencies.
     ExpandLast;
 };
 
@@ -619,7 +619,7 @@ class Node {
     [string]$Symbol;
     [string]$Disassembly;
     [Expand]$Expand;
-    [Node[]]$Descendants;
+    [Node[]]$Dependency;
 };
 
 function IdentifySymbol
@@ -739,12 +739,12 @@ function IdentifyBodyRecursive
                 } else {
                     $node.Disassembly = $PSItem;
                 }
-                $iter.Descendants += $node;
+                $iter.Dependency += $node;
                 $node = $null;
             }
         }
-        if ($iter.Descendants) {
-            IdentifyBodyRecursive $Current $Depth $iter.Descendants $Body -Callees:$Callees -Json:$Json;
+        if ($iter.Dependency) {
+            IdentifyBodyRecursive $Current $Depth $iter.Dependency $Body -Callees:$Callees -Json:$Json;
         }
     }
 }
@@ -810,11 +810,11 @@ function DisplayTreeRecursive
           [string]$Line)
 
     $padding = $Node.Symbol.Length;
-    foreach ($desc in $Node.Descendants) {
+    foreach ($desc in $Node.Dependency) {
         $prev = $Line;
         $inner = DrawDescendantLine $desc $padding;
         PrintSymbol $desc ($Line + $inner);
-        if ($desc.Descendants) {
+        if ($desc.Dependency) {
             $Line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $Line;
             $Line = $prev;
@@ -828,7 +828,7 @@ function AddExpand
 
     $el = $null;
     foreach ($iter in $Tree) {
-        if ($iter.Descendants) {
+        if ($iter.Dependency) {
             $iter.Expand = [Expand]::ExpandLast;
             if ($el) {
                 $el.Expand = [Expand]::ExpandMiddle;
@@ -837,8 +837,8 @@ function AddExpand
         } else {
             $iter.Expand = [Expand]::None;
         }
-        if ($iter.Descendants) {
-            AddExpand $iter.Descendants;
+        if ($iter.Dependency) {
+            AddExpand $iter.Dependency;
         }
     }
     $i = $Tree.Count - 1;
@@ -863,18 +863,18 @@ function DisplayTree
     }
     $Tree.Symbol;
 
-    if ($Tree.Descendants) {
-        AddExpand $Tree.Descendants;
+    if ($Tree.Dependency) {
+        AddExpand $Tree.Dependency;
     } else {
         $Tree.Expand = [Expand]::None;
     }
     $padding = $Tree.Symbol.Length;
     [string]$line = "";
-    foreach ($desc in $Tree.Descendants) {
+    foreach ($desc in $Tree.Dependency) {
         $prev = $line;
         $inner = DrawDescendantLine $desc $padding;
         PrintSymbol $desc ($line + $inner);
-        if ($desc.Descendants) {
+        if ($desc.Dependency) {
             $line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $line;
             $line = $prev;
@@ -930,13 +930,13 @@ function ParseDisassembly
                 $node.Disassembly = $r;
             }
         }
-        $tree.Descendants += $node;
+        $tree.Dependency += $node;
         $node = $null;
     }
-    if (! $tree.Descendants) {
+    if (! $tree.Dependency) {
         return $tree;
     }
-    IdentifyBodyRecursive 1 $Depth $tree.Descendants $body -Callees:$Callees -Json:$Json;
+    IdentifyBodyRecursive 1 $Depth $tree.Dependency $body -Callees:$Callees -Json:$Json;
     return $tree;
 }
 
