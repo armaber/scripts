@@ -580,7 +580,11 @@ function IdentifySections
                     }
                 }
                 if (! $s) {
-                    $s = "$sym (N/A)";
+                    if ($sym -match "uf \w+!guard_dispatch_icall") {
+                        $s = $sym;
+                    } else {
+                        $s = "$sym (N/A)";
+                    }
                 }
             }
             $section.Add($s);
