@@ -597,11 +597,11 @@ function IdentifySections
 
 function DecodeIndirectCall
 {
-    param([string]$Body,
+    param([string]$Section,
           [psobject]$Json)
 
     $indirect = & {
-        [regex]::Matches($iter.Disassembly, "mov\s+rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall") |
+        [regex]::Matches($Section, "mov\s+rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall") |
         ForEach-Object { $PSItem.Groups[1].Value } | Select-Object -Unique;
     };
     if (! $indirect) {
@@ -632,6 +632,7 @@ function IdentifyBodyRecursive
             if ($iter.Symbol -match "uf \w+!guard_dispatch_icall") {
                 $indirect = DecodeIndirectCall $iter.Disassembly $Json;
                 $iter.Symbol += " ($indirect)";
+                $iter.Disassembly = $null;
             }
         }
     }
