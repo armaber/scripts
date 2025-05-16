@@ -87,89 +87,6 @@ $StopDisassembly = @(
     "!RtlInitUnicodeString$"
 );
 
-$Inflight =  @"
-    using System;
-    using System.Text;
-    using System.IO;
-    using System.Collections.Generic;
-
-    public class TrimKD
-    {
-        public static void HotPath(string source, int from, int to, string destination)
-        {
-            var istream = new StreamReader(source);
-            var ostream = new StreamWriter(destination);
-
-            while (! istream.EndOfStream && to > 0)
-            {
-                to -= from;
-                while (from > 0)
-                {
-                    istream.ReadLine();
-                    from --;
-                }
-                var str = istream.ReadLine();
-                ostream.WriteLine(str);
-                to --;
-            }
-            ostream.Close();
-            istream.Close();
-        }
-    }
-
-    public class TrimDisassembly
-    {
-        private const int TrimCutout = (int)100E+3;
-
-        public static void HotPath(string delimiter, string path)
-        {
-            var body = new List<string>();
-            var block = new StringBuilder();
-            var istream = new StreamReader(path);
-            string str;
-
-            while (! istream.EndOfStream)
-            {
-                var line = istream.ReadLine();
-                if (line.StartsWith(delimiter))
-                {
-                    str = block.ToString();
-                    if (str.Length > TrimCutout &&
-                        str.Contains("Flow analysis was incomplete, some code may be missing"))
-                    {
-                        block.Clear();
-                    } else
-                    {
-                        body.Add(str);
-                        block.Clear();
-                        block.Append(line);
-                        block.Append("\n");
-                    }
-                } else
-                {
-                    block.Append(line);
-                    block.Append("\n");
-                }
-            }
-            istream.Close();
-            if (block.Length > 0)
-            {
-                str = block.ToString();
-                if (! (str.Length > TrimCutout &&
-                       str.Contains("Flow analysis was incomplete, some code may be missing")))
-                {
-                    body.Add(str);
-                }
-            }
-            var ostream = new StreamWriter(path);
-            foreach (var iter in body)
-            {
-                ostream.Write(iter);
-            }
-            ostream.Close();
-        }
-    }
-"@;
 function TraceMemoryUsage
 {
     ("$($MyInvocation.ScriptLineNumber): Working set {0:f2}" -f ((Get-Process -Id $PID).WorkingSet64/1Mb)) | Write-Host;
@@ -226,7 +143,7 @@ Install Debugging Tools for Windows:
 
 function LoadHotPath
 {
-    Add-Type -TypeDefinition $script:Inflight -Language CSharp;
+    Add-Type -Path $PSScriptRoot\hotpath.cs;
 }
 
 function GetLogicalCPUs
@@ -251,7 +168,7 @@ function RunKd
     $cmdfile = "${env:TEMP}\$cmdfile.kd";
     #If empty line is inserted, then the previous command is replayed.
     #Use regex to replace all occurrences, trim the end.
-    $Commands = ($Commands -replace ("(`r?`n)+", "`n")).Trim();
+    $Commands = ($Commands -replace "(`r?`n)+", "`n").Trim();
     if ($OutputFile) {
         $kdlogfile = [guid]::NewGuid().ToString();
         $kdlogfile = "${env:TEMP}\$kdlogfile.kdout";
@@ -270,19 +187,22 @@ q
         if ($LASTEXITCODE) {
             throw "kd failed with code $LASTEXITCODE";
         }
-        if (($Commands -split "`r?`n")[0] -like ".reload*") {
-            $from = ($Commands -split "`r?`n")[1];
-            #from can be "uf nt!NtQueryBootOptions$filt$0", where Select-String will stop at 1st $,
-            #representing the end of line
-            $from2 = [regex]::Escape($from);
-            $from = @(Select-String "$from2`$" $kdlogfile).LineNumber[0];
-            $from --;
+        $delimiter = Select-String "(\d+: kd> )" $kdlogfile -List;
+        if ($delimiter) {
+            $delimiter = $delimiter.Matches.Value;
         } else {
-            $from = @(Select-String "Opened log file" $kdlogfile).LineNumber[0];
+            $delimiter = "0:000> ";
         }
-        $to = @(Select-String "\.logclose`$" $kdlogfile).LineNumber[-1];
-        $to --;
-        [TrimKD]::HotPath($kdlogfile, $from, $to, $OutputFile);
+        $after = $false;
+        if ($Commands.Substring(0, $Commands.IndexOf("`n")) -like ".reload*") {
+            $from = ($Commands -split "`n")[1];
+            $from = $delimiter + $from;
+        } else {
+            $from = "Opened log file";
+            $after = $true;
+        }
+        $to = "$delimiter.logclose";
+        [TrimKD]::HotPath($kdlogfile, $from, $after, $to, $OutputFile);
         Remove-Item $kdlogfile;
     } else {
         & $script:KD -y "$script:Sympath" -cf $cmdfile -z $Path;
@@ -330,7 +250,7 @@ dpu mrxsmb!SmbCeContext+10 L0n4
                 version = $script:MetaVersion;
                 computer = $env:COMPUTERNAME;
                 os = & {
-                    (($gi.VersionInfo -split "`r`n" | Where-Object { $_ -like "ProductVersion:*" }) -split ":\s+")[-1];
+                    $gi.BaseName + " " + (($gi.VersionInfo -split "`r`n" | Where-Object { $_ -like "ProductVersion:*" }) -split ":\s+")[-1];
                 };
                 image = $fn;
                 hash = $hash;
@@ -440,7 +360,7 @@ function DisassembleParallel
           [string]$Base)
 
     $instate = [System.Management.Automation.Runspaces.InitialSessionState]::CreateDefault();
-    "KD", "Database", "Sympath", "Inflight" | ForEach-Object {
+    "KD", "Database", "Sympath", "PSScriptRoot" | ForEach-Object {
         $var = [System.Management.Automation.Runspaces.SessionStateVariableEntry]::new("$PSItem", (Invoke-Expression "`${script:$PSItem}"), $null);
         $instate.Variables.Add($var);
     }
@@ -490,14 +410,14 @@ Trim0000Cr "$Base-$i.txt";
     $pool.Dispose();
     $disassembly = "$Base.disassembly";
     Move-Item "$Base-0.txt" $disassembly;
-    $os = [System.IO.FileStream]::new($disassembly, "Append");
+    $ostream = [System.IO.FileStream]::new($disassembly, "Append");
     for ($i = 1; $i -lt $Cores; $i ++) {
-        $is = [System.IO.FileStream]::new("$Base-$i.txt", "Open");
-        $is.CopyTo($os);
-        $is.Close();
+        $istream = [System.IO.FileStream]::new("$Base-$i.txt", "Open");
+        $istream.CopyTo($os);
+        $istream.Close();
         Remove-Item "$Base-$i.txt";
     }
-    $os.Close();
+    $ostream.Close();
     BuildRetpoline $disassembly $Image $Base;
 }
 
@@ -512,8 +432,9 @@ function IdentifyFunctions
     } else {
         $Meta.module = @(, $gi.BaseName);
     }
+    #1st run downloads all symbols from the server.
     $content = RunKd @"
-.reload
+.reload /d /f
 $($Meta.module | Foreach-Object {
 "x /v /f $PSItem!*`n";
 })
@@ -605,13 +526,13 @@ function BuildDisassembly
 }
 
 enum Expand {
-    #There are no descendants. There is a sibling that has descendants
+    #There are no dependencies. There is a sibling that has dependencies
     None;
-    #There are no descendants for all the remaining siblings.
+    #There are no dependencies for all the remaining siblings.
     Empty;
-    #This node has descendants. Sibling nodes have descendants.
+    #This node has dependencies. Sibling nodes have dependencies.
     ExpandMiddle;
-    #This is the last node that has descendants.
+    #This is the last node that has dependencies.
     ExpandLast;
 };
 
@@ -619,7 +540,7 @@ class Node {
     [string]$Symbol;
     [string]$Disassembly;
     [Expand]$Expand;
-    [Node[]]$Descendants;
+    [Node[]]$Dependency;
 };
 
 function IdentifySymbol
@@ -739,12 +660,12 @@ function IdentifyBodyRecursive
                 } else {
                     $node.Disassembly = $PSItem;
                 }
-                $iter.Descendants += $node;
+                $iter.Dependency += $node;
                 $node = $null;
             }
         }
-        if ($iter.Descendants) {
-            IdentifyBodyRecursive $Current $Depth $iter.Descendants $Body -Callees:$Callees -Json:$Json;
+        if ($iter.Dependency) {
+            IdentifyBodyRecursive $Current $Depth $iter.Dependency $Body -Callees:$Callees -Json:$Json;
         }
     }
 }
@@ -810,11 +731,11 @@ function DisplayTreeRecursive
           [string]$Line)
 
     $padding = $Node.Symbol.Length;
-    foreach ($desc in $Node.Descendants) {
+    foreach ($desc in $Node.Dependency) {
         $prev = $Line;
         $inner = DrawDescendantLine $desc $padding;
         PrintSymbol $desc ($Line + $inner);
-        if ($desc.Descendants) {
+        if ($desc.Dependency) {
             $Line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $Line;
             $Line = $prev;
@@ -828,7 +749,7 @@ function AddExpand
 
     $el = $null;
     foreach ($iter in $Tree) {
-        if ($iter.Descendants) {
+        if ($iter.Dependency) {
             $iter.Expand = [Expand]::ExpandLast;
             if ($el) {
                 $el.Expand = [Expand]::ExpandMiddle;
@@ -837,8 +758,8 @@ function AddExpand
         } else {
             $iter.Expand = [Expand]::None;
         }
-        if ($iter.Descendants) {
-            AddExpand $iter.Descendants;
+        if ($iter.Dependency) {
+            AddExpand $iter.Dependency;
         }
     }
     $i = $Tree.Count - 1;
@@ -863,18 +784,18 @@ function DisplayTree
     }
     $Tree.Symbol;
 
-    if ($Tree.Descendants) {
-        AddExpand $Tree.Descendants;
+    if ($Tree.Dependency) {
+        AddExpand $Tree.Dependency;
     } else {
         $Tree.Expand = [Expand]::None;
     }
     $padding = $Tree.Symbol.Length;
     [string]$line = "";
-    foreach ($desc in $Tree.Descendants) {
+    foreach ($desc in $Tree.Dependency) {
         $prev = $line;
         $inner = DrawDescendantLine $desc $padding;
         PrintSymbol $desc ($line + $inner);
-        if ($desc.Descendants) {
+        if ($desc.Dependency) {
             $line += DrawNextLine $desc $padding;
             DisplayTreeRecursive $desc $line;
             $line = $prev;
@@ -930,13 +851,13 @@ function ParseDisassembly
                 $node.Disassembly = $r;
             }
         }
-        $tree.Descendants += $node;
+        $tree.Dependency += $node;
         $node = $null;
     }
-    if (! $tree.Descendants) {
+    if (! $tree.Dependency) {
         return $tree;
     }
-    IdentifyBodyRecursive 1 $Depth $tree.Descendants $body -Callees:$Callees -Json:$Json;
+    IdentifyBodyRecursive 1 $Depth $tree.Dependency $body -Callees:$Callees -Json:$Json;
     return $tree;
 }
 

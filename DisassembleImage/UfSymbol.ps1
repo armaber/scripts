@@ -41,7 +41,7 @@
 
 .NOTES
     PowerShell Core is mandatory: optimizations since Desktop 5.1 are substantial.
-    Hotpaths are interpreted. Likely, they will be ported to inline assemblies.
+    Hotpaths are implemented as inline assemblies.
 #>
 
 #requires -PSEdition Core
