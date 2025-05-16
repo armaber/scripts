@@ -143,7 +143,7 @@ Install Debugging Tools for Windows:
 
 function LoadHotPath
 {
-    Add-Type -Path $PSScriptRoot\hotpath.cs;
+    Add-Type -Path $PSScriptRoot\HotPath.cs;
 }
 
 function GetLogicalCPUs
@@ -156,6 +156,19 @@ function ComputeFileHash
     param([string]$Path)
 
     return (Get-FileHash -Algorithm SHA512 $Path).Hash;
+}
+
+function GetDelimiter
+{
+    param([string]$Disassembly)
+
+    $delimiter = Select-String "(\d+: kd> )" $Disassembly -List;
+    if ($delimiter) {
+        $delimiter = $delimiter.Matches.Value;
+    } else {
+        $delimiter = "0:000> ";
+    }
+    return $delimiter;
 }
 
 function RunKd
@@ -187,13 +200,8 @@ q
         if ($LASTEXITCODE) {
             throw "kd failed with code $LASTEXITCODE";
         }
-        $delimiter = Select-String "(\d+: kd> )" $kdlogfile -List;
-        if ($delimiter) {
-            $delimiter = $delimiter.Matches.Value;
-        } else {
-            $delimiter = "0:000> ";
-        }
         $after = $false;
+        $delimiter = GetDelimiter $kdlogfile;
         if ($Commands.Substring(0, $Commands.IndexOf("`n")) -like ".reload*") {
             $from = ($Commands -split "`n")[1];
             $from = $delimiter + $from;
@@ -202,7 +210,7 @@ q
             $after = $true;
         }
         $to = "$delimiter.logclose";
-        [TrimKD]::HotPath($kdlogfile, $from, $after, $to, $OutputFile);
+        [TrimKD]::TrimLogFile($kdlogfile, $from, $after, $to, $OutputFile);
         Remove-Item $kdlogfile;
     } else {
         & $script:KD -y "$script:Sympath" -cf $cmdfile -z $Path;
@@ -303,14 +311,9 @@ $($dps -join "`n")
 
 function Trim0000Cr
 {
-    param([string]$Path)
+    param([string]$Disassembly)
 
-    $delimiter = Select-String "(\d+: kd> )" $Path -List;
-    if ($delimiter) {
-        $delimiter = $delimiter.Matches.Value;
-    } else {
-        $delimiter = "0:000> ";
-    }
+    $delimiter = GetDelimiter $Disassembly;
     #Text sections that are not locked in memory resolve to huge
     #bodies due to paged out instructions
     #    0000            add     byte ptr [rax],al
@@ -333,9 +336,10 @@ function Trim0000Cr
     #Trimming is implemented in C#. The hotpath takes a long time
     #to be interpreted.
 
-    [TrimDisassembly]::HotPath($delimiter, $Path);
+    [TrimDisassembly]::TrimBodies($delimiter, $Disassembly);
 }
 
+#Single in the sense that is called within a runspace.
 function DisassembleSingle
 {
     param([System.Collections.Generic.List[string]]$Functions,
@@ -352,6 +356,7 @@ $Functions[$From .. $To] -join "`n";
 "@ $Image $OutputFile;
 }
 
+#Create a runspace pool = thread pool, call DisassembleSingle and its internal dependencies.
 function DisassembleParallel
 {
     param([int]$Cores,
@@ -384,7 +389,7 @@ function DisassembleParallel
         $space = [powershell]::Create();
         $script = @"
 $(
-"LoadHotPath", "RunKd", "DisassembleSingle", "Trim0000Cr" | ForEach-Object {
+"LoadHotPath", "RunKd", "DisassembleSingle", "GetDelimiter", "Trim0000Cr" | ForEach-Object {
     "function $PSItem {" + (Get-Content function:\$PSItem) + "}";
 }
 )
@@ -395,11 +400,11 @@ Trim0000Cr "$Base-$i.txt";
 "@;
         $space.AddScript($script) | Out-Null;
         $space.RunspacePool = $pool;
-        $nr = [psobject] @{
+        $newrunspace = [psobject] @{
             runspace = $space;
             state = $space.BeginInvoke();
         };
-        $runspaces.Add($nr);
+        $runspaces.Add($newrunspace);
     }
     $runspaces | ForEach-Object {
         $PSItem.state.AsyncWaitHandle.WaitOne() | Out-Null;
@@ -421,6 +426,8 @@ Trim0000Cr "$Base-$i.txt";
     BuildRetpoline $disassembly $Image $Base;
 }
 
+#Call kd.exe, use reload /d /f to download the proper symbols,
+#return the functions available in the .dmp or image.
 function IdentifyFunctions
 {
     param([string]$Path,
@@ -432,7 +439,6 @@ function IdentifyFunctions
     } else {
         $Meta.module = @(, $gi.BaseName);
     }
-    #1st run downloads all symbols from the server.
     $content = RunKd @"
 .reload /d /f
 $($Meta.module | Foreach-Object {
@@ -441,21 +447,12 @@ $($Meta.module | Foreach-Object {
 "@ $Path;
     $functions = [System.Collections.Generic.List[string]]::new();
     $content | Foreach-Object {
-        if (($PSItem -notlike "*[??]*") -and
-            ($PSItem -notlike "*WPP_RECORDER*") -and
-            ($PSItem -notlike "*`$thunk`$*") -and
-            ($PSItem -notlike "*!`$`$*") -and
+        if (($PSItem -notlike "*WPP_RECORDER*") -and
             ($PSItem -match "^(pub|prv) func "))
         {
-            $functions.Add("uf " + ($PSItem -split "\s+")[4]);
+            $functions.Add("uf " + ($PSItem -split "\s+")[2]);
         }
     }
-    #There may be duplicate functions at different addresses.
-    #0:000> x /v /f /n ntoskrnl!IopVerifierExAllocatePoolWithQuota
-    #prv func   00000001`4021f5e0  2b7 ntoskrnl!IopVerifierExAllocatePoolWithQuota (void)
-    #prv func   00000001`405074fc   6f ntoskrnl!IopVerifierExAllocatePoolWithQuota (void)
-    #Take only one. It is possible to uf by address "uf 00000001`4021f5e0".
-    $functions = $functions | Sort-Object -Unique;
     return $functions;
 }
 
@@ -480,8 +477,8 @@ function Setup
     }
 }
 
-#Look in all .meta, take the one that has the Operating System matching the caption
-#and return the path.
+#Look in all .meta, take the one that has the Operating System matching
+#the caption and return the path.
 function LocateDisassembly
 {
     param([string]$Caption,
@@ -511,6 +508,7 @@ function LocateDisassembly
     return $null;
 }
 
+#Execute DisassembleSingle on each logical processor.
 function BuildDisassembly
 {
     param([System.Collections.Generic.List[string]]$Functions,
@@ -525,151 +523,8 @@ function BuildDisassembly
     DisassembleParallel $cores $Functions $Image $Base;
 }
 
-enum Expand {
-    #There are no dependencies. There is a sibling that has dependencies
-    None;
-    #There are no dependencies for all the remaining siblings.
-    Empty;
-    #This node has dependencies. Sibling nodes have dependencies.
-    ExpandMiddle;
-    #This is the last node that has dependencies.
-    ExpandLast;
-};
-
-class Node {
-    [string]$Symbol;
-    [string]$Disassembly;
-    [Expand]$Expand;
-    [Node[]]$Dependency;
-};
-
-function IdentifySymbol
-{
-    param([string]$Key,
-          [System.Collections.Generic.List[string]]$Body)
-
-    $level = $Body.Where( { $PSItem.Contains($Key) } );
-    return $level;
-}
-
-function IdentifySections
-{
-    param([Node]$Node,
-          [System.Collections.Generic.List[string]]$Body,
-          [switch]$Callees)
-
-    if ($Callees) {
-        $symbol = [System.Collections.Generic.List[string]]::new();
-        [regex]::Matches($Node.Disassembly, "call    (\w+!.+?)\s.+").ForEach( {
-            $symbol.Add("uf $($PSItem.Groups[1].Value)");
-        } );
-        if (! $symbol.Count) {
-            return $null;
-        }
-        $symbol = $symbol | Select-Object -Unique;
-        $section = [System.Collections.Generic.List[string]]::new();
-        foreach ($sym in $symbol) {
-            $s = IdentifySymbol "$sym`n" $Body;
-            if (! $s) {
-                #We've found a callee that has no body due to trimming
-                #or it belongs to a different module.
-                foreach ($stop in $script:StopDisassembly) {
-                    if ($sym -match $stop) {
-                        $s = $PSItem;
-                        break;
-                    }
-                }
-                if (! $s) {
-                    $s = "$sym (N/A)";
-                }
-            }
-            $section.Add($s);
-        }
-    } else {
-        $section = IdentifySymbol "call    $($Node.Symbol -replace ""uf\s+"","""") " $Body;
-    }
-    return $section;
-}
-
-function DecodeIndirectCall
-{
-    param([string]$Body,
-          [psobject]$Json)
-
-    $indirect = & {
-        [regex]::Matches($iter.Disassembly, "mov\s+rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!guard_dispatch_icall") |
-        ForEach-Object { $PSItem.Groups[1].Value } | Select-Object -Unique;
-    };
-    if (! $indirect) {
-        return "N/A";
-    }
-    $translated = [System.Collections.Generic.List[string]]::new();
-    foreach ($i in $indirect) {
-        $r = $Json.$i;
-        if ($r) {
-            $translated.Add("$i=$r");
-        } else {
-            $translated.Add($i);
-        }
-    }
-    return $translated -join ", ";
-}
-function IdentifyBodyRecursive
-{
-    param([int]$Current,
-          [int]$Depth,
-          [Node[]]$Level,
-          [System.Collections.Generic.List[string]]$Body,
-          [switch]$Callees,
-          [psobject]$Json)
-
-    if ($Callees) {
-        foreach ($iter in $Level) {
-            if ($iter.Symbol -match "uf \w+!guard_dispatch_icall") {
-                $indirect = DecodeIndirectCall $iter.Disassembly $Json;
-                $iter.Symbol += " ($indirect)";
-            }
-        }
-    }
-    if ($Current -ge $Depth) {
-        return;
-    }
-    $Current ++;
-    foreach ($iter in $Level) {
-        $skip = $false;
-        foreach ($stop in $script:StopDisassembly) {
-            if ($iter.Symbol -match $stop) {
-                #("-"*80), "Symbol = $($iter.Symbol)" | Write-Host;
-                $skip = $true;
-                break;
-            }
-        }
-        if ($skip) {
-            continue;
-        }
-        $next = IdentifySections $iter $Body -Callees:$Callees;
-        if (! $next) {
-            continue;
-        }
-        $next | ForEach-Object {
-            if ($PSItem -match ".+") {
-                $node = [Node]::new();
-                $node.Symbol = $Matches[0];
-                if ($Callees -and ($node.Symbol -match "uf \w+!guard_dispatch_icall")) {
-                    $node.Disassembly = $iter.Disassembly;
-                } else {
-                    $node.Disassembly = $PSItem;
-                }
-                $iter.Dependency += $node;
-                $node = $null;
-            }
-        }
-        if ($iter.Dependency) {
-            IdentifyBodyRecursive $Current $Depth $iter.Dependency $Body -Callees:$Callees -Json:$Json;
-        }
-    }
-}
-
+#Used in rendering, called by parent ahead of printing the descendant.
+#.Expand is computed in a different pass.
 function DrawDescendantLine
 {
     param([Node]$Node,
@@ -708,14 +563,15 @@ function DrawNextLine
     return $line;
 }
 
-function PrintSymbol
+function PrintRetpoline
 {
     param([Node]$Node,
           [string]$Left)
 
-    $multi = $Node.Symbol -split ", ";
-    #$Left + $multi[0] + "[$($Node.Expand)]";
-    $Left + $multi[0];
+    $multi = $Node.Symbol -split ",";
+    $first = $multi[0];
+    #$Left + $first + " [$($Node.Expand)]";
+    $Left + $first;
     $count = $multi.Count - 1;
     if ($count) {
         $pt = $multi[0].Split("(")[0].Length + 1;
@@ -723,8 +579,38 @@ function PrintSymbol
             $Left + (" " * $pt) + $m;
         }
     }
-
 }
+
+function PrintIAT
+{
+    param([Node]$Node,
+          [string]$Left)
+
+    $impglyph = "$([char]0x27DC)";
+    $Left + $impglyph + $Node.Symbol;
+}
+
+#.Hint tells what kind of node is being drawn. It happens in PowerShell,
+#as opposed to HotPath.cs to give ample space for adjustments.
+function PrintSymbol
+{
+    param([Node]$Node,
+          [string]$Left)
+
+    switch ($Node.Hint) {
+        ([DrawHint]::Retpoline) {
+            PrintRetpoline $Node $Left;
+        }
+        ([DrawHint]::ImportAddressTable) {
+            PrintIAT $Node $Left;
+        }
+        default {
+            $Left + $Node.Symbol;
+        }
+    }
+}
+
+#Draw lines and print symbol for each node.
 function DisplayTreeRecursive
 {
     param([Node]$Node,
@@ -743,20 +629,23 @@ function DisplayTreeRecursive
     }
 }
 
+#Preliminary step in rendering: .Expand decides what kind of lines
+#are drawn.
 function AddExpand
 {
-    param([Node[]]$Tree)
+    param([System.Collections.Generic.List[Node]]$Tree)
 
     $el = $null;
-    foreach ($iter in $Tree) {
-        if ($iter.Dependency) {
+    for ($i = 0; $i -lt $Tree.Count; $i ++) {
+        $iter = $Tree[$i];
+        if ($iter.Hint -in [DrawHint]::BodyNotFound, [DrawHint]::Retpoline, [DrawHint]::AtEnd, [DrawHint]::StopDisassembly, [DrawHint]::ImportAddressTable) {
+            $iter.Expand = [Expand]::None;
+        } else {
             $iter.Expand = [Expand]::ExpandLast;
             if ($el) {
                 $el.Expand = [Expand]::ExpandMiddle;
             }
             $el = $iter;
-        } else {
-            $iter.Expand = [Expand]::None;
         }
         if ($iter.Dependency) {
             AddExpand $iter.Dependency;
@@ -774,6 +663,9 @@ function AddExpand
         $Tree[$i].Expand = [Expand]::Empty;
     }
 }
+
+#Display the root symbols as supplied in CLI, show the cumulated number
+#of dependencies in [].
 function DisplayTree
 {
     param([Node]$Tree)
@@ -782,13 +674,8 @@ function DisplayTree
         "Symbol is not present in disassembly.";
         return;
     }
-    $Tree.Symbol;
+    "$($Tree.Symbol) [$([ParseDisassembly]::GetTreeCumulatedDependecies($Tree))]";
 
-    if ($Tree.Dependency) {
-        AddExpand $Tree.Dependency;
-    } else {
-        $Tree.Expand = [Expand]::None;
-    }
     $padding = $Tree.Symbol.Length;
     [string]$line = "";
     foreach ($desc in $Tree.Dependency) {
@@ -807,17 +694,18 @@ function SplitDisassembly
 {
     param([string]$Path)
 
-    $delimiter = Select-String "(\d+: kd> )" $Path -List;
-    if ($delimiter) {
-        $delimiter = $delimiter.Matches.Value;
-    } else {
-        $delimiter = "0:000> ";
-    }
+    $delimiter = GetDelimiter $Path;
     $content = Get-Content $Path -Raw;
     [System.Collections.Generic.List[string]]$body = $content.Split($delimiter);
+    $body.RemoveAt(0);
     $content = $null;
+
     return $body;
 }
+
+#Split the disassembly file into independent bodies, locate the 1st body
+#containing the user symbol. From that root body, parse all dependent bodies
+#up to $Depth level. All this happens in the hotpath, a JIT assembly.
 function ParseDisassembly
 {
     param([string]$Disassembly,
@@ -825,42 +713,23 @@ function ParseDisassembly
           [int]$Depth,
           [switch]$Callees)
 
-    $body = SplitDisassembly $Disassembly;
     $json = $Disassembly -replace "disassembly`$", "retpoline";
-    $json = Get-Content -Raw $json -ErrorAction SilentlyContinue | ConvertFrom-Json;
-    $tree = [Node]::new();
-    $section = IdentifySymbol "uf $Key`n" $body;
-    if ($section) {
-        $tree.Symbol = "uf $Key";
-        $tree.Disassembly = $section;
-        $section = IdentifySections $tree $body -Callees:$Callees;
-    } else {
-        $section = IdentifySymbol $Key $body;
-        if (! $section) {
-            return $null;
+    $retpoline = [System.Collections.Generic.Dictionary[string, string]]::new();
+    if (Test-Path $json -PathType Leaf) {
+        $json = Get-Content -Raw $json -ErrorAction SilentlyContinue | ConvertFrom-Json;
+        foreach ($iter in $json.PSObject.Properties) {
+            $retpoline[$iter.Name] = $iter.Value;
         }
-        $tree.Symbol = $Key;
     }
-    foreach ($r in $section) {
-        $node = [Node]::new();
-        if ($r -match ".+") {
-            $node.Symbol = $Matches[0];
-            if ($Callees -and ($node.Symbol -match "uf \w+!guard_dispatch_icall")) {
-                $node.Disassembly = $tree.Disassembly;
-            } else {
-                $node.Disassembly = $r;
-            }
-        }
-        $tree.Dependency += $node;
-        $node = $null;
-    }
-    if (! $tree.Dependency) {
-        return $tree;
-    }
-    IdentifyBodyRecursive 1 $Depth $tree.Dependency $body -Callees:$Callees -Json:$Json;
+    $delimiter = GetDelimiter $Disassembly;
+    $tree = [ParseDisassembly]::CreateTree(($Callees -eq $false), $delimiter, $Disassembly, $Key, $Depth, $script:StopDisassembly, $retpoline);
     return $tree;
 }
 
+#When disassembling a large .DMP file, it is useful to have a notice
+#about the duration. If it takes more than 5 minutes, based on other
+#files that have been previously decompiled, then show the largest
+#time previously spent.
 function AdviseDuration {
     param ([string]$Image)
 
@@ -892,10 +761,11 @@ function AdviseDuration {
     }
 }
 
+#Helper file representing the disassembly origin.
 function StoreMeta
 {
     param([psobject]$Meta,
-          [datetime]$Begin,
+          [int]$Seconds,
           [string]$Base)
 
     $end = [datetime]::now;
@@ -904,13 +774,14 @@ function StoreMeta
             inproc = $env:COMPUTERNAME;
             cpus = (GetLogicalCPUs) - 1;
             model = (Get-ItemProperty "HKLM:\HARDWARE\DESCRIPTION\System\CentralProcessor\0" ProcessorNameString).ProcessorNameString;
-            duration = [int]$end.Subtract($Begin).TotalSeconds;
+            duration = [int]$Seconds;
             size = [int64](Get-Item $file).Length;
         }
     }
     $Meta | ConvertTo-Json | Set-Content "$Base.meta";
 }
 
+#Helper
 function CreateDatabaseEntry
 {
     $unique = [guid]::NewGuid().ToString();
@@ -919,9 +790,19 @@ function CreateDatabaseEntry
     return "$where\$unique";
 }
 
-#TODO  Need a validate parms before launching the main script
-#      Benefit: an easy error will surface early, instead of
-#      waiting for minutes and then crashing.
+#Helper
+function ConsoleOverwrite
+{
+    param([string] $Content)
+
+    $count = [Console]::CursorLeft;
+    [Console]::CursorLeft = 0;
+    " " * $count | Write-Host -NoNewLine;
+    [Console]::CursorLeft = 0;
+    Write-Host $Content -NoNewLine;
+}
+
+#Called by main in UfSymbol.ps1.
 function QuerySymbol
 {
     param([string]$Symbol,
@@ -944,8 +825,11 @@ function QuerySymbol
             $meta = LoadMeta $file;
             $seed = CreateDatabaseEntry;
             $functions = IdentifyFunctions $file $meta;
+            ConsoleOverwrite "Please wait while $($functions.Count) functions are being disassembled";
             BuildDisassembly $functions $file $seed;
-            StoreMeta $meta $begin $seed;
+            [int]$seconds = ([datetime]::now).Subtract($begin).TotalSeconds;
+            ConsoleOverwrite "$($functions.Count) functions disassembled in $seconds seconds`n";
+            StoreMeta $meta $seconds $seed;
             "$seed.disassembly", "$seed.meta";
             if (Test-Path "$seed.retpoline") {
                 "$seed.retpoline";
