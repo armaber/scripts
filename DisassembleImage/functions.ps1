@@ -413,7 +413,7 @@ Trim0000Cr "$Base-$i.txt";
     $ostream = [System.IO.FileStream]::new($disassembly, "Append");
     for ($i = 1; $i -lt $Cores; $i ++) {
         $istream = [System.IO.FileStream]::new("$Base-$i.txt", "Open");
-        $istream.CopyTo($os);
+        $istream.CopyTo($ostream);
         $istream.Close();
         Remove-Item "$Base-$i.txt";
     }
