@@ -51,6 +51,7 @@ public class TrimDisassembly
         var body = new List<string>();
         var block = new StringBuilder();
         var istream = new StreamReader(path);
+        bool bypass;
         string str;
 
         while (! istream.EndOfStream)
@@ -59,35 +60,30 @@ public class TrimDisassembly
             if (line.StartsWith(delimiter))
             {
                 str = block.ToString();
-                if (str.Contains(NoCodeCookie) ||
-                    str.Contains(CouldntResolveCookie) ||
-                    str.Contains(SyntaxErrorCookie) ||
-                    str.Length > FlowAnalysisLimit &&
-                    str.Contains(FlowAnalysisCookie))
-                {
-                    block.Clear();
-                } else
+                bypass = str.Contains(NoCodeCookie) ||
+                         str.Contains(CouldntResolveCookie) ||
+                         str.Contains(SyntaxErrorCookie) ||
+                         str.Length > FlowAnalysisLimit &&
+                         str.Contains(FlowAnalysisCookie);
+                if (! bypass)
                 {
                     body.Add(str);
-                    block.Clear();
-                    block.Append(line);
-                    block.Append("\n");
                 }
-            } else
-            {
-                block.Append(line);
-                block.Append("\n");
+                block.Clear();
             }
+            block.Append(line);
+            block.Append("\n");
         }
         istream.Close();
         if (block.Length > 0)
         {
             str = block.ToString();
-                if (!(str.Contains(NoCodeCookie) ||
-                        str.Contains(CouldntResolveCookie) ||
-                        str.Contains(SyntaxErrorCookie) ||
-                        str.Length > FlowAnalysisLimit &&
-                        str.Contains(FlowAnalysisCookie)))
+            bypass = str.Contains(NoCodeCookie) ||
+                     str.Contains(CouldntResolveCookie) ||
+                     str.Contains(SyntaxErrorCookie) ||
+                     str.Length > FlowAnalysisLimit &&
+                     str.Contains(FlowAnalysisCookie);
+            if (! bypass)
             {
                 body.Add(str);
             }
