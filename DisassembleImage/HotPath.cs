@@ -123,7 +123,8 @@ public enum DrawHint
     AtEnd,
     StopDisassembly,
     BodyNotFound,
-    ImportAddressTable
+    ImportAddressTable,
+    Synchronize
 }
 
 public class Node
@@ -205,7 +206,8 @@ public class ParseDisassembly
                             tree[i].Hint == DrawHint.Retpoline ||
                             tree[i].Hint == DrawHint.AtEnd ||
                             tree[i].Hint == DrawHint.StopDisassembly ||
-                            tree[i].Hint == DrawHint.ImportAddressTable);
+                            tree[i].Hint == DrawHint.ImportAddressTable ||
+                            tree[i].Hint == DrawHint.Synchronize);
             if (noArrow)
             {
                 tree[i].Expand = Expand.None;
@@ -310,6 +312,16 @@ public class ParseDisassembly
                     dep.Symbol = $"{dep.Symbol} ({indirect})";
                 }
             }
+            else if (iter.Contains("!KeSynchronizeExecution "))
+            {
+                dep.Index = -1;
+                dep.Hint = DrawHint.Synchronize;
+                var indirect = GetSynchronizeSource(body[idx]);
+                if (indirect != "")
+                {
+                    dep.Symbol = $"{dep.Symbol} ({indirect})";
+                }
+            }
             else if (iter.Contains("qword ptr ["))
             {
                 dep.Index = -1;
@@ -346,6 +358,17 @@ public class ParseDisassembly
             LocateDependencyRecursiveDowncall(current, depth, ref dep, body, stopSymbols, retpoline);
             node.Dependency.Add(dep);
         }
+    }
+
+    private static string GetSynchronizeSource(string section)
+    {
+        var match = Regex.Match(section, @"lea     rdx,\[(\w+!.*?)\][\s\S]+?call    \w+!KeSynchronizeExecution \(");
+        if (match.Success)
+        {
+            var result = match.Groups[1].Value;
+            return result.Substring(0, result.LastIndexOf(" ("));
+        }
+        return "";
     }
 
     private static string GetRetpolineTarget(string section, Dictionary<string, string> retpoline)

@@ -629,41 +629,6 @@ function DisplayTreeRecursive
     }
 }
 
-#Preliminary step in rendering: .Expand decides what kind of lines
-#are drawn.
-function AddExpand
-{
-    param([System.Collections.Generic.List[Node]]$Tree)
-
-    $el = $null;
-    for ($i = 0; $i -lt $Tree.Count; $i ++) {
-        $iter = $Tree[$i];
-        if ($iter.Hint -in [DrawHint]::BodyNotFound, [DrawHint]::Retpoline, [DrawHint]::AtEnd, [DrawHint]::StopDisassembly, [DrawHint]::ImportAddressTable) {
-            $iter.Expand = [Expand]::None;
-        } else {
-            $iter.Expand = [Expand]::ExpandLast;
-            if ($el) {
-                $el.Expand = [Expand]::ExpandMiddle;
-            }
-            $el = $iter;
-        }
-        if ($iter.Dependency) {
-            AddExpand $iter.Dependency;
-        }
-    }
-    $i = $Tree.Count - 1;
-    while ($Tree[$i].Expand -eq [Expand]::None) {
-        if ($i -ge 0) {
-            $i --;
-        } else {
-            break;
-        }
-    }
-    for ($i ++; $i -lt $Tree.Count; $i ++) {
-        $Tree[$i].Expand = [Expand]::Empty;
-    }
-}
-
 #Display the root symbols as supplied in CLI, show the cumulated number
 #of dependencies in [].
 function DisplayTree
