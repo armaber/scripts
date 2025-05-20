@@ -18,17 +18,21 @@
     Disassemble the image, if it is not found in the image database. It can be an
     .exe, .dll, .sys or a .dmp file. As an alternative, scan for a caption
     representing the OS edition in the existing database.
+.PARAMETER Setup
+    Text based guide that receives user input for internal configuration:
+        kd.exe location, database path, symbol path, statistics, warning.
+.PARAMETER List
+    Shows the decompiled modules, either .DMP or .dll, .sys, .exe files.
 
 .EXAMPLE
-    Get-ChildItem -Recurse -File "*.meta" | % { Get-Content $_ | ConvertFrom-Json } |
-    Format-Table computer, os, image, @{ N = "duration"; E = {[string]$_.stats.duration + " s"} }
+    .\UfSymbol.ps1 -List OS
 
-    computer   os                          image                            duration
-    --------   --                          -----                            --------
-    InfraNo1   ntoskrnl 10.0.19041.5737    C:\Windows\System32\ntoskrnl.exe 4140 s
-    InfraNo2   ntoskrnl 10.0.26100.3775    C:\Windows\System32\ntoskrnl.exe 229 s
-    Deploy1    Windows 10 Pro 22631        C:\Windows\MEMORY.DMP            157 s
-    Deploy2    Windows 10 Enterprise 18363 C:\Windows\MEMORY.DMP            143 s
+    computer       os | basename                         image
+    --------       -------------                         -----
+    INHOUSE        dbgeng 10.0.26100.2454                C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\dbgeng.dll
+    INHOUSE        pci 10.0.19041.1                      C:\Windows\System32\drivers\pci.sys
+    DEPLOYMENT-092 Windows 10 Enterprise LTSC 2019 17763 C:\Windows\Memory.DMP
+    INHOUSE        Windows 10 Pro 22631                  D:\DataLake\2025-01-28\MEMORY.DMP
 
     See all disassembled images. Use the "os" section as value for "-Caption" and reuse.
 
@@ -57,7 +61,10 @@ param(
       [Alias("Caption")]
       [string]$Image,
       [Parameter(ParameterSetName = "Setup")]
-      [switch]$Setup
+      [switch]$Setup,
+      [Parameter(ParameterSetName = "List")]
+      [ValidateSet("OS", "Complete")]
+      [string]$List
 )
 
 $ErrorActionPreference = 'Break';
@@ -69,7 +76,7 @@ switch ($PSCmdLet.ParameterSetName)
     "Process"
     {
         QuerySymbol $Symbol -Down:$Down $Depth $Image;
-        break;
     }
-    "Setup" { ConfigureInteractive; break; }
+    "Setup" { ConfigureInteractive; }
+    "List" { ListMetaFiles $List; }
 }

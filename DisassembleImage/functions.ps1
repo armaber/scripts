@@ -925,3 +925,45 @@ Configuration completed.
 "@;
     & notepad.exe "${script:UfSymbolProfile}";
 }
+
+function ListMetaFiles
+{
+    param($List)
+
+    LoadDefaultValues;
+    $ascending = "$([char]0x2191)";
+    if ($List -eq "OS") {
+        Get-ChildItem -Recurse -Include "*.meta" -Path $script:Database | 
+        Foreach-Object { 
+            Get-Content $PSItem | ConvertFrom-Json 
+        } | Sort-Object os |
+        Format-Table -AutoSize computer, @{ N = "os | basename $ascending"; E = { $PSItem.os; } }, image;
+        return;
+    }
+    Get-ChildItem -Recurse -Include "*.meta" -Path $script:Database | 
+    Foreach-Object { 
+        Get-Content $PSItem | ConvertFrom-Json 
+    } | Sort-Object -Property @{ E = { [int]$PSItem.stats.duration } } |
+    Format-Table -AutoSize computer, @{ N = "os | basename"; E = { $PSItem.os; } }, 
+                           image, 
+                           @{ N = "GB"; E = {
+                                if ($null -eq $PSItem.stats.size) {
+                                    "";
+                                } else {
+                                    [decimal]$size = $PSItem.stats.size;
+                                    $size /= 1e+9;
+                                    if ($size -lt 1e-3) {
+                                        "{0:F6}" -f $size;
+                                    } elseif ($size -lt 1) {
+                                        "{0:F3}" -f $size;
+                                    } else {
+                                        "{0:F2}" -f $size;
+                                    }
+                                }
+                            } },
+                           @{ N = "duration $ascending";
+                              E = { [string]$duration = $PSItem.stats.duration;
+                                 ("" -eq $duration) ? "": $duration + " s"; } },
+                           @{ N = "cpu"; E = { [string]$PSItem.stats.model; } },
+                           @{ N = "cores"; E = { [string]$PSItem.stats.cpus } };
+}

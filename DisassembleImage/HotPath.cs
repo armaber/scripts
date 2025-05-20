@@ -139,7 +139,7 @@ public class Node
 
 public class ParseDisassembly
 {
-    private static Regex pattern;
+    static Regex _pattern;
     const string FlowAnalysisCookie = "Flow analysis was incomplete, some code may be missing";
     public static Node CreateTree(bool upcall, string delimiter, string path, string key, uint depth, string[] stopSymbols, Dictionary<string, string> retpoline)
     {
@@ -277,32 +277,32 @@ public class ParseDisassembly
         }
         current++;
         var idx = node.Index;
-        List<string> depString = new();
-        if (pattern == null)
+        List<string> deplist = new();
+        if (_pattern == null)
         {
-            pattern = new(@"(call    (?<part>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<part>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
+            _pattern = new(@"(call    (?<part>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<part>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
         }
-        var match = pattern.Match(body[idx]);
+        var match = _pattern.Match(body[idx]);
         while (match.Success)
         {
             var part = match.Groups["part"].Value;
-            depString.Add(part);
+            deplist.Add(part);
             match = match.NextMatch();
         }
-        depString = depString.Distinct().ToList();
-        if (depString.Count == 0)
+        deplist = deplist.Distinct().ToList();
+        if (deplist.Count == 0)
         {
             node.Hint = DrawHint.BodyNotFound;
             return;
         }
-        foreach (var iter in depString)
+        foreach (var iter in deplist)
         {
             Node dep = new();
 
-            var nameOnly = iter.Substring(0, iter.LastIndexOf(" (")).Replace("qword ptr [", "");
-            dep.Symbol = nameOnly;
+            var func = iter.Substring(0, iter.LastIndexOf(" (")).Replace("qword ptr [", "");
+            dep.Symbol = func;
             // Some compilers use _guard_dispatch_icall, others without first underscore.
-            if (nameOnly.Contains("guard_dispatch_icall"))
+            if (func.Contains("guard_dispatch_icall"))
             {
                 dep.Index = -1;
                 dep.Hint = DrawHint.Retpoline;
@@ -331,7 +331,7 @@ public class ParseDisassembly
             {
                 foreach (var stop in stopSymbols)
                 {
-                    if (Regex.IsMatch(nameOnly, stop))
+                    if (Regex.IsMatch(func, stop))
                     {
                         dep.Index = -1;
                         dep.Hint = DrawHint.StopDisassembly;
@@ -346,14 +346,15 @@ public class ParseDisassembly
             }
             var address = iter.Substring(iter.LastIndexOf(" (") + 2).Replace(")", "");
             address = $"uf {address}";
-            dep.Index = LocateHeader(address, body, ref nameOnly);
+            dep.Index = LocateHeader(address, body, ref func);
+            dep.Address = address;
             if (dep.Index == -1)
             {
                 dep.Hint = DrawHint.BodyNotFound;
                 node.Dependency.Add(dep);
                 continue;
             }
-            dep.Symbol = nameOnly;
+            dep.Symbol = func;
             dep.Hint = DrawHint.HasDependency;
             LocateDependencyRecursiveDowncall(current, depth, ref dep, body, stopSymbols, retpoline);
             node.Dependency.Add(dep);
