@@ -581,6 +581,14 @@ function PrintRetpoline
     }
 }
 
+function PrintIndirect
+{
+    param([Node]$Node,
+          [string]$Left)
+
+    PrintRetpoline $Node $Left;
+}
+
 function PrintIAT
 {
     param([Node]$Node,
@@ -600,6 +608,9 @@ function PrintSymbol
     switch ($Node.Hint) {
         ([DrawHint]::Retpoline) {
             PrintRetpoline $Node $Left;
+        }
+        ([DrawHint]::Indirect) {
+            PrintIndirect $Node $Left;
         }
         ([DrawHint]::ImportAddressTable) {
             PrintIAT $Node $Left;

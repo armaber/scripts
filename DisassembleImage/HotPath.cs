@@ -124,7 +124,7 @@ public enum DrawHint
     StopDisassembly,
     BodyNotFound,
     ImportAddressTable,
-    Synchronize
+    Indirect
 }
 
 public class Node
@@ -141,6 +141,54 @@ public class ParseDisassembly
 {
     static Regex _pattern;
     const string FlowAnalysisCookie = "Flow analysis was incomplete, some code may be missing";
+
+    private class IdentifyArgument
+    {
+        public string Target;
+        public string SourceDisasm;
+        public uint AboveLimit;
+        public Regex CompiledPattern;
+    }
+
+    static IdentifyArgument[] _indirect =
+    {
+        new(){
+            Target = @"call    \w+!KeInitializeDpc",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 2
+        },
+        new(){
+            Target = @"call    \w+!KeInitializeThreadedDpc",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 2
+        },
+        new(){
+            Target = @"call    \w+!KeSynchronizeExecution",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 5
+        },
+        new(){
+            Target = @"call    \w+!MmMapMdl",
+            SourceDisasm = @"lea     r8,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 5
+        },
+        new(){
+            Target = @"call    \w+!IoQueueWorkItem",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 5
+        },
+        new(){
+            Target = @"call    \w+!IoQueueWorkItemEx",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 5
+        },
+        new(){
+            Target = @"call    \w+!IoRegisterPlugPlayNotification",
+            SourceDisasm = @"lea     rax,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]\n(.+?\n){0,2}[0-9a-f]+?\s+mov     qword ptr \[rsp\+20h\],rax",
+            AboveLimit = 5
+        }
+    };
+
     public static Node CreateTree(bool upcall, string delimiter, string path, string key, uint depth, string[] stopSymbols, Dictionary<string, string> retpoline)
     {
         StreamReader istream = new(path);
@@ -150,16 +198,17 @@ public class ParseDisassembly
         content = null;
         string address = "";
         Node tree = new();
-        var level = LocateHeaderAsHumanReadable(key, body, ref address);
+        var level = LocateSectionByKeyFunction(key, body, ref address);
         tree.Symbol = key;
         tree.Index = level;
         if (level == -1)
         {
-            var levels = LocateHeaderAsRandom(key, body);
+            var levels = LocateSectionByRandomKey(key, body);
             if (levels.Count == 0)
             {
                 return null;
             }
+            InitializeIndirectRegex();
             foreach (var iter in levels) {
                 Node dep = new();
                 dep.Index = iter;
@@ -176,6 +225,7 @@ public class ParseDisassembly
             }
         } else {
             tree.Address = address;
+            InitializeIndirectRegex();
             if (upcall)
             {
                 LocateDependencyRecursiveUpcall(0, depth, ref tree, body);
@@ -193,7 +243,16 @@ public class ParseDisassembly
         {
             tree.Expand = Expand.None;
         }
+
         return tree;
+    }
+
+    private static void InitializeIndirectRegex()
+    {
+        foreach (var iter in _indirect)
+        {
+            iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(.+?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
+        }
     }
 
     private static void GetSectionHeader(in string section, ref string symbol, ref string address)
@@ -206,7 +265,7 @@ public class ParseDisassembly
         symbol = symbol.Substring(0, symbol.Length - 1);
     }
 
-    private static List<int> LocateBodiesByUpcall(in List<string> body, Regex pattern)
+    private static List<int> LocateSectionsByUpcall(in List<string> body, Regex pattern)
     {
         List<int> result = new();
 
@@ -221,6 +280,7 @@ public class ParseDisassembly
         {
             result.Add(-1);
         }
+
         return result;
     }
 
@@ -236,7 +296,7 @@ public class ParseDisassembly
                             tree[i].Hint == DrawHint.AtEnd ||
                             tree[i].Hint == DrawHint.StopDisassembly ||
                             tree[i].Hint == DrawHint.ImportAddressTable ||
-                            tree[i].Hint == DrawHint.Synchronize);
+                            tree[i].Hint == DrawHint.Indirect);
             if (noArrow)
             {
                 tree[i].Expand = Expand.None;
@@ -271,11 +331,11 @@ public class ParseDisassembly
         }
         current++;
         Regex pattern = new($"call    {node.Symbol} \\({node.Address}\\)");
-        var idx = LocateBodiesByUpcall(body, pattern);
+        var idx = LocateSectionsByUpcall(body, pattern);
         if (idx[0] == -1) {
             node.Hint = DrawHint.BodyNotFound;
             return;
-        } 
+        }
         foreach (var iter in idx)
         {
             Node dep = new();
@@ -295,17 +355,18 @@ public class ParseDisassembly
             node.Hint = DrawHint.AtEnd;
             return;
         }
+        IdentifyArgument indirect = new();
         current++;
         var idx = node.Index;
         List<string> deplist = new();
         if (_pattern == null)
         {
-            _pattern = new(@"(call    (?<part>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<part>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
+            _pattern = new(@"(call    (?<partial>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<partial>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
         }
         var match = _pattern.Match(body[idx]);
         while (match.Success)
         {
-            var part = match.Groups["part"].Value;
+            var part = match.Groups["partial"].Value;
             deplist.Add(part);
             match = match.NextMatch();
         }
@@ -328,18 +389,18 @@ public class ParseDisassembly
                 dep.Hint = DrawHint.Retpoline;
                 if (retpoline.Count > 0)
                 {
-                    var indirect = GetRetpolineTarget(body[idx], retpoline);
-                    dep.Symbol = $"{dep.Symbol} ({indirect})";
+                    var repstr = GetRetpolineTarget(body[idx], retpoline);
+                    dep.Symbol = $"{dep.Symbol} ({repstr})";
                 }
             }
-            else if (iter.Contains("!KeSynchronizeExecution "))
+            else if (MatchCallIndirect($"call    {iter}", ref indirect))
             {
                 dep.Index = -1;
-                dep.Hint = DrawHint.Synchronize;
-                var indirect = GetSynchronizeSource(body[idx]);
-                if (indirect != "")
+                dep.Hint = DrawHint.Indirect;
+                var indstr = GetIndirectSource(body[idx], indirect);
+                if (indstr != "")
                 {
-                    dep.Symbol = $"{dep.Symbol} ({indirect})";
+                    dep.Symbol = $"{dep.Symbol} ({indstr})";
                 }
             }
             else if (iter.Contains("qword ptr ["))
@@ -365,9 +426,8 @@ public class ParseDisassembly
                 continue;
             }
             var address = iter.Substring(iter.LastIndexOf(" (") + 2).Replace(")", "");
-            address = $"uf {address}";
-            dep.Index = LocateSymbol(address, body, ref func);
             dep.Address = address;
+            dep.Index = LocateSectionByAddress(address, body, ref func);
             if (dep.Index == -1)
             {
                 dep.Hint = DrawHint.BodyNotFound;
@@ -381,16 +441,34 @@ public class ParseDisassembly
         }
     }
 
-    private static string GetSynchronizeSource(in string section)
+    private static bool MatchCallIndirect(string call, ref IdentifyArgument arg)
     {
-        var match = Regex.Match(section, @"lea     rdx,\[(\w+!.*?)\][\s\S]+?call    \w+!KeSynchronizeExecution \(");
-        if (match.Success)
+        foreach (var iter in _indirect)
         {
-            var result = match.Groups[1].Value;
-            return result.Substring(0, result.LastIndexOf(" ("));
+            if (Regex.IsMatch(call, iter.Target))
+            {
+                arg = iter;
+                return true;
+            }
         }
-        return "";
+
+        return false;
     }
+
+    private static string GetIndirectSource(in string section, in IdentifyArgument arg)
+    {
+        List<string> result = new();
+        var match = arg.CompiledPattern.Match(section);
+        while (match.Success)
+        {
+            var str = match.Groups["solution"].Value;
+            match = match.NextMatch();
+            result.Add(str);
+        }
+
+        return string.Join(",", result);
+    }
+
 
     private static string GetRetpolineTarget(in string section, in Dictionary<string, string> retpoline)
     {
@@ -425,15 +503,15 @@ public class ParseDisassembly
                 target.Add(iter);
             }
         }
+
         return string.Join(",", target);
     }
 
-    private static int LocateHeaderAsHumanReadable(string key, in List<string> body, ref string address)
+    private static int LocateSectionByKeyFunction(string key, in List<string> body, ref string address)
     {
-        int i = 0;
-        foreach (var iter in body)
+        for (int i = 0; i < body.Count; i++)
         {
-            var header = iter.Split("\n", 3);
+            var header = body[i].Split("\n", 3);
             if (header[1] == FlowAnalysisCookie)
             {
                 header[1] = header[2].Substring(0, header[2].IndexOf("\n"));
@@ -443,12 +521,12 @@ public class ParseDisassembly
                 address = header[0].Replace("uf ", "");
                 return i;
             }
-            i++;
         }
+
         return -1;
     }
 
-    private static List<int> LocateHeaderAsRandom(string key, in List<string> body)
+    private static List<int> LocateSectionByRandomKey(string key, in List<string> body)
     {
         List<int> result = new();
 
@@ -463,13 +541,12 @@ public class ParseDisassembly
         return result;
     }
 
-    private static int LocateSymbol(string ufAddress, in List<string> body, ref string name)
+    private static int LocateSectionByAddress(string address, in List<string> body, ref string name)
     {
-        int i = 0;
-        foreach (var iter in body)
+        for (int i = 0; i < body.Count; i ++)
         {
-            var header = iter.Split("\n", 3);
-            if (header[0] == ufAddress)
+            var header = body[i].Split("\n", 3);
+            if (header[0] == $"uf {address}")
             {
                 if (header[1] == FlowAnalysisCookie)
                 {
@@ -479,7 +556,6 @@ public class ParseDisassembly
                 name = name.Substring(0, name.Length - 1);
                 return i;
             }
-            i++;
         }
 
         return -1;
@@ -496,6 +572,7 @@ public class ParseDisassembly
                 count += GetTreeCumulatedDependecies(dep);
             }
         }
+
         return count;
     }
 }
