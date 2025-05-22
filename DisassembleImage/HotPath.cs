@@ -9,8 +9,8 @@ public class TrimKD
 {
     public static void TrimLogFile(string source, string from, bool after, string to, string destination)
     {
-        var istream = new StreamReader(source);
-        var ostream = new StreamWriter(destination);
+        StreamReader istream = new(source);
+        StreamWriter ostream = new(destination);
         string line;
         bool found = false;
 
@@ -55,9 +55,9 @@ public class TrimDisassembly
 
     public static void TrimBodies(string delimiter, string path)
     {
-        var body = new List<string>();
-        var block = new StringBuilder();
-        var istream = new StreamReader(path);
+        List<string> body = new();
+        StringBuilder block = new();
+        StreamReader istream = new(path);
         bool bypass;
         string str;
         StringBuilder sb = new();
@@ -99,7 +99,7 @@ public class TrimDisassembly
                 body.Add(str);
             }
         }
-        var ostream = new StreamWriter(path);
+        StreamWriter ostream = new(path);
         foreach (var iter in body)
         {
             ostream.Write(iter);
@@ -143,28 +143,47 @@ public class ParseDisassembly
     const string FlowAnalysisCookie = "Flow analysis was incomplete, some code may be missing";
     public static Node CreateTree(bool upcall, string delimiter, string path, string key, uint depth, string[] stopSymbols, Dictionary<string, string> retpoline)
     {
-        var istream = new StreamReader(path);
+        StreamReader istream = new(path);
         var content = istream.ReadToEnd();
         istream.Close();
         List<string> body = content.Split(delimiter, StringSplitOptions.RemoveEmptyEntries).ToList();
         content = null;
         string address = "";
-        var level = LocateHeaderAsHumanReadable(key, body, ref address);
-        if (level == -1)
-        {
-            return null;
-        }
         Node tree = new();
+        var level = LocateHeaderAsHumanReadable(key, body, ref address);
         tree.Symbol = key;
         tree.Index = level;
-        tree.Address = address;
-        if (upcall)
+        if (level == -1)
         {
-            LocateDependencyRecursiveUpcall(0, depth, ref tree, body);
-        }
-        else
-        {
-            LocateDependencyRecursiveDowncall(0, depth, ref tree, body, stopSymbols, retpoline);
+            var levels = LocateHeaderAsRandom(key, body);
+            if (levels.Count == 0)
+            {
+                return null;
+            }
+            foreach (var iter in levels) {
+                Node dep = new();
+                dep.Index = iter;
+                GetSectionHeader(body[iter], ref dep.Symbol, ref dep.Address);
+                if (upcall)
+                {
+                    LocateDependencyRecursiveUpcall(1, depth, ref dep, body);
+                }
+                else
+                {
+                    LocateDependencyRecursiveDowncall(1, depth, ref dep, body, stopSymbols, retpoline);
+                }
+                tree.Dependency.Add(dep);
+            }
+        } else {
+            tree.Address = address;
+            if (upcall)
+            {
+                LocateDependencyRecursiveUpcall(0, depth, ref tree, body);
+            }
+            else
+            {
+                LocateDependencyRecursiveDowncall(0, depth, ref tree, body, stopSymbols, retpoline);
+            }
         }
         if (tree.Dependency.Count != 0)
         {
@@ -177,7 +196,17 @@ public class ParseDisassembly
         return tree;
     }
 
-    private static List<int> LocateBodiesByUpcall(List<string> body, Regex pattern)
+    private static void GetSectionHeader(in string section, ref string symbol, ref string address)
+    {
+        string []header = section.Split("\n", 3);
+
+        address = header[0].Replace("uf ", "");
+        symbol = header[1] == FlowAnalysisCookie ?
+                 header[2].Substring(0, header[2].IndexOf("\n")) : header[1];
+        symbol = symbol.Substring(0, symbol.Length - 1);
+    }
+
+    private static List<int> LocateBodiesByUpcall(in List<string> body, Regex pattern)
     {
         List<int> result = new();
 
@@ -233,7 +262,7 @@ public class ParseDisassembly
         }
     }
 
-    public static void LocateDependencyRecursiveUpcall(uint current, uint depth, ref Node node, List<string> body)
+    public static void LocateDependencyRecursiveUpcall(uint current, uint depth, ref Node node, in List<string> body)
     {
         if (current == depth)
         {
@@ -241,7 +270,6 @@ public class ParseDisassembly
             return;
         }
         current++;
-        List<string> depString = new();
         Regex pattern = new($"call    {node.Symbol} \\({node.Address}\\)");
         var idx = LocateBodiesByUpcall(body, pattern);
         if (idx[0] == -1) {
@@ -250,25 +278,17 @@ public class ParseDisassembly
         } 
         foreach (var iter in idx)
         {
-            string []header = body[iter].Split("\n", 3);
-            string address = header[0].Replace("uf ", "");
-            string nameOnly = header[1] == FlowAnalysisCookie ?
-                              header[2].Substring(0, header[2].IndexOf("\n")) :
-                              header[1];
-            nameOnly = nameOnly.Substring(0, nameOnly.Length - 1);
-
             Node dep = new();
 
             dep.Index = iter;
-            dep.Symbol = nameOnly;
-            dep.Address = address;
+            GetSectionHeader(body[iter], ref dep.Symbol, ref dep.Address);
             dep.Hint = DrawHint.HasDependency;
             node.Dependency.Add(dep);
             LocateDependencyRecursiveUpcall(current, depth, ref dep, body);
         }
     }
 
-    public static void LocateDependencyRecursiveDowncall(uint current, uint depth, ref Node node, List<string> body, string[] stopSymbols, Dictionary<string, string> retpoline)
+    public static void LocateDependencyRecursiveDowncall(uint current, uint depth, ref Node node, in List<string> body, in string[] stopSymbols, in Dictionary<string, string> retpoline)
     {
         if (current == depth)
         {
@@ -346,7 +366,7 @@ public class ParseDisassembly
             }
             var address = iter.Substring(iter.LastIndexOf(" (") + 2).Replace(")", "");
             address = $"uf {address}";
-            dep.Index = LocateHeader(address, body, ref func);
+            dep.Index = LocateSymbol(address, body, ref func);
             dep.Address = address;
             if (dep.Index == -1)
             {
@@ -361,7 +381,7 @@ public class ParseDisassembly
         }
     }
 
-    private static string GetSynchronizeSource(string section)
+    private static string GetSynchronizeSource(in string section)
     {
         var match = Regex.Match(section, @"lea     rdx,\[(\w+!.*?)\][\s\S]+?call    \w+!KeSynchronizeExecution \(");
         if (match.Success)
@@ -372,7 +392,7 @@ public class ParseDisassembly
         return "";
     }
 
-    private static string GetRetpolineTarget(string section, Dictionary<string, string> retpoline)
+    private static string GetRetpolineTarget(in string section, in Dictionary<string, string> retpoline)
     {
         List<string> source = new();
         var match = Regex.Match(section, @"mov     rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!_?guard_dispatch_icall");
@@ -408,7 +428,7 @@ public class ParseDisassembly
         return string.Join(",", target);
     }
 
-    private static int LocateHeaderAsHumanReadable(string key, List<string> body, ref string address)
+    private static int LocateHeaderAsHumanReadable(string key, in List<string> body, ref string address)
     {
         int i = 0;
         foreach (var iter in body)
@@ -425,11 +445,25 @@ public class ParseDisassembly
             }
             i++;
         }
-
         return -1;
     }
 
-    private static int LocateHeader(string ufAddress, List<string> body, ref string name)
+    private static List<int> LocateHeaderAsRandom(string key, in List<string> body)
+    {
+        List<int> result = new();
+
+        for (int i = 0; i < body.Count; i++)
+        {
+            if (body[i].Contains(key))
+            {
+                result.Add(i);
+            }
+        }
+
+        return result;
+    }
+
+    private static int LocateSymbol(string ufAddress, in List<string> body, ref string name)
     {
         int i = 0;
         foreach (var iter in body)

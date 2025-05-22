@@ -789,6 +789,7 @@ function QuerySymbol
             AdviseDuration $file;
             $meta = LoadMeta $file;
             $seed = CreateDatabaseEntry;
+            ConsoleOverwrite "Downloading symbols, retrieving functions";
             $functions = IdentifyFunctions $file $meta;
             ConsoleOverwrite "Please wait while $($functions.Count) functions are being disassembled";
             BuildDisassembly $functions $file $seed;
