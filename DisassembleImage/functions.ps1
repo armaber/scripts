@@ -76,6 +76,7 @@ $StopDisassembly = @(
     "!KeSetTimerEx$",
     "!KeCancelTimer$",
     "!KeStallExecutionProcessor$",
+    "!KeDelayExecutionThread$",
     "!KeQueryPerformanceCounter$",
     "!KeSynchronizeExecution$",
     "!KeYieldProcessorEx$",
@@ -105,7 +106,7 @@ function LoadScriptProfile
         $json = Get-Content -Raw $script:UfSymbolProfile | ConvertFrom-Json;
         $script:KD = $json.kd;
         $script:Database = $json.database;
-        $script:Sympath = "srv*${json.sympath}*https://msdl.microsoft.com/download/symbols";
+        $script:Sympath = "srv*$($json.sympath)*https://msdl.microsoft.com/download/symbols";
         $script:Statistics = $json.statistics;
         $script:AdviseLimit = $json.advise;
         if ($json.knownuf) {
@@ -978,4 +979,54 @@ function ListMetaFiles
                                  ("" -eq $duration) ? "": $duration + " s"; } },
                            @{ N = "cpu"; E = { [string]$PSItem.stats.model; } },
                            @{ N = "cores"; E = { [string]$PSItem.stats.cpus } };
+}
+
+function MigrateFiles
+{
+    param([string]$Destination)
+    
+    if (! (Test-Path $Destination -PathType Container)) {
+        throw "Path is not a folder";
+    }
+    LoadDefaultValues;
+
+    Get-ChildItem $script:Database -Filter "*" -Directory |
+    Foreach-Object {
+        Copy-Item -Recurse $PSItem $Destination -Force;
+    }
+    $psp = $script:Sympath;
+    if ($psp -match "srv\*(?<intermediary>.+?)\*") {
+        $psp = $Matches["intermediary"];
+    }
+    if (Test-Path $psp) {
+        Copy-Item -Recurse $psp $Destination -Force;
+        if ($psp -ne $script:Database) {
+            $psp = Join-Path $Destination (Split-Path $psp -Leaf);
+        }
+    }
+    $kdrp = Split-Path $script:KD;
+    "kd.exe", "dbgeng.dll", "dbgmodel.dll", "dbghelp.dll", "srcsrv.dll", "symsrv.dll" |
+    Foreach-Object {
+        Copy-Item $kdrp\$PSItem $Destination -Force;
+    }
+    if (Test-Path $script:UfSymbolProfile) {
+        $json = Get-Content -Raw $script:UfSymbolProfile | ConvertFrom-Json;
+    } else {
+        $json = [psobject][ordered]@{
+            kd = "";
+            sympath = "";
+            database = "";
+            advise = [int]0;
+            statistics = $true;
+            knownuf = [string[]]@();
+        };
+    }
+    Copy-Item $MyInvocation.PSCommandPath, $PSCommandPath, $PSScriptRoot\HotPath.cs $Destination;
+    $json.database = $Destination;
+    $json.sympath = $psp;
+    $json.advise = $script:AdviseLimit;
+    $json.statistics = $script:Statistics;
+    $json.kd = Join-Path $Destination "kd.exe";
+    $np = Join-Path $Destination (Split-Path $script:UfSymbolProfile -Leaf);
+    $json | ConvertTo-Json | Set-Content $np;
 }

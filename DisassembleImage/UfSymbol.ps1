@@ -23,6 +23,9 @@
         kd.exe location, database path, symbol path, statistics, warning.
 .PARAMETER List
     Shows the decompiled modules, either .DMP or .dll, .sys, .exe files.
+.PARAMETER Migrate
+    Copy internal files to a destination folder. Have kd.exe running in
+    standalone mode with local symbols.
 
 .EXAMPLE
     .\UfSymbol.ps1 -List OS
@@ -64,7 +67,10 @@ param(
       [switch]$Setup,
       [Parameter(ParameterSetName = "List")]
       [ValidateSet("OS", "Complete")]
-      [string]$List
+      [string]$List,
+      [Parameter(ParameterSetName = "Migrate")]
+      [Alias("USB")]
+      [string]$Migrate
 )
 
 $ErrorActionPreference = 'Break';
@@ -79,4 +85,5 @@ switch ($PSCmdLet.ParameterSetName)
     }
     "Setup" { ConfigureInteractive; }
     "List" { ListMetaFiles $List; }
+    "Migrate" { MigrateFiles $Migrate; }
 }
