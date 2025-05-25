@@ -25,6 +25,7 @@ $StopDisassembly = @(
     "!strupr$",
     "!stricmp$",
     "!strtok_s$",
+    "!swprintf_s$",
     "!atoi$",
     "!atoi64$",
     "!atol$",
@@ -85,7 +86,8 @@ $StopDisassembly = @(
     "!KeBugCheckEx$",
     "!RtlRaiseException$",
     "!EtwpLogKernelEvent$",
-    "!RtlInitUnicodeString$"
+    "!RtlInitUnicodeString$",
+    "!EtwTraceKernelEvent$"
 );
 
 function TraceMemoryUsage
@@ -144,7 +146,7 @@ Install Debugging Tools for Windows:
 
 function LoadHotPath
 {
-    Add-Type -Path $PSScriptRoot\HotPath.cs;
+    Add-Type -LiteralPath $PSScriptRoot\HotPath.cs;
 }
 
 function GetLogicalCPUs
@@ -492,7 +494,7 @@ function LocateDisassembly
     if ($Image) {
         $hash = ComputeFileHash $Image;
     }
-    foreach ($iter in @(Get-ChildItem -Path $location -Recurse -Include "*.meta" -File)) {
+    foreach ($iter in @(Get-ChildItem -LiteralPath $location -Recurse -Include "*.meta" -File)) {
         $fn = $iter.FullName;
         $json = Get-Content $fn | ConvertFrom-Json;
         if ($Caption) {
@@ -717,7 +719,7 @@ function AdviseDuration {
         size = [int64](Get-Item $Image).Length;
     }
     $closest = [psobject]::new();
-    Get-ChildItem -Path $script:Database -Recurse -Include "*.meta" |
+    Get-ChildItem -LiteralPath $script:Database -Recurse -Include "*.meta" |
     ForEach-Object {
         $json = Get-Content $PSItem -Raw | ConvertFrom-Json;
         if ($script:AdviseLimit -ne 0 -and
@@ -946,14 +948,14 @@ function ListMetaFiles
     LoadDefaultValues;
     $ascending = "$([char]0x2191)";
     if ($List -eq "OS") {
-        Get-ChildItem -Recurse -Include "*.meta" -Path $script:Database | 
+        Get-ChildItem -Recurse -Include "*.meta" -LiteralPath $script:Database | 
         Foreach-Object { 
             Get-Content $PSItem | ConvertFrom-Json 
         } | Sort-Object os |
         Format-Table -AutoSize computer, @{ N = "os | basename $ascending"; E = { $PSItem.os; } }, image;
         return;
     }
-    Get-ChildItem -Recurse -Include "*.meta" -Path $script:Database | 
+    Get-ChildItem -Recurse -Include "*.meta" -LiteralPath $script:Database | 
     Foreach-Object { 
         Get-Content $PSItem | ConvertFrom-Json 
     } | Sort-Object -Property @{ E = { [int]$PSItem.stats.duration } } |
@@ -1029,4 +1031,37 @@ function MigrateFiles
     $json.kd = Join-Path $Destination "kd.exe";
     $np = Join-Path $Destination (Split-Path $script:UfSymbolProfile -Leaf);
     $json | ConvertTo-Json | Set-Content $np;
+}
+
+function SelfInsert
+{
+    param([string]$Symbol)
+
+    $content = Get-Content -Raw $PSCommandPath;
+    if (! ($content -match '\$StopDisassembly = @\(\r?\n(.+?\r?\n)+?\);')) {
+        throw "The $PSCommandPath has been modified.";
+    }
+    $block = $Matches[0];
+    if (!$Symbol.Contains("!")) {
+        $Symbol = "!$Symbol";
+    }
+    if (!$Symbol.EndsWith("$")) {
+        $Symbol += "$";
+    }
+    if ($block.Contains($Symbol)) {
+        return;
+    }
+    $cr = "";
+    if ($block.Contains("`r")) {
+        $cr = "`r";
+    }
+    $newblock = $block.Replace("$cr`n);", ",$cr`n    ""$Symbol""$cr`n);")
+    $newcontent = $content.Replace($block, $newblock);
+    $newcontent | Set-Content -NoNewLine $PSCommandPath;
+    $json = Get-Content -Raw $script:UfSymbolProfile -ErrorAction SilentlyContinue |
+            ConvertFrom-Json;
+    if ($json.knownuf) {
+        $json += $Symbol;
+        $json | ConvertTo-Json | Set-Content $script:UfSymbolProfile;
+    }
 }

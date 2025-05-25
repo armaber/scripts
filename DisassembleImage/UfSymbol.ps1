@@ -26,6 +26,8 @@
 .PARAMETER Migrate
     Copy internal files to a destination folder. Have kd.exe running in
     standalone mode with local symbols.
+.PARAMETER Self
+    Insert symbol in stop-rendering list.
 
 .EXAMPLE
     .\UfSymbol.ps1 -List OS
@@ -45,9 +47,16 @@
 .EXAMPLE
     .\UfSymbol.ps1 -Symbol ntoskrnl!IoGetIommuInterface -Image "C:\Windows\System32\ntoskrnl.exe"
 
+.EXAMPLE
+    .\UfSymbol.ps1 -Self wcstok_s
+    wcstok_s callees are not rendered.
+
 .NOTES
     PowerShell Core is mandatory: optimizations since Desktop 5.1 are substantial.
     Hotpaths are implemented as inline assemblies.
+
+.LINK
+    https://github.com/armaber/articles/blob/main/HDUF/brief.md
 #>
 
 #requires -PSEdition Core
@@ -70,7 +79,9 @@ param(
       [string]$List,
       [Parameter(ParameterSetName = "Migrate")]
       [Alias("USB")]
-      [string]$Migrate
+      [string]$Migrate,
+      [Parameter(ParameterSetName = "Self")]
+      [string]$Self
 )
 
 $ErrorActionPreference = 'Break';
@@ -86,4 +97,5 @@ switch ($PSCmdLet.ParameterSetName)
     "Setup" { ConfigureInteractive; }
     "List" { ListMetaFiles $List; }
     "Migrate" { MigrateFiles $Migrate; }
+    "Self" { SelfInsert $Self }
 }
