@@ -119,6 +119,7 @@ $accessHash = @{
     "FILE_ANY_ACCESS"   = 0;
     "FILE_READ_ACCESS"  = 1;
     "FILE_WRITE_ACCESS" = 2;
+    "FILE_RW_ACCESS"    = 3;
 };
 
 function UnpackIoctl
@@ -133,7 +134,7 @@ function UnpackIoctl
     if ($type -in $typeHash.Values) {
         $typeStr = ($typeHash.GetEnumerator() | Where-Object { $_.Value -eq $type }).Key;
     } else {
-        $typeStr = "0x{0:X}" -f $type;
+        $typeStr = "0x{0:X} = Undocumented" -f $type;
     }
     if ($method -in $methodHash.Values) {
         $methodStr = ($methodHash.GetEnumerator() | Where-Object { $_.Value -eq $method }).Name;
@@ -146,7 +147,7 @@ function UnpackIoctl
         $accessStr = "0x{0:X}" -f $access;
     }
     $fnStr = "0x{0:X}" -f $fn;
-    "CTL_CODE($typeStr, $fnStr, $accessStr, $methodStr)";
+    "CTL_CODE($typeStr, $fnStr, $methodStr, $accessStr)";
 }
 
 UnpackIoctl $IoctlCode;
