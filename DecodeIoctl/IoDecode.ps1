@@ -3,16 +3,42 @@
     Decode IOCTLs issues by Windows applications or drivers
 
 .PARAMETER IoctlCode
-    The code to be parsed
+    The code to be parsed. Latest Windows SDK version is scanned for matching CTL_CODE,
+    identifying the source macro. Currently, winioctl.h and ntddscsi.h are used.
 
 .EXAMPLE
-    .\IoDecode.ps1 0x002D1C00
-    CTL_CODE(FILE_DEVICE_MASS_STORAGE, 0x700, FILE_ANY_ACCESS, METHOD_BUFFERED)
+    .\IoDecode.ps1 0x00041018
+    0x00041018 = CTL_CODE(FILE_DEVICE_CONTROLLER, 0x406, METHOD_BUFFERED, FILE_ANY_ACCESS)
+    > Found match in "C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\ntddscsi.h"
+      IOCTL_SCSI_GET_ADDRESS = CTL_CODE(IOCTL_SCSI_BASE, 0x0406, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+    In this example, the runtime match identifies FILE_DEVICE_CONTROLLER as type. The header
+    file uses IOCTL_SCSI_BASE as identical macro.
+
+.EXAMPLE
+    .\IoDecode.ps1 0x00070000
+    0x00070000 = CTL_CODE(FILE_DEVICE_DISK, 0x0, METHOD_BUFFERED, FILE_ANY_ACCESS)
+    > Found match in "C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\winioctl.h"
+        IOCTL_DISK_GET_DRIVE_GEOMETRY = CTL_CODE(IOCTL_DISK_BASE, 0x0000, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+    In this example, the macro is located in winioctl.h.
+
+.EXAMPLE
+    .\IoDecode.ps1 0x002D118C
+    0x002D118C = CTL_CODE(FILE_DEVICE_MASS_STORAGE, 0x463, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+    In this example, the headers do not define a corresponding macro.
+
+.EXAMPLE
+    .\IoDecode.ps1 0x004D0008
+    0x004D0008 = CTL_CODE(0x4D<undocumented>, 0x2, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+    In this example, the FILE_DEVICE macro has no match for 0x4D.
 #>
 
 param([int]$IoctlCode)
 
-$typeHash = @{
+$typeHash = [ordered]@{
     "FILE_DEVICE_BEEP"                 = 0x00000001;
     "FILE_DEVICE_CD_ROM"               = 0x00000002;
     "FILE_DEVICE_CD_ROM_FILE_SYSTEM"   = 0x00000003;
@@ -140,7 +166,7 @@ function UnpackIoctl
             $typeStr = $typeStr[0];
         }
     } else {
-        $typeStr = "0x{0:X} = Undocumented" -f $type;
+        $typeStr = "0x{0:X}<undocumented>" -f $type;
     }
     if ($method -in $methodHash.Values) {
         $methodStr = ($methodHash.GetEnumerator() | Where-Object { $_.Value -eq $method }).Key;
@@ -181,9 +207,8 @@ function LatestCTL_CODE
                   "$windowsKit\$latestVersion\shared\ntddscsi.h";
     $ctl_codeTable = [psobject]::new();
     foreach ($ioctlPath in $knownPaths) {
-        $winioctl = Get-Content $ioctlPath | Select-String $keys -AllMatches -SimpleMatch;
-        $winioctl = $winioctl.Line |
-        Where-Object {
+        $ioctl = Get-Content $ioctlPath | Select-String $keys -AllMatches -SimpleMatch;
+        $ioctl.Line | Where-Object {
             if ($_ -match "define (\w+)\s+CTL_CODE\((\w+, \d+, \w+, \w+( \| \w+)?)\)" -or
                 $_ -match "define (\w+)\s+CTL_CODE\((\w+, 0x[0-9a-f]+, \w+, \w+( \| \w+)?)\)")
             {
