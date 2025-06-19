@@ -17,9 +17,11 @@ $typeHash = @{
     "FILE_DEVICE_CD_ROM"               = 0x00000002;
     "FILE_DEVICE_CD_ROM_FILE_SYSTEM"   = 0x00000003;
     "FILE_DEVICE_CONTROLLER"           = 0x00000004;
+    "IOCTL_SCSI_BASE"                  = 0x00000004;
     "FILE_DEVICE_DATALINK"             = 0x00000005;
     "FILE_DEVICE_DFS"                  = 0x00000006;
     "FILE_DEVICE_DISK"                 = 0x00000007;
+    "IOCTL_DISK_BASE"                  = 0x00000007;
     "FILE_DEVICE_DISK_FILE_SYSTEM"     = 0x00000008;
     "FILE_DEVICE_FILE_SYSTEM"          = 0x00000009;
     "FILE_DEVICE_INPORT_PORT"          = 0x0000000a;
@@ -117,10 +119,10 @@ $methodHash = @{
 };
 
 $accessHash = @{
-    "FILE_ANY_ACCESS"   = 0;
-    "FILE_READ_ACCESS"  = 1;
-    "FILE_WRITE_ACCESS" = 2;
-    "FILE_RW_ACCESS"    = 3;
+    "FILE_ANY_ACCESS"                      = 0;
+    "FILE_READ_ACCESS"                     = 1;
+    "FILE_WRITE_ACCESS"                    = 2;
+    "FILE_READ_ACCESS | FILE_WRITE_ACCESS" = 3;
 };
 
 function UnpackIoctl
@@ -151,10 +153,8 @@ function UnpackIoctl
         $accessStr = "0x{0:X}" -f $access;
     }
     $fnStr = "0x{0:X}" -f $fn;
-    "CTL_CODE($typeStr, $fnStr, $methodStr, $accessStr)";
+    "0x{0:X8} = CTL_CODE($typeStr, $fnStr, $methodStr, $accessStr)" -f $IoControl;
 }
-
-$ctl_codeTable = [psobject]::new();
 
 function CTL_CODE
 {
@@ -177,45 +177,50 @@ function LatestCTL_CODE
     }
     $latestVersion = ($version | Sort-Object -Descending -Top 1) -join ".";
     $keys = [string[]]$typeHash.Keys;
-    $winioctlPath = "$windowsKit\$latestVersion\um\winioctl.h";
-    $winioctl = Get-Content $winioctlPath | Select-String $keys -AllMatches -SimpleMatch;
-    $winioctl = $winioctl.Line | Where-Object {
-                                if ($_ -match "define (\w+)\s+CTL_CODE\((\w+, \d+, \w+, \w+( \| \w+)?)\)" -or
-                                    $_ -match "define (\w+)\s+CTL_CODE\((\w+, 0x[0-9a-f]+, \w+, \w+( \| \w+)?)\)")
-                                {
-                                    $ctl_codeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $Matches[2];
-                                }
-                            };
-    foreach ($ctlProperty in $ctl_codeTable.PSObject.Properties) {
-        $values = $ctlProperty.Value -split ", ";
-        $type = $values[0];
-        $intType = $typeHash.$type;
-        if ($null -eq $intType) {
-            continue;
-        }
-        $intFn = [int]$values[1];
-        $method = $values[2];
-        $intMethod = $methodHash.$method;
-        if ($null -eq $intMethod) {
-            continue;
-        }
-        $access = $values[3];
-        if ($access.Contains("|")) {
-            $intAccess = 3;
-        } elseif ($access -eq "FILE_SPECIAL_ACCESS") {
-            $intAccess = 0;
-        } elseif ($access -eq "FILE_READ_DATA") {
-            $intAccess = 1;
-        } elseif ($access -eq "FILE_WRITE_DATA") {
-            $intAccess = 2;
-        } else {
-            $intAccess = $accessHash.$access;
-        }
-        $ctlValue = CTL_CODE $intType $intFn $intMethod $intAccess;
-        if ($ctlValue -eq $IoControl) {
-            "> Found match in ""$winioctlPath""";
-            "  $($ctlProperty.Name) = CTL_CODE($($ctlProperty.Value))";
-            return;
+    $knownPaths = "$windowsKit\$latestVersion\um\winioctl.h",
+                  "$windowsKit\$latestVersion\shared\ntddscsi.h";
+    $ctl_codeTable = [psobject]::new();
+    foreach ($ioctlPath in $knownPaths) {
+        $winioctl = Get-Content $ioctlPath | Select-String $keys -AllMatches -SimpleMatch;
+        $winioctl = $winioctl.Line |
+        Where-Object {
+            if ($_ -match "define (\w+)\s+CTL_CODE\((\w+, \d+, \w+, \w+( \| \w+)?)\)" -or
+                $_ -match "define (\w+)\s+CTL_CODE\((\w+, 0x[0-9a-f]+, \w+, \w+( \| \w+)?)\)")
+            {
+                $ctl_codeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $Matches[2];
+            }
+        };
+        foreach ($ctlProperty in $ctl_codeTable.PSObject.Properties) {
+            $values = $ctlProperty.Value -split ", ";
+            $type = $values[0];
+            $intType = $typeHash.$type;
+            if ($null -eq $intType) {
+                continue;
+            }
+            $intFn = [int]$values[1];
+            $method = $values[2];
+            $intMethod = $methodHash.$method;
+            if ($null -eq $intMethod) {
+                continue;
+            }
+            $access = $values[3];
+            if ($access.Contains("|")) {
+                $intAccess = 3;
+            } elseif ($access -eq "FILE_SPECIAL_ACCESS") {
+                $intAccess = 0;
+            } elseif ($access -eq "FILE_READ_DATA") {
+                $intAccess = 1;
+            } elseif ($access -eq "FILE_WRITE_DATA") {
+                $intAccess = 2;
+            } else {
+                $intAccess = $accessHash.$access;
+            }
+            $ctlValue = CTL_CODE $intType $intFn $intMethod $intAccess;
+            if ($ctlValue -eq $IoControl) {
+                "> Found match in ""$ioctlPath""";
+                "  $($ctlProperty.Name) = CTL_CODE($($ctlProperty.Value))";
+                return;
+            }
         }
     }
 }
