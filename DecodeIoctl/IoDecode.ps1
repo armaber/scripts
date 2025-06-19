@@ -58,6 +58,7 @@ $typeHash = @{
     "FILE_DEVICE_MODEM"                = 0x0000002b;
     "FILE_DEVICE_VDM"                  = 0x0000002c;
     "FILE_DEVICE_MASS_STORAGE"         = 0x0000002d;
+    "IOCTL_STORAGE_BASE"               = 0x0000002d;
     "FILE_DEVICE_SMB"                  = 0x0000002e;
     "FILE_DEVICE_KS"                   = 0x0000002f;
     "FILE_DEVICE_CHANGER"              = 0x00000030;
@@ -133,16 +134,19 @@ function UnpackIoctl
 
     if ($type -in $typeHash.Values) {
         $typeStr = ($typeHash.GetEnumerator() | Where-Object { $_.Value -eq $type }).Key;
+        if ($typeStr.Count -gt 1) {
+            $typeStr = $typeStr[0];
+        }
     } else {
         $typeStr = "0x{0:X} = Undocumented" -f $type;
     }
     if ($method -in $methodHash.Values) {
-        $methodStr = ($methodHash.GetEnumerator() | Where-Object { $_.Value -eq $method }).Name;
+        $methodStr = ($methodHash.GetEnumerator() | Where-Object { $_.Value -eq $method }).Key;
     } else {
         $methodStr = "0x{0:X}" -f $method;
     }
     if ($access -in $accessHash.Values) {
-        $accessStr = ($accessHash.GetEnumerator() | Where-Object { $_.Value -eq $access }).Name;
+        $accessStr = ($accessHash.GetEnumerator() | Where-Object { $_.Value -eq $access }).Key;
     } else {
         $accessStr = "0x{0:X}" -f $access;
     }
@@ -150,4 +154,71 @@ function UnpackIoctl
     "CTL_CODE($typeStr, $fnStr, $methodStr, $accessStr)";
 }
 
+$ctl_codeTable = [psobject]::new();
+
+function CTL_CODE
+{
+    param([int]$Type,
+          [int]$Fn,
+          [int]$Method,
+          [int]$Access)
+    
+    return ($Type -shl 16) + ($Access -shl 14) + ($Fn -shl 2) + $Method;
+}
+
+function LatestCTL_CODE
+{
+    param([int]$IoControl)
+
+    $windowsKit = "${env:ProgramFiles(x86)}\Windows Kits\10\Include";
+    $version = [Version[]](Get-ChildItem -Path "$windowsKit\*.*" -ErrorAction SilentlyContinue).Name;
+    if (-not $version) {
+        return;
+    }
+    $latestVersion = ($version | Sort-Object -Descending -Top 1) -join ".";
+    $keys = [string[]]$typeHash.Keys;
+    $winioctlPath = "$windowsKit\$latestVersion\um\winioctl.h";
+    $winioctl = Get-Content $winioctlPath | Select-String $keys -AllMatches -SimpleMatch;
+    $winioctl = $winioctl.Line | Where-Object {
+                                if ($_ -match "define (\w+)\s+CTL_CODE\((\w+, \d+, \w+, \w+( \| \w+)?)\)" -or
+                                    $_ -match "define (\w+)\s+CTL_CODE\((\w+, 0x[0-9a-f]+, \w+, \w+( \| \w+)?)\)")
+                                {
+                                    $ctl_codeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $Matches[2];
+                                }
+                            };
+    foreach ($ctlProperty in $ctl_codeTable.PSObject.Properties) {
+        $values = $ctlProperty.Value -split ", ";
+        $type = $values[0];
+        $intType = $typeHash.$type;
+        if ($null -eq $intType) {
+            continue;
+        }
+        $intFn = [int]$values[1];
+        $method = $values[2];
+        $intMethod = $methodHash.$method;
+        if ($null -eq $intMethod) {
+            continue;
+        }
+        $access = $values[3];
+        if ($access.Contains("|")) {
+            $intAccess = 3;
+        } elseif ($access -eq "FILE_SPECIAL_ACCESS") {
+            $intAccess = 0;
+        } elseif ($access -eq "FILE_READ_DATA") {
+            $intAccess = 1;
+        } elseif ($access -eq "FILE_WRITE_DATA") {
+            $intAccess = 2;
+        } else {
+            $intAccess = $accessHash.$access;
+        }
+        $ctlValue = CTL_CODE $intType $intFn $intMethod $intAccess;
+        if ($ctlValue -eq $IoControl) {
+            "> Found match in ""$winioctlPath""";
+            "  $($ctlProperty.Name) = CTL_CODE($($ctlProperty.Value))";
+            return;
+        }
+    }
+}
+
 UnpackIoctl $IoctlCode;
+LatestCTL_CODE $IoctlCode;
