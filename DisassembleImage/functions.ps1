@@ -87,7 +87,8 @@ $StopDisassembly = @(
     "!RtlRaiseException$",
     "!EtwpLogKernelEvent$",
     "!RtlInitUnicodeString$",
-    "!EtwTraceKernelEvent$"
+    "!EtwTraceKernelEvent$",
+    "!vsnwprintf$"
 );
 
 function TraceMemoryUsage
@@ -735,7 +736,7 @@ function AdviseDuration {
         if ($closest.stats.inproc -eq $me.inproc) {
             ("File ""$($closest.image)"" of {0:F2} Mb has been processed in $($closest.stats.duration) seconds." -f ($closest.stats.size/1Mb)) | Write-Host;
         } else {
-            ("File ""$($closest.image)"" of {0:F2} Mb has been processed in $($closest.stats.duration) seconds on system $($closest.stats.inproc)." -f $closest.stats.size/1Mb) | Write-Host;
+            ("File ""$($closest.image)"" of {0:F2} Mb has been processed in $($closest.stats.duration) seconds on system $($closest.stats.inproc)." -f ($closest.stats.size/1Mb)) | Write-Host;
         }
     }
 }
@@ -747,7 +748,6 @@ function StoreMeta
           [int]$Seconds,
           [string]$Base)
 
-    $end = [datetime]::now;
     if ($script:Statistics) {
         $Meta.stats = [psobject][ordered]@{
             inproc = $env:COMPUTERNAME;
