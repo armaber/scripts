@@ -137,6 +137,185 @@ public class Node
     public System.Collections.Generic.List<Node> Dependency = new();
 }
 
+enum SCSI_NOTIFICATION_TYPE
+{
+    RequestComplete,
+    NextRequest,
+    NextLuRequest,
+    ResetDetected,
+    _obsolete1,
+    _obsolete2,
+    RequestTimerCall,
+    BusChangeDetected,
+    WMIEvent,
+    WMIReregister,
+    LinkUp,
+    LinkDown,
+    QueryTickCount,
+    BufferOverrunDetected,
+    TraceNotification,
+    GetExtendedFunctionTable,
+
+    EnablePassiveInitialization = 0x1000,
+    InitializeDpc,
+    IssueDpc,
+    AcquireSpinLock,
+    ReleaseSpinLock,
+    StateChangeDetectedCall,
+    IoTargetRequestServiceTime,
+    AsyncNotificationDetected,
+    RequestDirectComplete,
+    InitializeDpcWithContext,
+    InitializeThreadedDpc,
+    SetTargetProcessorDpc,
+    MarkDeviceFailed,
+    MarkDeviceFailedEx,
+    TerminateSystemThread,
+    NvmeofNotification,
+    StorMQControllerStartInitialization
+}
+
+enum STORPORT_FUNCTION_CODE
+{
+    ExtFunctionAllocatePool,
+    ExtFunctionFreePool,
+    ExtFunctionAllocateMdl,
+    ExtFunctionFreeMdl,
+    ExtFunctionBuildMdlForNonPagedPool,
+    ExtFunctionGetSystemAddress,
+    ExtFunctionGetOriginalMdl,
+    ExtFunctionCompleteServiceIrp,
+    ExtFunctionGetDeviceObjects,
+    ExtFunctionBuildScatterGatherList,
+    ExtFunctionPutScatterGatherList,
+    ExtFunctionAcquireMSISpinLock,
+    ExtFunctionReleaseMSISpinLock,
+    ExtFunctionGetMessageInterruptInformation,
+    ExtFunctionInitializePerformanceOptimizations,
+    ExtFunctionGetStartIoPerformanceParameters,
+    ExtFunctionLogSystemEvent,
+    ExtFunctionGetCurrentProcessorNumber,
+    ExtFunctionGetActiveGroupCount,
+    ExtFunctionGetGroupAffinity,
+    ExtFunctionGetActiveNodeCount,
+    ExtFunctionGetNodeAffinity,
+    ExtFunctionGetHighestNodeNumber,
+    ExtFunctionGetLogicalProcessorRelationship,
+    ExtFunctionAllocateContiguousMemorySpecifyCacheNode,
+    ExtFunctionFreeContiguousMemorySpecifyCache,
+    ExtFunctionSetPowerSettingNotificationGuids,
+    ExtFunctionInvokeAcpiMethod,
+    ExtFunctionGetRequestInfo,
+    ExtFunctionInitializeWorker,
+    ExtFunctionQueueWorkItem,
+    ExtFunctionFreeWorker,
+    ExtFunctionInitializeTimer,
+    ExtFunctionRequestTimer,
+    ExtFunctionFreeTimer,
+    ExtFunctionInitializeSListHead,
+    ExtFunctionInterlockedFlushSList,
+    ExtFunctionInterlockedPopEntrySList,
+    ExtFunctionInterlockedPushEntrySList,
+    ExtFunctionQueryDepthSList,
+    ExtFunctionGetActivityId,
+    ExtFunctionGetSystemPortNumber,
+    ExtFunctionGetDataInBufferMdl,
+    ExtFunctionGetDataInBufferSystemAddress,
+    ExtFunctionGetDataInBufferScatterGatherList,
+    ExtFunctionMarkDumpMemory,
+    ExtFunctionSetUnitAttributes,
+    ExtFunctionQueryPerformanceCounter,
+    ExtFunctionInitializePoFxPower,
+    ExtFunctionPoFxActivateComponent,
+    ExtFunctionPoFxIdleComponent,
+    ExtFunctionPoFxSetComponentLatency,
+    ExtFunctionPoFxSetComponentResidency,
+    ExtFunctionPoFxPowerControl,
+    ExtFunctionFlushDataBufferMdl,
+    ExtFunctionDeviceOperationAllowed,
+    ExtFunctionGetProcessorIndexFromNumber,
+    ExtFunctionPoFxSetIdleTimeout,
+    ExtFunctionMiniportEtwEvent2,
+    ExtFunctionMiniportEtwEvent4,
+    ExtFunctionMiniportEtwEvent8,
+    ExtFunctionCurrentOsInstallationUpgrade,
+    ExtFunctionRegistryReadAdapterKey,
+    ExtFunctionRegistryWriteAdapterKey,
+    ExtFunctionSetAdapterBusType,
+    ExtFunctionPoFxRegisterPerfStates,
+    ExtFunctionPoFxSetPerfState,
+    ExtFunctionGetD3ColdSupport,
+    ExtFunctionInitializeRpmb,
+    ExtFunctionAllocateHmb,
+    ExtFunctionFreeHmb,
+    ExtFunctionPropagateIrpExtension,
+    ExtFunctionInterlockedInsertHeadList,
+    ExtFunctionInterlockedInsertTailList,
+    ExtFunctionInterlockedRemoveHeadList,
+    ExtFunctionInitializeSpinlock,
+    ExtFunctionGetPfns,
+    ExtFunctionInitializeCryptoEngine,
+    ExtFunctionGetRequestCryptoInfo,
+    ExtFunctionMiniportTelemetry,
+    ExtFunctionUpdateAdapterMaxIO,
+    ExtFunctionDelayExecution,
+    ExtFunctionAllocateDmaMemory,
+    ExtFunctionFreeDmaMemory,
+    ExtFunctionUpdateAdapterMaxIOInfo,
+    ExtFunctionMiniportChannelEtwEvent2,
+    ExtFunctionMiniportChannelEtwEvent4,
+    ExtFunctionMiniportChannelEtwEvent8,
+    ExtFunctionInitializeHighResolutionTimer,
+    ExtFunctionRequestHighResolutionTimer,
+    ExtFunctionCancelHighResolutionTimer,
+    ExtFunctionFreeHighResolutionTimer,
+    ExtFunctionGetCurrentProcessorIndex,
+    ExtFunctionAcquireSpinLock,
+    ExtFunctionGetProcessorCount,
+    ExtFunctionCancelDpc,
+    ExtFunctionMiniportTelemetryEx,
+    ExtFunctionQueryConfiguration,
+    ExtFunctionLogHardwareError,
+    ExtFunctionInitializeEvent,
+    ExtFunctionWaitForEvent,
+    ExtFunctionSetEvent,
+    ExtFunctionDeviceReset,
+    ExtFunctionSetFeatureList,
+    ExtFunctionCaptureLiveDump,
+    ExtFunctionMiniportLogByteStream,
+    ExtFunctionQueryDpcWatchdogInformation,
+    ExtFunctionQueryTimerMinInterval,
+    ExtFunctionMaskPciMsixEntry,
+    ExtFunctionGetCurrentIrql,
+    ExtFunctionCreateSystemThread,
+    ExtFunctionSetPriorityThread,
+    ExtFunctionSetSystemGroupAffinityThread,
+    ExtFunctionRevertToUserGroupAffinityThread,
+    ExtFunctionDeviceResetEx,
+    ExtFunctionMiniportReportInternalData,
+    ExtFunctionGetMessageInterruptIDFromProcessorIndex,
+    ExtFunctionGetNodeAffinity2,
+    ExtFunctionEnableRegistryKeyNotification,
+    ExtFunctionPoFxRegisterPerfStatesEx,
+    ExtFunctionReadRegistryKey,
+    ExtFunctionGetDeviceBase2,
+    ExtFunctionIsDriverHotSwapEnabled,
+    ExtFunctionRegisterDriverProxy,
+    ExtFunctionRegisterDriverProxyEndpoints,
+    ExtFunctionGetDriverProxyEndpointWrapper,
+    ExtFunctionNvmeIceIoStart,
+    ExtFunctionNvmeIceIoComplete,
+    ExtFunctionNvmeMiniportEvent,
+    ExtFunctionNvmeMiniportTelemetry,
+    ExtFunctionGetDriverProxyEndpointWrapperFromEndpoint,
+    ExtFunctionSwapDriverProxyEndpoints,
+    ExtFunctionStorMQAddController,
+    ExtFunctionStorMQRemoveController,
+    ExtFunctionNvmeIceIoStartEx,
+    ExtFunctionQueryNvmeIceSupport,
+    ExtFunctionQueueWorkItemToNode
+}
+
 public class ParseDisassembly
 {
     static Regex _pattern;
@@ -148,6 +327,7 @@ public class ParseDisassembly
         public string SourceDisasm;
         public uint AboveLimit;
         public Regex CompiledPattern;
+        public object RegisterValue;
     }
 
     static IdentifyArgument[] _indirect =
@@ -181,6 +361,18 @@ public class ParseDisassembly
             Target = @"call    \w+!IoQueueWorkItemEx",
             SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
             AboveLimit = 5
+        },
+        new(){
+            Target = @"call    storport!StorPortNotification",
+            SourceDisasm = @"mov     ecx,(?<solution>.+)h",
+            AboveLimit = 8,
+            RegisterValue = new SCSI_NOTIFICATION_TYPE()
+        },
+        new(){
+            Target = @"call    storport!StorPortExtendedFunction",
+            SourceDisasm = @"((mov     ecx,(?<solution>[0-9A-F]+)h)|(lea     ecx,\[r8\+(?<solution>[0-9A-F]+)h\]))",
+            AboveLimit = 8,
+            RegisterValue = new STORPORT_FUNCTION_CODE()
         },
         new(){
             Target = @"call    \w+!IoRegisterPlugPlayNotification",
@@ -463,7 +655,26 @@ public class ParseDisassembly
         {
             var str = match.Groups["solution"].Value;
             match = match.NextMatch();
-            result.Add(str);
+            if (arg.RegisterValue != null) {
+                Type type = arg.RegisterValue.GetType();
+                try
+                {
+                    int reg = Convert.ToInt32(str, 16);
+                    if (Enum.IsDefined(type, reg))
+                    {
+                        var value = Enum.ToObject(type, reg);
+                        str = $"0x{str}={value}";
+                    } else
+                    {
+                        str = $"0x{str}";
+                    }
+                }
+                finally { }
+            }
+            if (!result.Contains(str))
+            {
+                result.Add(str);
+            }
         }
 
         return string.Join(",", result);
