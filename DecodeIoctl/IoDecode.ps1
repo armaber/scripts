@@ -75,6 +75,7 @@ $typeHash = [ordered]@{
     "FILE_DEVICE_SCANNER"              = 0x00000019;
     "FILE_DEVICE_SERIAL_MOUSE_PORT"    = 0x0000001a;
     "FILE_DEVICE_SERIAL_PORT"          = 0x0000001b;
+    "FILE_DEVICE_SCSI"                 = 0x0000001b;
     "FILE_DEVICE_SCREEN"               = 0x0000001c;
     "FILE_DEVICE_SOUND"                = 0x0000001d;
     "FILE_DEVICE_STREAMS"              = 0x0000001e;
@@ -225,8 +226,8 @@ function BuildCtlCode
             continue;
         }
         $ioctl.Line | Where-Object {
-            if ($_ -match "define (\w+)\s+CTL_CODE\((\w+, \d+, \w+, \w+( \| \w+)?)\)" -or
-                $_ -match "define (\w+)\s+CTL_CODE\((\w+, 0x[0-9a-f]+, \w+, \w+( \| \w+)?)\)")
+            if ($_ -match "define (\w+)\s+CTL_CODE\((\w+,\s+\d+,\s+\w+,\s+\w+( \| \w+)?)\)" -or
+                $_ -match "define (\w+)\s+CTL_CODE\((\w+,\s+0x[0-9a-f]+,\s+\w+,\s+\w+( \| \w+)?)\)")
             {
                 $po = @{
                     define = $Matches[2];
