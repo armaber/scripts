@@ -316,9 +316,36 @@ enum STORPORT_FUNCTION_CODE
     ExtFunctionQueueWorkItemToNode
 }
 
+
 public class ParseDisassembly
 {
+    public class Unreliable
+    {
+        private bool Value;
+
+        public Unreliable(bool init)
+        {
+            Value = init;
+        }
+        public static explicit operator bool(Unreliable source)
+        {
+            return source.Value;
+        }
+    }
+
     static Regex _pattern;
+
+    /*Some indirect enums can be unreliable:
+        mov     r8,1h
+        lea     ecx,[r8+5Ch]
+        call    storport!StorPortExtendedFunction
+
+      In this case, the STORPORT_FUNCTION_CODE enum matches
+      improperly 0x5C=ExtFunctionGetCurrentProcessorIndex.
+
+      This must be a warning.
+    */
+    public static Unreliable IsUnreliable;
     const string FlowAnalysisCookie = "Flow analysis was incomplete, some code may be missing";
 
     private class IdentifyArgument
@@ -328,6 +355,7 @@ public class ParseDisassembly
         public uint AboveLimit;
         public Regex CompiledPattern;
         public object RegisterValue;
+        public bool Unreliable;
     }
 
     static IdentifyArgument[] _indirect =
@@ -372,7 +400,8 @@ public class ParseDisassembly
             Target = @"call    storport!StorPortExtendedFunction",
             SourceDisasm = @"((mov     ecx,(?<solution>[0-9A-F]+)h)|(lea     ecx,\[r8\+(?<solution>[0-9A-F]+)h\]))",
             AboveLimit = 8,
-            RegisterValue = new STORPORT_FUNCTION_CODE()
+            RegisterValue = new STORPORT_FUNCTION_CODE(),
+            Unreliable = true
         },
         new(){
             Target = @"call    \w+!IoRegisterPlugPlayNotification",
@@ -401,7 +430,8 @@ public class ParseDisassembly
                 return null;
             }
             InitializeIndirectRegex();
-            foreach (var iter in levels) {
+            foreach (var iter in levels)
+            {
                 Node dep = new();
                 dep.Index = iter;
                 GetSectionHeader(body[iter], ref dep.Symbol, ref dep.Address);
@@ -415,7 +445,9 @@ public class ParseDisassembly
                 }
                 tree.Dependency.Add(dep);
             }
-        } else {
+        }
+        else
+        {
             tree.Address = address;
             InitializeIndirectRegex();
             if (upcall)
@@ -449,7 +481,7 @@ public class ParseDisassembly
 
     private static void GetSectionHeader(in string section, ref string symbol, ref string address)
     {
-        string []header = section.Split("\n", 3);
+        string[] header = section.Split("\n", 3);
 
         address = header[0].Replace("uf ", "");
         symbol = header[1] == FlowAnalysisCookie ?
@@ -524,7 +556,8 @@ public class ParseDisassembly
         current++;
         Regex pattern = new($"call    {node.Symbol} \\({node.Address}\\)");
         var idx = LocateSectionsByUpcall(body, pattern);
-        if (idx[0] == -1) {
+        if (idx[0] == -1)
+        {
             node.Hint = DrawHint.BodyNotFound;
             return;
         }
@@ -593,6 +626,10 @@ public class ParseDisassembly
                 if (indstr != "")
                 {
                     dep.Symbol = $"{dep.Symbol} ({indstr})";
+                    if (indirect.Unreliable)
+                    {
+                        IsUnreliable = new(true);
+                    }
                 }
             }
             else if (iter.Contains("qword ptr ["))
@@ -655,7 +692,8 @@ public class ParseDisassembly
         {
             var str = match.Groups["solution"].Value;
             match = match.NextMatch();
-            if (arg.RegisterValue != null) {
+            if (arg.RegisterValue != null)
+            {
                 Type type = arg.RegisterValue.GetType();
                 try
                 {
@@ -664,7 +702,8 @@ public class ParseDisassembly
                     {
                         var value = Enum.ToObject(type, reg);
                         str = $"0x{str}={value}";
-                    } else
+                    }
+                    else
                     {
                         str = $"0x{str}";
                     }
@@ -754,7 +793,7 @@ public class ParseDisassembly
 
     private static int LocateSectionByAddress(string address, in List<string> body, ref string name)
     {
-        for (int i = 0; i < body.Count; i ++)
+        for (int i = 0; i < body.Count; i++)
         {
             var header = body[i].Split("\n", 3);
             if (header[0] == $"uf {address}")

@@ -88,7 +88,8 @@ $StopDisassembly = @(
     "!EtwpLogKernelEvent$",
     "!RtlInitUnicodeString$",
     "!EtwTraceKernelEvent$",
-    "!vsnwprintf$"
+    "!vsnwprintf$",
+    "!ExFreePool$"
 );
 
 function TraceMemoryUsage
@@ -667,6 +668,15 @@ function DisplayTree
             DisplayTreeRecursive $desc $line;
             $line = $prev;
         }
+    }
+    if ([ParseDisassembly]::IsUnreliable) {
+        @"
+
+* Some indirect arguments have been decoded based on most recent CPU register load.
+  A review of the .disassembly function body is recommended. The source operand may have been incremented multiple times.
+
+"@;
+        [ParseDisassembly]::IsUnreliable = $null;
     }
 }
 
