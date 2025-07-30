@@ -135,6 +135,26 @@ public class Node
     public Expand Expand;
     public DrawHint Hint;
     public System.Collections.Generic.List<Node> Dependency = new();
+
+    private static int _GetDependencyCount(Node node)
+    {
+        var count = node.Dependency.Count;
+
+        foreach (var dep in node.Dependency)
+        {
+            if (dep.Dependency.Count > 0)
+            {
+                count += _GetDependencyCount(dep);
+            }
+        }
+        return count;
+    }
+
+    public int GetDependencyCount()
+    {
+        return Node._GetDependencyCount(this);
+    }
+
 }
 
 enum SCSI_NOTIFICATION_TYPE
@@ -333,7 +353,8 @@ public class ParseDisassembly
         }
     }
 
-    static Regex _pattern;
+    Node _tree;
+    Regex _guardDispatchPattern;
 
     /*Some indirect enums can be unreliable:
         mov     r8,1h
@@ -345,7 +366,7 @@ public class ParseDisassembly
 
       This must be a warning.
     */
-    public static Unreliable IsUnreliable;
+    public Unreliable IsUnreliable;
     const string FlowAnalysisCookie = "Flow analysis was incomplete, some code may be missing";
 
     private class IdentifyArgument
@@ -358,7 +379,7 @@ public class ParseDisassembly
         public bool Unreliable;
     }
 
-    static IdentifyArgument[] _indirect =
+    IdentifyArgument[] _indirectSourceBlock =
     {
         new(){
             Target = @"call    \w+!KeInitializeDpc",
@@ -410,7 +431,7 @@ public class ParseDisassembly
         }
     };
 
-    public static Node CreateTree(bool upcall, string delimiter, string path, string key, uint depth, string[] stopSymbols, Dictionary<string, string> retpoline)
+    public void CreateTree(bool upcall, string delimiter, string path, string key, uint depth, string[] stopSymbols, Dictionary<string, string> retpoline)
     {
         StreamReader istream = new(path);
         var content = istream.ReadToEnd();
@@ -427,7 +448,7 @@ public class ParseDisassembly
             var levels = LocateSectionByRandomKey(key, body);
             if (levels.Count == 0)
             {
-                return null;
+                return;
             }
             InitializeIndirectRegex();
             foreach (var iter in levels)
@@ -467,19 +488,23 @@ public class ParseDisassembly
         {
             tree.Expand = Expand.None;
         }
-
-        return tree;
+        _tree = tree;
     }
 
-    private static void InitializeIndirectRegex()
+    public Node GetTree()
     {
-        foreach (var iter in _indirect)
+        return _tree;
+    }
+
+    private void InitializeIndirectRegex()
+    {
+        foreach (var iter in _indirectSourceBlock)
         {
             iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(.+?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
         }
     }
 
-    private static void GetSectionHeader(in string section, ref string symbol, ref string address)
+    private void GetSectionHeader(in string section, ref string symbol, ref string address)
     {
         string[] header = section.Split("\n", 3);
 
@@ -489,7 +514,7 @@ public class ParseDisassembly
         symbol = symbol.Substring(0, symbol.Length - 1);
     }
 
-    private static List<int> LocateSectionsByUpcall(in List<string> body, Regex pattern)
+    private List<int> LocateSectionsByUpcall(in List<string> body, Regex pattern)
     {
         List<int> result = new();
 
@@ -508,7 +533,7 @@ public class ParseDisassembly
         return result;
     }
 
-    private static void AddExpand(List<Node> tree)
+    private void AddExpand(List<Node> tree)
     {
         Node el = null;
         int i;
@@ -546,7 +571,7 @@ public class ParseDisassembly
         }
     }
 
-    public static void LocateDependencyRecursiveUpcall(uint current, uint depth, ref Node node, in List<string> body)
+    private void LocateDependencyRecursiveUpcall(uint current, uint depth, ref Node node, in List<string> body)
     {
         if (current == depth)
         {
@@ -573,7 +598,7 @@ public class ParseDisassembly
         }
     }
 
-    public static void LocateDependencyRecursiveDowncall(uint current, uint depth, ref Node node, in List<string> body, in string[] stopSymbols, in Dictionary<string, string> retpoline)
+    private void LocateDependencyRecursiveDowncall(uint current, uint depth, ref Node node, in List<string> body, in string[] stopSymbols, in Dictionary<string, string> retpoline)
     {
         if (current == depth)
         {
@@ -584,11 +609,11 @@ public class ParseDisassembly
         current++;
         var idx = node.Index;
         List<string> deplist = new();
-        if (_pattern == null)
+        if (_guardDispatchPattern == null)
         {
-            _pattern = new(@"(call    (?<partial>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<partial>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
+            _guardDispatchPattern = new(@"(call    (?<partial>(qword ptr \[\w+!((_imp_|_?guard_dispatch_icall).*)\])|(\w+!.*)))|(jmp     (?<partial>qword ptr \[\w+!_imp_.*\]))", RegexOptions.Compiled);
         }
-        var match = _pattern.Match(body[idx]);
+        var match = _guardDispatchPattern.Match(body[idx]);
         while (match.Success)
         {
             var part = match.Groups["partial"].Value;
@@ -670,9 +695,9 @@ public class ParseDisassembly
         }
     }
 
-    private static bool MatchCallIndirect(string call, ref IdentifyArgument arg)
+    private bool MatchCallIndirect(string call, ref IdentifyArgument arg)
     {
-        foreach (var iter in _indirect)
+        foreach (var iter in _indirectSourceBlock)
         {
             if (Regex.IsMatch(call, iter.Target))
             {
@@ -684,7 +709,7 @@ public class ParseDisassembly
         return false;
     }
 
-    private static string GetIndirectSource(in string section, in IdentifyArgument arg)
+    private string GetIndirectSource(in string section, in IdentifyArgument arg)
     {
         List<string> result = new();
         var match = arg.CompiledPattern.Match(section);
@@ -719,8 +744,7 @@ public class ParseDisassembly
         return string.Join(",", result);
     }
 
-
-    private static string GetRetpolineTarget(in string section, in Dictionary<string, string> retpoline)
+    private string GetRetpolineTarget(in string section, in Dictionary<string, string> retpoline)
     {
         List<string> source = new();
         var match = Regex.Match(section, @"mov     rax,qword ptr \[(\w+!.+?)\s.+?\][\s\S]+?call\s+\w+!_?guard_dispatch_icall");
@@ -757,7 +781,7 @@ public class ParseDisassembly
         return string.Join(",", target);
     }
 
-    private static int LocateSectionByKeyFunction(string key, in List<string> body, ref string address)
+    private int LocateSectionByKeyFunction(string key, in List<string> body, ref string address)
     {
         for (int i = 0; i < body.Count; i++)
         {
@@ -776,7 +800,7 @@ public class ParseDisassembly
         return -1;
     }
 
-    private static List<int> LocateSectionByRandomKey(string key, in List<string> body)
+    private List<int> LocateSectionByRandomKey(string key, in List<string> body)
     {
         List<int> result = new();
 
@@ -791,7 +815,7 @@ public class ParseDisassembly
         return result;
     }
 
-    private static int LocateSectionByAddress(string address, in List<string> body, ref string name)
+    private int LocateSectionByAddress(string address, in List<string> body, ref string name)
     {
         for (int i = 0; i < body.Count; i++)
         {
@@ -811,18 +835,4 @@ public class ParseDisassembly
         return -1;
     }
 
-    public static int GetTreeCumulatedDependecies(Node tree)
-    {
-        var count = tree.Dependency.Count;
-
-        foreach (var dep in tree.Dependency)
-        {
-            if (dep.Dependency.Count > 0)
-            {
-                count += GetTreeCumulatedDependecies(dep);
-            }
-        }
-
-        return count;
-    }
 }

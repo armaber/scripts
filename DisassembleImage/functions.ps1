@@ -89,7 +89,14 @@ $StopDisassembly = @(
     "!RtlInitUnicodeString$",
     "!EtwTraceKernelEvent$",
     "!vsnwprintf$",
-    "!ExFreePool$"
+    "!ExFreePool$",
+    "!IoUnregisterShutdownNotification$",
+    "!KeReleaseInStackQueuedSpinLock$",
+    "!KeAcquireInStackQueuedSpinLock$",
+    "!ExInitializeResourceSharedLite$",
+    "!ExAcquireResourceSharedLite$",
+    "!ExAcquireFastMutex$",
+    "!ExReleaseFastMutex$"
 );
 
 function TraceMemoryUsage
@@ -530,7 +537,7 @@ function BuildDisassembly
 
 #Used in rendering, called by parent ahead of printing the descendant.
 #.Expand is computed in a different pass.
-function DrawDescendantLine
+function DrawDependencyLine
 {
     param([Node]$Node,
           [int]$Padding)
@@ -633,13 +640,13 @@ function DisplayTreeRecursive
           [string]$Line)
 
     $padding = $Node.Symbol.Length;
-    foreach ($desc in $Node.Dependency) {
+    foreach ($dep in $Node.Dependency) {
         $prev = $Line;
-        $inner = DrawDescendantLine $desc $padding;
-        PrintSymbol $desc ($Line + $inner);
-        if ($desc.Dependency) {
-            $Line += DrawNextLine $desc $padding;
-            DisplayTreeRecursive $desc $Line;
+        $inner = DrawDependencyLine $dep $padding;
+        PrintSymbol $dep ($Line + $inner);
+        if ($dep.Dependency) {
+            $Line += DrawNextLine $dep $padding;
+            DisplayTreeRecursive $dep $Line;
             $Line = $prev;
         }
     }
@@ -649,34 +656,34 @@ function DisplayTreeRecursive
 #of dependencies in [].
 function DisplayTree
 {
-    param([Node]$Tree)
+    param([ParseDisassembly]$PD)
 
-    if (! $Tree) {
+    $tree = $PD.GetTree();
+    if (! $tree) {
         "Symbol is not present in disassembly.";
         return;
     }
-    "$($Tree.Symbol) [$([ParseDisassembly]::GetTreeCumulatedDependecies($Tree))]";
+    "$($tree.Symbol) [$($tree.GetDependencyCount())]";
 
-    $padding = $Tree.Symbol.Length;
+    $padding = $tree.Symbol.Length;
     [string]$line = "";
-    foreach ($desc in $Tree.Dependency) {
+    foreach ($dep in $tree.Dependency) {
         $prev = $line;
-        $inner = DrawDescendantLine $desc $padding;
-        PrintSymbol $desc ($line + $inner);
-        if ($desc.Dependency) {
-            $line += DrawNextLine $desc $padding;
-            DisplayTreeRecursive $desc $line;
+        $inner = DrawDependencyLine $dep $padding;
+        PrintSymbol $dep ($line + $inner);
+        if ($dep.Dependency) {
+            $line += DrawNextLine $dep $padding;
+            DisplayTreeRecursive $dep $line;
             $line = $prev;
         }
     }
-    if ([ParseDisassembly]::IsUnreliable) {
+    if ($PD.IsUnreliable) {
         @"
 
 * Some indirect arguments have been decoded based on most recent CPU register load.
   A review of the .disassembly function body is recommended. The source operand may have been incremented multiple times.
 
 "@;
-        [ParseDisassembly]::IsUnreliable = $null;
     }
 }
 
@@ -712,8 +719,9 @@ function ParseDisassembly
         }
     }
     $delimiter = GetDelimiter $Disassembly;
-    $tree = [ParseDisassembly]::CreateTree(($Callees -eq $false), $delimiter, $Disassembly, $Key, $Depth, $script:StopDisassembly, $retpoline);
-    return $tree;
+    $pd = [ParseDisassembly]::new();
+    $pd.CreateTree(($Callees -eq $false), $delimiter, $Disassembly, $Key, $Depth, $script:StopDisassembly, $retpoline);
+    return $pd;
 }
 
 #When disassembling a large .DMP file, it is useful to have a notice
@@ -829,9 +837,12 @@ function QuerySymbol
     }
     if ($file -and ! $seed) {
         $file;
+    } elseif ($null -eq $file) {
+        "No disassembly file has been found.";
+        return;
     }
-    $tree = ParseDisassembly $file $Symbol $Depth -Callees:$Down;
-    DisplayTree $tree;
+    $pd = ParseDisassembly $file $Symbol $Depth -Callees:$Down;
+    DisplayTree $pd;
 }
 
 function ConfigureInteractive
