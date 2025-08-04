@@ -2,7 +2,7 @@
 #include <wdm.h>
 #include "shared.h"
 
-#define DRIVER_TAG 'gTmS' /* SmTg Slash Memory Tag */
+#define DRIVER_TAG 'eMlS' /* SlMe Slash Memory */
 #define DEVICE_NAME L"\\Device\\SlashMemory"
 #define USER_MODE_DEVICE_NAME L"\\DosDevices\\SlashMemory"
 
