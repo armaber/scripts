@@ -140,7 +140,7 @@ function LoadDefaultValues
         throw @"
 Install Debugging Tools for Windows:
     https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-    & winsdksetup.exe /features OptionId.WindowsDesktopDebuggers /quiet /ceip off
+    & .\winsdksetup.exe /features OptionId.WindowsDesktopDebuggers /quiet /ceip off
 "@;
     }
     $script:KD = $location.FullName;
@@ -258,24 +258,24 @@ dpu mrxsmb!SmbCeContext+10 L0n4
             $list = "UnknownMachine", "UnknownOS";
         }
         return [psobject][ordered]@{
-                    version = $script:MetaVersion;
-                    computer = $list[0];
-                    os = $list[1];
-                    image = $fn;
-                    hash = $hash;
-                    module = [string[]]@();
-                };
-            }
-            return [psobject][ordered]@{
-                version = $script:MetaVersion;
-                computer = $env:COMPUTERNAME;
-                os = & {
-                    $gi.BaseName + " " + (($gi.VersionInfo -split "`r`n" | Where-Object { $_ -like "ProductVersion:*" }) -split ":\s+")[-1];
-                };
-                image = $fn;
-                hash = $hash;
-                module = [string[]]@();
-            };
+            version = $script:MetaVersion;
+            computer = $list[0];
+            os = $list[1];
+            image = $fn;
+            hash = $hash;
+            module = [string[]]@();
+        };
+    }
+    return [psobject][ordered]@{
+        version = $script:MetaVersion;
+        computer = $env:COMPUTERNAME;
+        os = & {
+            $gi.BaseName + " " + (($gi.VersionInfo -split "`r`n" | Where-Object { $_ -like "ProductVersion:*" }) -split ":\s+")[-1];
+        };
+        image = $fn;
+        hash = $hash;
+        module = [string[]]@();
+    };
 }
 
 function BuildRetpoline
@@ -885,7 +885,7 @@ It can be edited at will.
 
 Install Debugging Tools for Windows:
     https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-    & winsdksetup.exe /features OptionId.WindowsDesktopDebuggers /quiet /ceip off
+    & .\winsdksetup.exe /features OptionId.WindowsDesktopDebuggers /quiet /ceip off
 "@;
         return;
     }
