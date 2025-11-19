@@ -202,7 +202,7 @@ function CTL_CODE
     return ($Type -shl 16) + ($Access -shl 14) + ($Fn -shl 2) + $Method;
 }
 
-$ctl_codeTable = [psobject]::new();
+$ctlCodeTable = [psobject]::new();
 
 function BuildCtlCode
 {
@@ -234,11 +234,11 @@ function BuildCtlCode
                     path = $header;
                     value = $null;
                 };
-                $ctl_codeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $po -ErrorAction SilentlyContinue;
+                $ctlCodeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $po -ErrorAction SilentlyContinue;
             }
         };
     }
-    foreach ($ctlProperty in $ctl_codeTable.PSObject.Properties) {
+    foreach ($ctlProperty in $ctlCodeTable.PSObject.Properties) {
         $values = $ctlProperty.Value.define -split ", ";
         $type = $values[0];
         $intType = $typeHash.$type;
@@ -272,7 +272,7 @@ function PrintMatch
 {
     param([int]$IoctlCode)
 
-    foreach ($ctlProperty in $ctl_codeTable.PSObject.Properties) {
+    foreach ($ctlProperty in $ctlCodeTable.PSObject.Properties) {
         if ($null -eq $ctlProperty.Value.value) {
             continue;
         }
