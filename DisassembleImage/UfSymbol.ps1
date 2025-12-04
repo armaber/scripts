@@ -36,6 +36,10 @@
 .PARAMETER Self
     Insert symbol in stop-rendering list.
 
+.PARAMETER Display
+    Show the functions' disassembly body. Use -NonInteractive to skip "Enter"
+    keypress after each body.
+
 .EXAMPLE
     Show all disassembled images. It can be a mixture of memory files, executables.
 
@@ -298,6 +302,50 @@
                         nt!KeGetTopologyIdForProcessor
                         nt!KeBugCheckEx
 
+.EXAMPLE
+    Display the implementation for nt!KeQueryTimeIncrement, nt!HviGetHypervisorFeatures
+
+    .\UfSymbol.ps1 -Caption "Windows 10 Pro 22621" -Display nt!KeQueryTimeIncrement, nt!HviGetHypervisorFeatures
+    │uf fffff802`0c4b7890
+    │nt!KeQueryTimeIncrement:
+    └─────────────────────────────────────────────────────────────────────────────────┐
+     8b05be61a600    mov     eax,dword ptr [nt!KeMaximumIncrement (fffff802`0cf1da54)]│
+     c3              ret                                                              │
+                                                                                      │
+    Enter to continue:
+
+    │uf fffff802`0c571330
+    │nt!HviGetHypervisorFeatures:
+    └────────────────────────────────────────────────────────────────────────────────────────┐
+     48895c2408      mov     qword ptr [rsp+8],rbx                                           │
+     57              push    rdi                                                             │
+     4883ec20        sub     rsp,20h                                                         │
+     488bf9          mov     rdi,rcx                                                         │
+     e88ef8ffff      call    nt!HviIsHypervisorMicrosoftCompatible (fffff802`0c570bd0)       │
+     33c9            xor     ecx,ecx                                                         │
+     84c0            test    al,al                                                           │
+     0f859c201400    jne     nt!HviGetHypervisorFeatures+0x1420b8 (fffff802`0c6b33e8)  Branch│
+                                                                                             │
+     nt!HviGetHypervisorFeatures+0x1c:                                                       │
+     48890f          mov     qword ptr [rdi],rcx                                             │
+     48894f08        mov     qword ptr [rdi+8],rcx                                           │
+                                                                                             │
+     nt!HviGetHypervisorFeatures+0x23:                                                       │
+     488b5c2430      mov     rbx,qword ptr [rsp+30h]                                         │
+     4883c420        add     rsp,20h                                                         │
+     5f              pop     rdi                                                             │
+     c3              ret                                                                     │
+                                                                                             │
+     nt!HviGetHypervisorFeatures+0x1420b8:                                                   │
+     b803000040      mov     eax,40000003h                                                   │
+     0fa2            cpuid                                                                   │
+     8907            mov     dword ptr [rdi],eax                                             │
+     895f04          mov     dword ptr [rdi+4],ebx                                           │
+     894f08          mov     dword ptr [rdi+8],ecx                                           │
+     89570c          mov     dword ptr [rdi+0Ch],edx                                         │
+     e954dfebff      jmp     nt!HviGetHypervisorFeatures+0x23 (fffff802`0c571353)  Branch    │
+                                                                                             │
+
 .NOTES
     PowerShell Core is mandatory: optimizations since Desktop 5.1 are substantial.
 
@@ -316,6 +364,7 @@ param(
       [Parameter(ParameterSetName = "Process")]
       [int]$Depth = 2,
       [Parameter(ParameterSetName = "Process")]
+      [Parameter(ParameterSetName = "Display")]
       [Alias("Caption")]
       [string]$Image,
       [Parameter(ParameterSetName = "Setup")]
@@ -327,7 +376,11 @@ param(
       [Alias("USB")]
       [string]$Migrate,
       [Parameter(ParameterSetName = "Self")]
-      [string]$Self
+      [string]$Self,
+      [Parameter(ParameterSetName = "Display")]
+      [string[]]$Display,
+      [Parameter(ParameterSetName = "Display")]
+      [switch]$NonInteractive
 )
 
 $ErrorActionPreference = 'Break';
@@ -344,4 +397,5 @@ switch ($PSCmdLet.ParameterSetName)
     "List" { ListMetaFiles $List; }
     "Migrate" { MigrateFiles $Migrate; }
     "Self" { SelfInsert $Self }
+    "Display" { DisplayFunctions $Image $Display -NonInteractive:$NonInteractive }
 }

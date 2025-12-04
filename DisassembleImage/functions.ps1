@@ -96,7 +96,8 @@ $StopDisassembly = @(
     "!ExInitializeResourceSharedLite$",
     "!ExAcquireResourceSharedLite$",
     "!ExAcquireFastMutex$",
-    "!ExReleaseFastMutex$"
+    "!ExReleaseFastMutex$",
+    "!KiIdleLoop$"
 );
 
 function TraceMemoryUsage
@@ -1084,5 +1085,82 @@ function SelfInsert
     if ($json.knownuf) {
         $json += $Symbol;
         $json | ConvertTo-Json | Set-Content $script:UfSymbolProfile;
+    }
+}
+
+function SplitDisassemblyByNames
+{
+    param([string]$Path,
+          [string[]]$Names)
+
+    $delimiter = GetDelimiter $Path;
+    $content = Get-Content $Path -Raw;
+    [System.Collections.Generic.List[string]]$body = $content.Split($delimiter);
+    $body.RemoveAt(0);
+    [psobject]$result = @{};
+    foreach ($b in $body) {
+        foreach ($n in $Names) {
+            if ($b -match "^uf .+`n$n\:`n") {
+                $result[$n] = $b;
+                $Names = $Names | Where-Object { $_ -ne $n };
+                break;
+            }
+        }
+        if (-not $Names) {
+            break;
+        }
+    }
+    $content = $null;
+    $body = $null;
+    return $result;
+}
+
+function DisplayDisassembledBody
+{
+    param([string]$Body)
+
+    $line = $Body.Split("`n");
+    $max = ($line | Measure-Object Length -Maximum).Maximum;
+    $cornerDownRight = "$([char]0x2514)";
+    $cornerRightDown = "$([char]0x2510)";
+    $vertical = "$([char]0x2502)";
+    $horizontal = "$([char]0x2500)";
+    "$vertical$($line[0])",
+    "$vertical$($line[1])",
+    "$cornerDownRight$($horizontal * $max)$cornerRightDown";
+    foreach ($l in $line[2 .. ($line.Count - 1)]) {
+        " $l$(' ' * ($max - $l.Length))$vertical";
+    }
+}
+
+function DisplayFunctions
+{
+    param([string]$Suggestion,
+          [string[]]$Names,
+          [switch]$NonInteractive)
+
+    LoadDefaultValues;
+    $file = $null;
+    if (Test-Path $Suggestion) {
+        $file = LocateDisassembly -Image $Suggestion;
+    } else {
+        $file = LocateDisassembly -Caption $Suggestion;
+    }
+    if (! $file) {
+        "No disassembly file has been found.";
+        return;
+    }
+    $res = SplitDisassemblyByNames $file $Names;
+    $i = 0;
+    foreach ($n in $Names) {
+        if ($res.Keys -contains $n) {
+            DisplayDisassembledBody $res[$n];
+        } else {
+            "$n is not found in disassembly", "";
+        }
+        if (! $NonInteractive -and ($i -lt $Names.Count - 1)) {
+            Read-Host "Enter to continue";
+        }
+        $i ++;
     }
 }
