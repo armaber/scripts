@@ -218,13 +218,18 @@ function BuildCtlCode
                   "$kitPath\$latestVersion\shared\ntddscsi.h",
                   "$kitPath\$latestVersion\shared\ntddvol.h",
                   "$kitPath\$latestVersion\shared\trustedrt.h",
+                  "$kitPath\$latestVersion\shared\poclass.h",
+                  "$kitPath\$latestVersion\km\charging.h",
+                  "$kitPath\$latestVersion\km\hpmi.h",
                   "$kitPath\$latestVersion\km\mountdev.h",
-                  "$kitPath\$latestVersion\km\mountmgr.h";
+                  "$kitPath\$latestVersion\km\mountmgr.h",
+                  "$kitPath\$latestVersion\km\ntpoapi.h";
     foreach ($header in $knownPaths) {
         $ioctl = Get-Content $header -ErrorAction SilentlyContinue | Select-String $keys -AllMatches -SimpleMatch;
         if ($null -eq $ioctl) {
             continue;
         }
+        $singleLine = $false;
         $ioctl.Line | Where-Object {
             if ($_ -match "define (\w+)\s+CTL_CODE\((\w+,\s+\d+,\s+\w+,\s+\w+( \| \w+)?)\)" -or
                 $_ -match "define (\w+)\s+CTL_CODE\((\w+,\s+0x[0-9a-f]+,\s+\w+,\s+\w+( \| \w+)?)\)")
@@ -235,8 +240,21 @@ function BuildCtlCode
                     value = $null;
                 };
                 $ctlCodeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $po -ErrorAction SilentlyContinue;
+                $singleLine = $true;
             }
         };
+        if (! $singleLine) {
+            $content = Get-Content -Raw $header;
+            [regex]::Matches($content, "define (\w+)\s*\\`r`n\s+CTL_CODE\((\w+,\s+0x[0-9a-f]+,\s+\w+,\s+\w+( \| \w+)?)\)") |
+            ForEach-Object {
+                $po = @{
+                    define = $_.Groups[2].Value;
+                    path = $header;
+                    value = $null;
+                }
+                $ctlCodeTable | Add-Member -NotePropertyName $_.Groups[1].Value -NotePropertyValue $po -ErrorAction SilentlyContinue;
+            }
+        }
     }
     foreach ($ctlProperty in $ctlCodeTable.PSObject.Properties) {
         $values = $ctlProperty.Value.define -split ", ";
