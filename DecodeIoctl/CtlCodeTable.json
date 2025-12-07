@@ -1,0 +1,2257 @@
+{
+  "IOCTL_STORAGE_CHECK_VERIFY": {
+    "define": "IOCTL_STORAGE_BASE, 0x0200, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967552
+  },
+  "IOCTL_STORAGE_CHECK_VERIFY2": {
+    "define": "IOCTL_STORAGE_BASE, 0x0200, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2951168
+  },
+  "IOCTL_STORAGE_MEDIA_REMOVAL": {
+    "define": "IOCTL_STORAGE_BASE, 0x0201, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967556
+  },
+  "IOCTL_STORAGE_EJECT_MEDIA": {
+    "define": "IOCTL_STORAGE_BASE, 0x0202, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967560
+  },
+  "IOCTL_STORAGE_LOAD_MEDIA": {
+    "define": "IOCTL_STORAGE_BASE, 0x0203, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967564
+  },
+  "IOCTL_STORAGE_LOAD_MEDIA2": {
+    "define": "IOCTL_STORAGE_BASE, 0x0203, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2951180
+  },
+  "IOCTL_STORAGE_RESERVE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0204, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967568
+  },
+  "IOCTL_STORAGE_RELEASE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0205, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967572
+  },
+  "IOCTL_STORAGE_FIND_NEW_DEVICES": {
+    "define": "IOCTL_STORAGE_BASE, 0x0206, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2967576
+  },
+  "IOCTL_STORAGE_EJECTION_CONTROL": {
+    "define": "IOCTL_STORAGE_BASE, 0x0250, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2951488
+  },
+  "IOCTL_STORAGE_MCN_CONTROL": {
+    "define": "IOCTL_STORAGE_BASE, 0x0251, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2951492
+  },
+  "IOCTL_STORAGE_GET_MEDIA_TYPES": {
+    "define": "IOCTL_STORAGE_BASE, 0x0300, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2952192
+  },
+  "IOCTL_STORAGE_GET_MEDIA_TYPES_EX": {
+    "define": "IOCTL_STORAGE_BASE, 0x0301, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2952196
+  },
+  "IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER": {
+    "define": "IOCTL_STORAGE_BASE, 0x0304, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2952208
+  },
+  "IOCTL_STORAGE_GET_HOTPLUG_INFO": {
+    "define": "IOCTL_STORAGE_BASE, 0x0305, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2952212
+  },
+  "IOCTL_STORAGE_SET_HOTPLUG_INFO": {
+    "define": "IOCTL_STORAGE_BASE, 0x0306, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3001368
+  },
+  "IOCTL_STORAGE_GET_SYSTEM_FEATURE_SUPPORT": {
+    "define": "IOCTL_STORAGE_BASE, 0x0307, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2968604
+  },
+  "IOCTL_STORAGE_RESET_BUS": {
+    "define": "IOCTL_STORAGE_BASE, 0x0400, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2969600
+  },
+  "IOCTL_STORAGE_RESET_DEVICE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0401, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2969604
+  },
+  "IOCTL_STORAGE_BREAK_RESERVATION": {
+    "define": "IOCTL_STORAGE_BASE, 0x0405, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2969620
+  },
+  "IOCTL_STORAGE_PERSISTENT_RESERVE_IN": {
+    "define": "IOCTL_STORAGE_BASE, 0x0406, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2969624
+  },
+  "IOCTL_STORAGE_PERSISTENT_RESERVE_OUT": {
+    "define": "IOCTL_STORAGE_BASE, 0x0407, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002396
+  },
+  "IOCTL_STORAGE_MINIPORT_PASSTHROUGH_REQUEST": {
+    "define": "IOCTL_STORAGE_BASE, 0x0414, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002448
+  },
+  "IOCTL_STORAGE_GET_DEVICE_NUMBER": {
+    "define": "IOCTL_STORAGE_BASE, 0x0420, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2953344
+  },
+  "IOCTL_STORAGE_GET_DEVICE_NUMBER_EX": {
+    "define": "IOCTL_STORAGE_BASE, 0x0421, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2953348
+  },
+  "IOCTL_STORAGE_PREDICT_FAILURE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0440, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2953472
+  },
+  "IOCTL_STORAGE_FAILURE_PREDICTION_CONFIG": {
+    "define": "IOCTL_STORAGE_BASE, 0x0441, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2953476
+  },
+  "IOCTL_STORAGE_GET_COUNTERS": {
+    "define": "IOCTL_STORAGE_BASE, 0x442, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2953480
+  },
+  "IOCTL_STORAGE_READ_CAPACITY": {
+    "define": "IOCTL_STORAGE_BASE, 0x0450, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2969920
+  },
+  "IOCTL_STORAGE_GET_DEVICE_TELEMETRY": {
+    "define": "IOCTL_STORAGE_BASE, 0x0470, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002816
+  },
+  "IOCTL_STORAGE_DEVICE_TELEMETRY_NOTIFY": {
+    "define": "IOCTL_STORAGE_BASE, 0x0471, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002820
+  },
+  "IOCTL_STORAGE_DEVICE_TELEMETRY_QUERY_CAPS": {
+    "define": "IOCTL_STORAGE_BASE, 0x0472, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002824
+  },
+  "IOCTL_STORAGE_GET_DEVICE_TELEMETRY_RAW": {
+    "define": "IOCTL_STORAGE_BASE, 0x0473, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002828
+  },
+  "IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD": {
+    "define": "IOCTL_STORAGE_BASE, 0x0480, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002880
+  },
+  "IOCTL_STORAGE_PROTOCOL_COMMAND": {
+    "define": "IOCTL_STORAGE_BASE, 0x04F0, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3003328
+  },
+  "IOCTL_STORAGE_SET_PROPERTY": {
+    "define": "IOCTL_STORAGE_BASE, 0x04FF, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2987004
+  },
+  "IOCTL_STORAGE_QUERY_PROPERTY": {
+    "define": "IOCTL_STORAGE_BASE, 0x0500, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2954240
+  },
+  "IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES": {
+    "define": "IOCTL_STORAGE_BASE, 0x0501, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2987012
+  },
+  "IOCTL_STORAGE_GET_LB_PROVISIONING_MAP_RESOURCES": {
+    "define": "IOCTL_STORAGE_BASE, 0x0502, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2970632
+  },
+  "IOCTL_STORAGE_REINITIALIZE_MEDIA": {
+    "define": "IOCTL_STORAGE_BASE, 0x0590, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2987584
+  },
+  "IOCTL_STORAGE_GET_BC_PROPERTIES": {
+    "define": "IOCTL_STORAGE_BASE, 0x0600, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2971648
+  },
+  "IOCTL_STORAGE_ALLOCATE_BC_STREAM": {
+    "define": "IOCTL_STORAGE_BASE, 0x0601, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3004420
+  },
+  "IOCTL_STORAGE_FREE_BC_STREAM": {
+    "define": "IOCTL_STORAGE_BASE, 0x0602, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3004424
+  },
+  "IOCTL_STORAGE_CHECK_PRIORITY_HINT_SUPPORT": {
+    "define": "IOCTL_STORAGE_BASE, 0x0620, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2955392
+  },
+  "IOCTL_STORAGE_START_DATA_INTEGRITY_CHECK": {
+    "define": "IOCTL_STORAGE_BASE, 0x0621, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3004548
+  },
+  "IOCTL_STORAGE_STOP_DATA_INTEGRITY_CHECK": {
+    "define": "IOCTL_STORAGE_BASE, 0x0622, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3004552
+  },
+  "OBSOLETE_IOCTL_STORAGE_RESET_BUS": {
+    "define": "IOCTL_STORAGE_BASE, 0x0400, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002368
+  },
+  "OBSOLETE_IOCTL_STORAGE_RESET_DEVICE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0401, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3002372
+  },
+  "IOCTL_STORAGE_FIRMWARE_GET_INFO": {
+    "define": "IOCTL_STORAGE_BASE, 0x0700, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956288
+  },
+  "IOCTL_STORAGE_FIRMWARE_DOWNLOAD": {
+    "define": "IOCTL_STORAGE_BASE, 0x0701, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3005444
+  },
+  "IOCTL_STORAGE_FIRMWARE_ACTIVATE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0702, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3005448
+  },
+  "IOCTL_STORAGE_ENABLE_IDLE_POWER": {
+    "define": "IOCTL_STORAGE_BASE, 0x0720, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956416
+  },
+  "IOCTL_STORAGE_GET_IDLE_POWERUP_REASON": {
+    "define": "IOCTL_STORAGE_BASE, 0x0721, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956420
+  },
+  "IOCTL_STORAGE_POWER_ACTIVE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0722, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956424
+  },
+  "IOCTL_STORAGE_POWER_IDLE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0723, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956428
+  },
+  "IOCTL_STORAGE_EVENT_NOTIFICATION": {
+    "define": "IOCTL_STORAGE_BASE, 0x0724, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956432
+  },
+  "IOCTL_STORAGE_DEVICE_POWER_CAP": {
+    "define": "IOCTL_STORAGE_BASE, 0x0725, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956436
+  },
+  "IOCTL_STORAGE_RPMB_COMMAND": {
+    "define": "IOCTL_STORAGE_BASE, 0x0726, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956440
+  },
+  "IOCTL_STORAGE_ATTRIBUTE_MANAGEMENT": {
+    "define": "IOCTL_STORAGE_BASE, 0x0727, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 3005596
+  },
+  "IOCTL_STORAGE_DIAGNOSTIC": {
+    "define": "IOCTL_STORAGE_BASE, 0x0728, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956448
+  },
+  "IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS": {
+    "define": "IOCTL_STORAGE_BASE, 0x0729, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956452
+  },
+  "IOCTL_STORAGE_REMOVE_ELEMENT_AND_TRUNCATE": {
+    "define": "IOCTL_STORAGE_BASE, 0x0730, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956480
+  },
+  "IOCTL_STORAGE_GET_DEVICE_INTERNAL_LOG": {
+    "define": "IOCTL_STORAGE_BASE, 0x0731, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 2956484
+  },
+  "IOCTL_DISK_GET_DRIVE_GEOMETRY": {
+    "define": "IOCTL_DISK_BASE, 0x0000, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458752
+  },
+  "IOCTL_DISK_GET_PARTITION_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0001, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475140
+  },
+  "IOCTL_DISK_SET_PARTITION_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0002, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507912
+  },
+  "IOCTL_DISK_GET_DRIVE_LAYOUT": {
+    "define": "IOCTL_DISK_BASE, 0x0003, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475148
+  },
+  "IOCTL_DISK_SET_DRIVE_LAYOUT": {
+    "define": "IOCTL_DISK_BASE, 0x0004, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507920
+  },
+  "IOCTL_DISK_VERIFY": {
+    "define": "IOCTL_DISK_BASE, 0x0005, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458772
+  },
+  "IOCTL_DISK_FORMAT_TRACKS": {
+    "define": "IOCTL_DISK_BASE, 0x0006, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507928
+  },
+  "IOCTL_DISK_REASSIGN_BLOCKS": {
+    "define": "IOCTL_DISK_BASE, 0x0007, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507932
+  },
+  "IOCTL_DISK_PERFORMANCE": {
+    "define": "IOCTL_DISK_BASE, 0x0008, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458784
+  },
+  "IOCTL_DISK_IS_WRITABLE": {
+    "define": "IOCTL_DISK_BASE, 0x0009, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458788
+  },
+  "IOCTL_DISK_LOGGING": {
+    "define": "IOCTL_DISK_BASE, 0x000a, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458792
+  },
+  "IOCTL_DISK_FORMAT_TRACKS_EX": {
+    "define": "IOCTL_DISK_BASE, 0x000b, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507948
+  },
+  "IOCTL_DISK_HISTOGRAM_STRUCTURE": {
+    "define": "IOCTL_DISK_BASE, 0x000c, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458800
+  },
+  "IOCTL_DISK_HISTOGRAM_DATA": {
+    "define": "IOCTL_DISK_BASE, 0x000d, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458804
+  },
+  "IOCTL_DISK_HISTOGRAM_RESET": {
+    "define": "IOCTL_DISK_BASE, 0x000e, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458808
+  },
+  "IOCTL_DISK_REQUEST_STRUCTURE": {
+    "define": "IOCTL_DISK_BASE, 0x000f, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458812
+  },
+  "IOCTL_DISK_REQUEST_DATA": {
+    "define": "IOCTL_DISK_BASE, 0x0010, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458816
+  },
+  "IOCTL_DISK_PERFORMANCE_OFF": {
+    "define": "IOCTL_DISK_BASE, 0x0018, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458848
+  },
+  "IOCTL_DISK_CONTROLLER_NUMBER": {
+    "define": "IOCTL_DISK_BASE, 0x0011, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458820
+  },
+  "SMART_GET_VERSION": {
+    "define": "IOCTL_DISK_BASE, 0x0020, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475264
+  },
+  "SMART_SEND_DRIVE_COMMAND": {
+    "define": "IOCTL_DISK_BASE, 0x0021, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508036
+  },
+  "SMART_RCV_DRIVE_DATA": {
+    "define": "IOCTL_DISK_BASE, 0x0022, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508040
+  },
+  "SMART_RCV_DRIVE_DATA_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0023, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458892
+  },
+  "IOCTL_DISK_GET_PARTITION_INFO_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0012, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458824
+  },
+  "IOCTL_DISK_SET_PARTITION_INFO_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0013, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507980
+  },
+  "IOCTL_DISK_GET_DRIVE_LAYOUT_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0014, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458832
+  },
+  "IOCTL_DISK_SET_DRIVE_LAYOUT_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0015, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507988
+  },
+  "IOCTL_DISK_CREATE_DISK": {
+    "define": "IOCTL_DISK_BASE, 0x0016, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 507992
+  },
+  "IOCTL_DISK_GET_LENGTH_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0017, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475228
+  },
+  "IOCTL_DISK_GET_DRIVE_GEOMETRY_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0028, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458912
+  },
+  "IOCTL_DISK_REASSIGN_BLOCKS_EX": {
+    "define": "IOCTL_DISK_BASE, 0x0029, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508068
+  },
+  "IOCTL_DISK_UPDATE_DRIVE_SIZE": {
+    "define": "IOCTL_DISK_BASE, 0x0032, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508104
+  },
+  "IOCTL_DISK_GROW_PARTITION": {
+    "define": "IOCTL_DISK_BASE, 0x0034, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508112
+  },
+  "IOCTL_DISK_GET_CACHE_INFORMATION": {
+    "define": "IOCTL_DISK_BASE, 0x0035, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475348
+  },
+  "IOCTL_DISK_SET_CACHE_INFORMATION": {
+    "define": "IOCTL_DISK_BASE, 0x0036, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508120
+  },
+  "IOCTL_DISK_GET_WRITE_CACHE_STATE": {
+    "define": "IOCTL_DISK_BASE, 0x0037, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475356
+  },
+  "OBSOLETE_DISK_GET_WRITE_CACHE_STATE": {
+    "define": "IOCTL_DISK_BASE, 0x0037, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 475356
+  },
+  "IOCTL_DISK_DELETE_DRIVE_LAYOUT": {
+    "define": "IOCTL_DISK_BASE, 0x0040, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508160
+  },
+  "IOCTL_DISK_UPDATE_PROPERTIES": {
+    "define": "IOCTL_DISK_BASE, 0x0050, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 459072
+  },
+  "IOCTL_DISK_FORMAT_DRIVE": {
+    "define": "IOCTL_DISK_BASE, 0x00f3, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508876
+  },
+  "IOCTL_DISK_SENSE_DEVICE": {
+    "define": "IOCTL_DISK_BASE, 0x00f8, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 459744
+  },
+  "IOCTL_DISK_CHECK_VERIFY": {
+    "define": "IOCTL_DISK_BASE, 0x0200, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477184
+  },
+  "IOCTL_DISK_MEDIA_REMOVAL": {
+    "define": "IOCTL_DISK_BASE, 0x0201, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477188
+  },
+  "IOCTL_DISK_EJECT_MEDIA": {
+    "define": "IOCTL_DISK_BASE, 0x0202, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477192
+  },
+  "IOCTL_DISK_LOAD_MEDIA": {
+    "define": "IOCTL_DISK_BASE, 0x0203, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477196
+  },
+  "IOCTL_DISK_RESERVE": {
+    "define": "IOCTL_DISK_BASE, 0x0204, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477200
+  },
+  "IOCTL_DISK_RELEASE": {
+    "define": "IOCTL_DISK_BASE, 0x0205, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477204
+  },
+  "IOCTL_DISK_FIND_NEW_DEVICES": {
+    "define": "IOCTL_DISK_BASE, 0x0206, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 477208
+  },
+  "IOCTL_DISK_GET_MEDIA_TYPES": {
+    "define": "IOCTL_DISK_BASE, 0x0300, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 461824
+  },
+  "IOCTL_DISK_GET_DISK_ATTRIBUTES": {
+    "define": "IOCTL_DISK_BASE, 0x003c, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 458992
+  },
+  "IOCTL_DISK_SET_DISK_ATTRIBUTES": {
+    "define": "IOCTL_DISK_BASE, 0x003d, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508148
+  },
+  "IOCTL_DISK_RESET_SNAPSHOT_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0084, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 508432
+  },
+  "FSCTL_REQUEST_OPLOCK_LEVEL_1": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  0, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589824
+  },
+  "FSCTL_REQUEST_OPLOCK_LEVEL_2": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  1, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589828
+  },
+  "FSCTL_REQUEST_BATCH_OPLOCK": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  2, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589832
+  },
+  "FSCTL_OPLOCK_BREAK_ACKNOWLEDGE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  3, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589836
+  },
+  "FSCTL_OPBATCH_ACK_CLOSE_PENDING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  4, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589840
+  },
+  "FSCTL_OPLOCK_BREAK_NOTIFY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  5, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589844
+  },
+  "FSCTL_LOCK_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  6, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589848
+  },
+  "FSCTL_UNLOCK_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  7, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589852
+  },
+  "FSCTL_DISMOUNT_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM,  8, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589856
+  },
+  "FSCTL_IS_VOLUME_MOUNTED": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 10, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589864
+  },
+  "FSCTL_IS_PATHNAME_VALID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 11, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589868
+  },
+  "FSCTL_MARK_VOLUME_DIRTY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 12, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589872
+  },
+  "FSCTL_QUERY_RETRIEVAL_POINTERS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 14,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_GET_COMPRESSION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 15, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589884
+  },
+  "FSCTL_SET_COMPRESSION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 16, METHOD_BUFFERED, FILE_READ_DATA | FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 639040
+  },
+  "FSCTL_SET_BOOTLOADER_ACCESSED": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 19,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_OPLOCK_BREAK_ACK_NO_2": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 20, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589904
+  },
+  "FSCTL_INVALIDATE_VOLUMES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 21, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589908
+  },
+  "FSCTL_QUERY_FAT_BPB": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 22, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589912
+  },
+  "FSCTL_REQUEST_FILTER_OPLOCK": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 23, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589916
+  },
+  "FSCTL_FILESYSTEM_GET_STATISTICS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 24, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589920
+  },
+  "FSCTL_GET_NTFS_VOLUME_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 25, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589924
+  },
+  "FSCTL_GET_NTFS_FILE_RECORD": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 26, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589928
+  },
+  "FSCTL_GET_VOLUME_BITMAP": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 27,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_GET_RETRIEVAL_POINTERS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 28,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_MOVE_FILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 29, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589940
+  },
+  "FSCTL_IS_VOLUME_DIRTY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 30, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589944
+  },
+  "FSCTL_ALLOW_EXTENDED_DASD_IO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 32, METHOD_NEITHER,  FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589955
+  },
+  "FSCTL_FIND_FILES_BY_SID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 35, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589967
+  },
+  "FSCTL_SET_OBJECT_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 38, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589976
+  },
+  "FSCTL_GET_OBJECT_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 39, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589980
+  },
+  "FSCTL_DELETE_OBJECT_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 40, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589984
+  },
+  "FSCTL_SET_REPARSE_POINT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 41, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589988
+  },
+  "FSCTL_GET_REPARSE_POINT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 42, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589992
+  },
+  "FSCTL_DELETE_REPARSE_POINT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 43, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 589996
+  },
+  "FSCTL_ENUM_USN_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 44,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_SECURITY_ID_CHECK": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 45,  METHOD_NEITHER, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_READ_USN_JOURNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 46,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_SET_OBJECT_ID_EXTENDED": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 47, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590012
+  },
+  "FSCTL_CREATE_OR_GET_OBJECT_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 48, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590016
+  },
+  "FSCTL_SET_SPARSE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 49, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590020
+  },
+  "FSCTL_SET_ZERO_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 50, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622792
+  },
+  "FSCTL_QUERY_ALLOCATED_RANGES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 51,  METHOD_NEITHER, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_ENABLE_UPGRADE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 52, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622800
+  },
+  "FSCTL_SET_ENCRYPTION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 53,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_ENCRYPTION_FSCTL_IO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 54,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_WRITE_RAW_ENCRYPTED": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 55,  METHOD_NEITHER, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_READ_RAW_ENCRYPTED": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 56,  METHOD_NEITHER, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_CREATE_USN_JOURNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 57,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_READ_FILE_USN_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 58,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_WRITE_USN_CLOSE_RECORD": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 59,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_EXTEND_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 60, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590064
+  },
+  "FSCTL_QUERY_USN_JOURNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 61, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590068
+  },
+  "FSCTL_DELETE_USN_JOURNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 62, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590072
+  },
+  "FSCTL_MARK_HANDLE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 63, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590076
+  },
+  "FSCTL_SIS_COPYFILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 64, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590080
+  },
+  "FSCTL_SIS_LINK_FILES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 65, METHOD_BUFFERED, FILE_READ_DATA | FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 639236
+  },
+  "FSCTL_RECALL_FILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 69, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590103
+  },
+  "FSCTL_READ_FROM_PLEX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 71, METHOD_OUT_DIRECT, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606494
+  },
+  "FSCTL_FILE_PREFETCH": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 72, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590112
+  },
+  "FSCTL_MAKE_MEDIA_COMPATIBLE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 76, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622896
+  },
+  "FSCTL_SET_DEFECT_MANAGEMENT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 77, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622900
+  },
+  "FSCTL_QUERY_SPARING_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 78, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590136
+  },
+  "FSCTL_QUERY_ON_DISK_VOLUME_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 79, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590140
+  },
+  "FSCTL_SET_VOLUME_COMPRESSION_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 80, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590144
+  },
+  "FSCTL_TXFS_MODIFY_RM": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 81, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622916
+  },
+  "FSCTL_TXFS_QUERY_RM_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 82, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606536
+  },
+  "FSCTL_TXFS_ROLLFORWARD_REDO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 84, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622928
+  },
+  "FSCTL_TXFS_ROLLFORWARD_UNDO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 85, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622932
+  },
+  "FSCTL_TXFS_START_RM": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 86, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622936
+  },
+  "FSCTL_TXFS_SHUTDOWN_RM": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 87, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622940
+  },
+  "FSCTL_TXFS_READ_BACKUP_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 88, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606560
+  },
+  "FSCTL_TXFS_WRITE_BACKUP_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 89, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622948
+  },
+  "FSCTL_TXFS_CREATE_SECONDARY_RM": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 90, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622952
+  },
+  "FSCTL_TXFS_GET_METADATA_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 91, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606572
+  },
+  "FSCTL_TXFS_GET_TRANSACTED_VERSION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 92, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606576
+  },
+  "FSCTL_TXFS_SAVEPOINT_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 94, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622968
+  },
+  "FSCTL_TXFS_CREATE_MINIVERSION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 95, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 622972
+  },
+  "FSCTL_TXFS_TRANSACTION_ACTIVE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 99, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606604
+  },
+  "FSCTL_SET_ZERO_ON_DEALLOCATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 101, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590228
+  },
+  "FSCTL_SET_REPAIR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 102, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590232
+  },
+  "FSCTL_GET_REPAIR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 103, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590236
+  },
+  "FSCTL_WAIT_FOR_REPAIR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 104, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590240
+  },
+  "FSCTL_INITIATE_REPAIR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 106, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590248
+  },
+  "FSCTL_CSC_INTERNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 107, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590255
+  },
+  "FSCTL_SHRINK_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 108, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590256
+  },
+  "FSCTL_SET_SHORT_NAME_BEHAVIOR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 109, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590260
+  },
+  "FSCTL_DFSR_SET_GHOST_HANDLE_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 110, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590264
+  },
+  "FSCTL_TXFS_LIST_TRANSACTIONS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 121, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606692
+  },
+  "FSCTL_QUERY_PAGEFILE_ENCRYPTION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 122, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590312
+  },
+  "FSCTL_RESET_VOLUME_ALLOCATION_HINTS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 123, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590316
+  },
+  "FSCTL_QUERY_DEPENDENT_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 124, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590320
+  },
+  "FSCTL_SD_GLOBAL_CHANGE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 125, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590324
+  },
+  "FSCTL_TXFS_READ_BACKUP_INFORMATION2": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 126, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590328
+  },
+  "FSCTL_LOOKUP_STREAM_FROM_CLUSTER": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 127, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590332
+  },
+  "FSCTL_TXFS_WRITE_BACKUP_INFORMATION2": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 128, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590336
+  },
+  "FSCTL_FILE_TYPE_NOTIFICATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 129, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590340
+  },
+  "FSCTL_FILE_LEVEL_TRIM": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 130, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623112
+  },
+  "FSCTL_GET_BOOT_AREA_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 140, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590384
+  },
+  "FSCTL_GET_RETRIEVAL_POINTER_BASE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 141, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590388
+  },
+  "FSCTL_SET_PERSISTENT_VOLUME_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 142, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590392
+  },
+  "FSCTL_QUERY_PERSISTENT_VOLUME_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 143, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590396
+  },
+  "FSCTL_REQUEST_OPLOCK": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 144, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590400
+  },
+  "FSCTL_CSV_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 145, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590404
+  },
+  "FSCTL_IS_CSV_FILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 146, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590408
+  },
+  "FSCTL_QUERY_FILE_SYSTEM_RECOGNITION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 147, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590412
+  },
+  "FSCTL_CSV_GET_VOLUME_PATH_NAME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 148, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590416
+  },
+  "FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 149, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590420
+  },
+  "FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 150,  METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_IS_FILE_ON_CSV_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 151,  METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_CORRUPTION_HANDLING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 152, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590432
+  },
+  "FSCTL_OFFLOAD_READ": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 153, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 606820
+  },
+  "FSCTL_OFFLOAD_WRITE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 154, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623208
+  },
+  "FSCTL_CSV_INTERNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 155,  METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_SET_PURGE_FAILURE_MODE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 156, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590448
+  },
+  "FSCTL_QUERY_FILE_LAYOUT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 157, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590455
+  },
+  "FSCTL_IS_VOLUME_OWNED_BYCSVFS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 158,  METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_GET_INTEGRITY_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 159, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590460
+  },
+  "FSCTL_SET_INTEGRITY_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 160, METHOD_BUFFERED, FILE_READ_DATA | FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 639616
+  },
+  "FSCTL_QUERY_FILE_REGIONS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 161, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590468
+  },
+  "FSCTL_RKF_INTERNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 171, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590511
+  },
+  "FSCTL_SCRUB_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 172, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590512
+  },
+  "FSCTL_REPAIR_COPIES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 173, METHOD_BUFFERED, FILE_READ_DATA | FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 639668
+  },
+  "FSCTL_DISABLE_LOCAL_BUFFERING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 174, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590520
+  },
+  "FSCTL_CSV_MGMT_LOCK": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 175, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590524
+  },
+  "FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 176, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590528
+  },
+  "FSCTL_ADVANCE_FILE_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 177, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590532
+  },
+  "FSCTL_CSV_SYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 178, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590536
+  },
+  "FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 179, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590540
+  },
+  "FSCTL_WRITE_USN_REASON": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 180, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590544
+  },
+  "FSCTL_CSV_CONTROL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 181, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590548
+  },
+  "FSCTL_GET_REFS_VOLUME_DATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 182, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590552
+  },
+  "FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 185, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590564
+  },
+  "FSCTL_QUERY_STORAGE_CLASSES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 187, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590572
+  },
+  "FSCTL_QUERY_REGION_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 188, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590576
+  },
+  "FSCTL_USN_TRACK_MODIFIED_RANGES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 189, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590580
+  },
+  "FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 192, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590592
+  },
+  "FSCTL_SVHDX_SYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 193, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590596
+  },
+  "FSCTL_SVHDX_SET_INITIATOR_INFORMATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 194, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590600
+  },
+  "FSCTL_SET_EXTERNAL_BACKING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 195, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590604
+  },
+  "FSCTL_GET_EXTERNAL_BACKING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 196, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590608
+  },
+  "FSCTL_DELETE_EXTERNAL_BACKING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 197, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590612
+  },
+  "FSCTL_ENUM_EXTERNAL_BACKING": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 198, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590616
+  },
+  "FSCTL_ENUM_OVERLAY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 199, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590623
+  },
+  "FSCTL_ADD_OVERLAY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 204, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623408
+  },
+  "FSCTL_REMOVE_OVERLAY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 205, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623412
+  },
+  "FSCTL_UPDATE_OVERLAY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 206, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623416
+  },
+  "FSCTL_SHUFFLE_FILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 208, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 639808
+  },
+  "FSCTL_SPARSE_OVERALLOCATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 211, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590668
+  },
+  "FSCTL_STORAGE_QOS_CONTROL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 212, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590672
+  },
+  "FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 215, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590684
+  },
+  "FSCTL_QUERY_FILE_METADATA_OPTIMIZATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 216, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590688
+  },
+  "FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 217, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590692
+  },
+  "FSCTL_GET_WOF_VERSION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 218, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590696
+  },
+  "FSCTL_HCS_SYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 219, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590700
+  },
+  "FSCTL_HCS_ASYNC_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 220, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590704
+  },
+  "FSCTL_QUERY_EXTENT_READ_CACHE_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 221, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590711
+  },
+  "FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 222, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590715
+  },
+  "FSCTL_CLEAN_VOLUME_METADATA": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 223, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590716
+  },
+  "FSCTL_SET_INTEGRITY_INFORMATION_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 224, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590720
+  },
+  "FSCTL_SUSPEND_OVERLAY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 225, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590724
+  },
+  "FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 226, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590728
+  },
+  "FSCTL_FILESYSTEM_GET_STATISTICS_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 227, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590732
+  },
+  "FSCTL_QUERY_VOLUME_CONTAINER_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 228, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590736
+  },
+  "FSCTL_SET_LAYER_ROOT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 229, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590740
+  },
+  "FSCTL_QUERY_DIRECT_ACCESS_EXTENTS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 230, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590747
+  },
+  "FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 231, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590748
+  },
+  "FSCTL_SSDI_STORAGE_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 232, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590752
+  },
+  "FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 233, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590756
+  },
+  "FSCTL_READ_UNPRIVILEGED_USN_JOURNAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 234,  METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": null
+  },
+  "FSCTL_GHOST_FILE_EXTENTS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 235, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623532
+  },
+  "FSCTL_QUERY_GHOSTED_FILE_EXTENTS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 236, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590768
+  },
+  "FSCTL_UNMAP_SPACE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 237, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590772
+  },
+  "FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 238, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590776
+  },
+  "FSCTL_START_VIRTUALIZATION_INSTANCE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 240, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590784
+  },
+  "FSCTL_GET_FILTER_FILE_IDENTIFIER": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 241, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590788
+  },
+  "FSCTL_STREAMS_QUERY_PARAMETERS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 241, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590788
+  },
+  "FSCTL_STREAMS_ASSOCIATE_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 242, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590792
+  },
+  "FSCTL_STREAMS_QUERY_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 243, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590796
+  },
+  "FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 244, METHOD_NEITHER,  FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590803
+  },
+  "FSCTL_QUERY_VOLUME_NUMA_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 245, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590804
+  },
+  "FSCTL_REFS_DEALLOCATE_RANGES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 246, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590808
+  },
+  "FSCTL_QUERY_REFS_SMR_VOLUME_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 247, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590812
+  },
+  "FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 248, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590816
+  },
+  "FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 249, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590820
+  },
+  "FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 250, METHOD_BUFFERED, FILE_WRITE_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 623592
+  },
+  "FSCTL_QUERY_BAD_RANGES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 251, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590828
+  },
+  "FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 252, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590832
+  },
+  "FSCTL_DELETE_CORRUPTED_REFS_CONTAINER": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 253, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590836
+  },
+  "FSCTL_SCRUB_UNDISCOVERABLE_ID": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 254, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590840
+  },
+  "FSCTL_NOTIFY_DATA_CHANGE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 255, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590844
+  },
+  "FSCTL_START_VIRTUALIZATION_INSTANCE_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 256, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590848
+  },
+  "FSCTL_ENCRYPTION_KEY_CONTROL": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 257, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590852
+  },
+  "FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 258, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590856
+  },
+  "FSCTL_SET_REPARSE_POINT_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 259, METHOD_BUFFERED, FILE_SPECIAL_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590860
+  },
+  "FSCTL_REARRANGE_FILE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 264, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 640032
+  },
+  "FSCTL_VIRTUAL_STORAGE_PASSTHROUGH": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 265, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590884
+  },
+  "FSCTL_GET_RETRIEVAL_POINTER_COUNT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 266, METHOD_NEITHER,  FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590891
+  },
+  "FSCTL_ENABLE_PER_IO_FLAGS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 267, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590892
+  },
+  "FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 268, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590896
+  },
+  "FSCTL_SMB_SHARE_FLUSH_AND_PURGE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 271, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590908
+  },
+  "FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 272, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590912
+  },
+  "FSCTL_MANAGE_BYPASS_IO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 274, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590920
+  },
+  "FSCTL_REFS_DEALLOCATE_RANGES_EX": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 275, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590924
+  },
+  "FSCTL_SET_CACHED_RUNS_STATE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 276, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590928
+  },
+  "FSCTL_REFS_SET_VOLUME_COMPRESSION_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 277, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590932
+  },
+  "FSCTL_REFS_QUERY_VOLUME_COMPRESSION_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 278, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590936
+  },
+  "FSCTL_DUPLICATE_CLUSTER": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 279, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590940
+  },
+  "FSCTL_CREATE_LCN_WEAK_REFERENCE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 280, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590944
+  },
+  "FSCTL_CLEAR_LCN_WEAK_REFERENCE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 281, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590948
+  },
+  "FSCTL_QUERY_LCN_WEAK_REFERENCE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 282, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590952
+  },
+  "FSCTL_CLEAR_ALL_LCN_WEAK_REFERENCES": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 283, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590956
+  },
+  "FSCTL_REFS_SET_VOLUME_DEDUP_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 284, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590960
+  },
+  "FSCTL_REFS_QUERY_VOLUME_DEDUP_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 285, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590964
+  },
+  "FSCTL_LMR_QUERY_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 286, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590968
+  },
+  "FSCTL_REFS_CHECKPOINT_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 287, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590972
+  },
+  "FSCTL_REFS_QUERY_VOLUME_TOTAL_SHARED_LCNS": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 288, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590976
+  },
+  "FSCTL_UPGRADE_VOLUME": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 289, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590980
+  },
+  "FSCTL_REFS_SET_VOLUME_IO_METRICS_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 290, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590984
+  },
+  "FSCTL_REFS_QUERY_VOLUME_IO_METRICS_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 291, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590988
+  },
+  "FSCTL_REFS_SET_ROLLBACK_PROTECTION_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 292, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590992
+  },
+  "FSCTL_REFS_QUERY_ROLLBACK_PROTECTION_INFO": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 293, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 590996
+  },
+  "FSCTL_FILE_SOV_CHECK_RANGE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 294, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 591000
+  },
+  "FSCTL_CASCADES_REFS_SET_FILE_REMOTE": {
+    "define": "FILE_DEVICE_FILE_SYSTEM, 295, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 591004
+  },
+  "IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS": {
+    "define": "IOCTL_VOLUME_BASE, 0, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 5636096
+  },
+  "IOCTL_VOLUME_ONLINE": {
+    "define": "IOCTL_VOLUME_BASE, 2, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 5685256
+  },
+  "IOCTL_VOLUME_OFFLINE": {
+    "define": "IOCTL_VOLUME_BASE, 3, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 5685260
+  },
+  "IOCTL_VOLUME_IS_CLUSTERED": {
+    "define": "IOCTL_VOLUME_BASE, 12, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 5636144
+  },
+  "IOCTL_VOLUME_GET_GPT_ATTRIBUTES": {
+    "define": "IOCTL_VOLUME_BASE, 14, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\winioctl.h",
+    "value": 5636152
+  },
+  "IOCTL_DISK_GET_CACHE_SETTING": {
+    "define": "IOCTL_DISK_BASE, 0x0038, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 475360
+  },
+  "IOCTL_DISK_SET_CACHE_SETTING": {
+    "define": "IOCTL_DISK_BASE, 0x0039, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508132
+  },
+  "IOCTL_DISK_COPY_DATA": {
+    "define": "IOCTL_DISK_BASE, 0x0019, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508004
+  },
+  "IOCTL_DISK_INTERNAL_SET_VERIFY": {
+    "define": "IOCTL_DISK_BASE, 0x0100, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459779
+  },
+  "IOCTL_DISK_INTERNAL_CLEAR_VERIFY": {
+    "define": "IOCTL_DISK_BASE, 0x0101, METHOD_NEITHER, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459783
+  },
+  "IOCTL_DISK_INTERNAL_SET_NOTIFY": {
+    "define": "IOCTL_DISK_BASE, 0x0102, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459784
+  },
+  "IOCTL_DISK_GET_PARTITION_ATTRIBUTES": {
+    "define": "IOCTL_DISK_BASE, 0x003a, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 458984
+  },
+  "IOCTL_DISK_SET_PARTITION_ATTRIBUTES": {
+    "define": "IOCTL_DISK_BASE, 0x003b, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508140
+  },
+  "IOCTL_DISK_IS_CLUSTERED": {
+    "define": "IOCTL_DISK_BASE, 0x003e, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459000
+  },
+  "IOCTL_DISK_GET_SAN_SETTINGS": {
+    "define": "IOCTL_DISK_BASE, 0x0080, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 475648
+  },
+  "IOCTL_DISK_SET_SAN_SETTINGS": {
+    "define": "IOCTL_DISK_BASE, 0x0081, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508420
+  },
+  "IOCTL_DISK_GET_SNAPSHOT_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0082, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 475656
+  },
+  "IOCTL_DISK_SET_SNAPSHOT_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0083, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508428
+  },
+  "IOCTL_DISK_GET_CLUSTER_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0085, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459284
+  },
+  "IOCTL_DISK_SET_CLUSTER_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0086, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508440
+  },
+  "IOCTL_DISK_ARE_VOLUMES_READY": {
+    "define": "IOCTL_DISK_BASE, 0x0087, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 475676
+  },
+  "IOCTL_DISK_VOLUMES_ARE_READY": {
+    "define": "IOCTL_DISK_BASE, 0x0088, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 508448
+  },
+  "IOCTL_DISK_GET_PERFORMANCE_INFO": {
+    "define": "IOCTL_DISK_BASE, 0x0089, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 459300
+  },
+  "IOCTL_DISK_SIMBAD": {
+    "define": "IOCTL_DISK_BASE, 0x0400, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntdddisk.h",
+    "value": 512000
+  },
+  "IOCTL_SCSI_PASS_THROUGH": {
+    "define": "IOCTL_SCSI_BASE, 0x0401, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315396
+  },
+  "IOCTL_SCSI_MINIPORT": {
+    "define": "IOCTL_SCSI_BASE, 0x0402, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315400
+  },
+  "IOCTL_SCSI_GET_INQUIRY_DATA": {
+    "define": "IOCTL_SCSI_BASE, 0x0403, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266252
+  },
+  "IOCTL_SCSI_GET_CAPABILITIES": {
+    "define": "IOCTL_SCSI_BASE, 0x0404, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266256
+  },
+  "IOCTL_SCSI_PASS_THROUGH_DIRECT": {
+    "define": "IOCTL_SCSI_BASE, 0x0405, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315412
+  },
+  "IOCTL_SCSI_GET_ADDRESS": {
+    "define": "IOCTL_SCSI_BASE, 0x0406, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266264
+  },
+  "IOCTL_SCSI_RESCAN_BUS": {
+    "define": "IOCTL_SCSI_BASE, 0x0407, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266268
+  },
+  "IOCTL_SCSI_GET_DUMP_POINTERS": {
+    "define": "IOCTL_SCSI_BASE, 0x0408, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266272
+  },
+  "IOCTL_SCSI_FREE_DUMP_POINTERS": {
+    "define": "IOCTL_SCSI_BASE, 0x0409, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 266276
+  },
+  "IOCTL_IDE_PASS_THROUGH": {
+    "define": "IOCTL_SCSI_BASE, 0x040a, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315432
+  },
+  "IOCTL_ATA_PASS_THROUGH": {
+    "define": "IOCTL_SCSI_BASE, 0x040b, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315436
+  },
+  "IOCTL_ATA_PASS_THROUGH_DIRECT": {
+    "define": "IOCTL_SCSI_BASE, 0x040c, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315440
+  },
+  "IOCTL_ATA_MINIPORT": {
+    "define": "IOCTL_SCSI_BASE, 0x040d, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315444
+  },
+  "IOCTL_MINIPORT_PROCESS_SERVICE_IRP": {
+    "define": "IOCTL_SCSI_BASE,  0x040e, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315448
+  },
+  "IOCTL_MPIO_PASS_THROUGH_PATH": {
+    "define": "IOCTL_SCSI_BASE, 0x040f, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315452
+  },
+  "IOCTL_MPIO_PASS_THROUGH_PATH_DIRECT": {
+    "define": "IOCTL_SCSI_BASE, 0x0410, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315456
+  },
+  "IOCTL_SCSI_PASS_THROUGH_EX": {
+    "define": "IOCTL_SCSI_BASE, 0x0411, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315460
+  },
+  "IOCTL_SCSI_PASS_THROUGH_DIRECT_EX": {
+    "define": "IOCTL_SCSI_BASE, 0x0412, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315464
+  },
+  "IOCTL_MPIO_PASS_THROUGH_PATH_EX": {
+    "define": "IOCTL_SCSI_BASE, 0x0413, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315468
+  },
+  "IOCTL_MPIO_PASS_THROUGH_PATH_DIRECT_EX": {
+    "define": "IOCTL_SCSI_BASE, 0x0414, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddscsi.h",
+    "value": 315472
+  },
+  "IOCTL_VOLUME_SUPPORTS_ONLINE_OFFLINE": {
+    "define": "IOCTL_VOLUME_BASE, 1, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636100
+  },
+  "IOCTL_VOLUME_IS_OFFLINE": {
+    "define": "IOCTL_VOLUME_BASE, 4, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636112
+  },
+  "IOCTL_VOLUME_IS_IO_CAPABLE": {
+    "define": "IOCTL_VOLUME_BASE, 5, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636116
+  },
+  "IOCTL_VOLUME_QUERY_FAILOVER_SET": {
+    "define": "IOCTL_VOLUME_BASE, 6, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636120
+  },
+  "IOCTL_VOLUME_QUERY_VOLUME_NUMBER": {
+    "define": "IOCTL_VOLUME_BASE, 7, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636124
+  },
+  "IOCTL_VOLUME_LOGICAL_TO_PHYSICAL": {
+    "define": "IOCTL_VOLUME_BASE, 8, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636128
+  },
+  "IOCTL_VOLUME_PHYSICAL_TO_LOGICAL": {
+    "define": "IOCTL_VOLUME_BASE, 9, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636132
+  },
+  "IOCTL_VOLUME_IS_PARTITION": {
+    "define": "IOCTL_VOLUME_BASE, 10, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636136
+  },
+  "IOCTL_VOLUME_READ_PLEX": {
+    "define": "IOCTL_VOLUME_BASE, 11, METHOD_OUT_DIRECT, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5652526
+  },
+  "IOCTL_VOLUME_SET_GPT_ATTRIBUTES": {
+    "define": "IOCTL_VOLUME_BASE, 13, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636148
+  },
+  "IOCTL_VOLUME_GET_BC_PROPERTIES": {
+    "define": "IOCTL_VOLUME_BASE, 15, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5652540
+  },
+  "IOCTL_VOLUME_ALLOCATE_BC_STREAM": {
+    "define": "IOCTL_VOLUME_BASE, 16, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685312
+  },
+  "IOCTL_VOLUME_FREE_BC_STREAM": {
+    "define": "IOCTL_VOLUME_BASE, 17, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685316
+  },
+  "IOCTL_VOLUME_IS_DYNAMIC": {
+    "define": "IOCTL_VOLUME_BASE, 18, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636168
+  },
+  "IOCTL_VOLUME_PREPARE_FOR_CRITICAL_IO": {
+    "define": "IOCTL_VOLUME_BASE, 19, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685324
+  },
+  "IOCTL_VOLUME_QUERY_ALLOCATION_HINT": {
+    "define": "IOCTL_VOLUME_BASE, 20, METHOD_OUT_DIRECT, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5652562
+  },
+  "IOCTL_VOLUME_UPDATE_PROPERTIES": {
+    "define": "IOCTL_VOLUME_BASE, 21, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636180
+  },
+  "IOCTL_VOLUME_QUERY_MINIMUM_SHRINK_SIZE": {
+    "define": "IOCTL_VOLUME_BASE, 22, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5652568
+  },
+  "IOCTL_VOLUME_PREPARE_FOR_SHRINK": {
+    "define": "IOCTL_VOLUME_BASE, 23, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685340
+  },
+  "IOCTL_VOLUME_IS_CSV": {
+    "define": "IOCTL_VOLUME_BASE, 24, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5636192
+  },
+  "IOCTL_VOLUME_POST_ONLINE": {
+    "define": "IOCTL_VOLUME_BASE, 25, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685348
+  },
+  "IOCTL_VOLUME_GET_CSVBLOCKCACHE_CALLBACK": {
+    "define": "IOCTL_VOLUME_BASE, 26, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\ntddvol.h",
+    "value": 5685352
+  },
+  "IOCTL_TR_SERVICE_QUERY": {
+    "define": "FILE_DEVICE_TRUST_ENV, 0, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\trustedrt.h",
+    "value": 5636096
+  },
+  "IOCTL_TR_EXECUTE_FUNCTION": {
+    "define": "FILE_DEVICE_TRUST_ENV, 1, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\trustedrt.h",
+    "value": 5668868
+  },
+  "IOCTL_TR_ENUMERATE_SERVICES": {
+    "define": "FILE_DEVICE_TRUST_ENV, 2, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\trustedrt.h",
+    "value": 5636104
+  },
+  "IOCTL_BATTERY_QUERY_TAG": {
+    "define": "FILE_DEVICE_BATTERY, 0x10, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703424
+  },
+  "IOCTL_BATTERY_QUERY_INFORMATION": {
+    "define": "FILE_DEVICE_BATTERY, 0x11, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703428
+  },
+  "IOCTL_BATTERY_SET_INFORMATION": {
+    "define": "FILE_DEVICE_BATTERY, 0x12, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2719816
+  },
+  "IOCTL_BATTERY_QUERY_STATUS": {
+    "define": "FILE_DEVICE_BATTERY, 0x13, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703436
+  },
+  "IOCTL_BATTERY_CHARGING_SOURCE_CHANGE": {
+    "define": "FILE_DEVICE_BATTERY, 0x14, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703440
+  },
+  "IOCTL_THERMAL_QUERY_INFORMATION": {
+    "define": "FILE_DEVICE_BATTERY, 0x20, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703488
+  },
+  "IOCTL_THERMAL_SET_COOLING_POLICY": {
+    "define": "FILE_DEVICE_BATTERY, 0x21, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2719876
+  },
+  "IOCTL_RUN_ACTIVE_COOLING_METHOD": {
+    "define": "FILE_DEVICE_BATTERY, 0x22, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2719880
+  },
+  "IOCTL_THERMAL_SET_PASSIVE_LIMIT": {
+    "define": "FILE_DEVICE_BATTERY, 0x23, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2719884
+  },
+  "IOCTL_THERMAL_READ_TEMPERATURE": {
+    "define": "FILE_DEVICE_BATTERY, 0x24, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703504
+  },
+  "IOCTL_THERMAL_READ_POLICY": {
+    "define": "FILE_DEVICE_BATTERY, 0x25, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703508
+  },
+  "IOCTL_QUERY_LID": {
+    "define": "FILE_DEVICE_BATTERY, 0x30, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703552
+  },
+  "IOCTL_NOTIFY_SWITCH_EVENT": {
+    "define": "FILE_DEVICE_BATTERY, 0x40, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703616
+  },
+  "IOCTL_GET_SYS_BUTTON_CAPS": {
+    "define": "FILE_DEVICE_BATTERY, 0x50, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703680
+  },
+  "IOCTL_GET_SYS_BUTTON_EVENT": {
+    "define": "FILE_DEVICE_BATTERY, 0x51, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703684
+  },
+  "IOCTL_GET_PROCESSOR_OBJ_INFO": {
+    "define": "FILE_DEVICE_BATTERY, 0x60, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703744
+  },
+  "IOCTL_SET_SYS_MESSAGE_INDICATOR": {
+    "define": "FILE_DEVICE_BATTERY, 0x70, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2720192
+  },
+  "IOCTL_SET_WAKE_ALARM_VALUE": {
+    "define": "FILE_DEVICE_BATTERY, 0x80, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2720256
+  },
+  "IOCTL_SET_WAKE_ALARM_POLICY": {
+    "define": "FILE_DEVICE_BATTERY, 0x81, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2720260
+  },
+  "IOCTL_GET_WAKE_ALARM_VALUE": {
+    "define": "FILE_DEVICE_BATTERY, 0x82, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2736648
+  },
+  "IOCTL_GET_WAKE_ALARM_POLICY": {
+    "define": "FILE_DEVICE_BATTERY, 0x83, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2736652
+  },
+  "IOCTL_ACPI_GET_REAL_TIME": {
+    "define": "FILE_DEVICE_BATTERY, 0x84, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703888
+  },
+  "IOCTL_ACPI_SET_REAL_TIME": {
+    "define": "FILE_DEVICE_BATTERY, 0x85, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2720276
+  },
+  "IOCTL_GET_WAKE_ALARM_SYSTEM_POWERSTATE": {
+    "define": "FILE_DEVICE_BATTERY, 0x86, METHOD_BUFFERED, FILE_READ_DATA",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703896
+  },
+  "IOCTL_GET_ACPI_TIME_AND_ALARM_CAPABILITIES": {
+    "define": "FILE_DEVICE_BATTERY, 0x87, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\\poclass.h",
+    "value": 2703900
+  },
+  "IOCTL_CAD_DISABLE_CHARGING": {
+    "define": "FILE_DEVICE_BATTERY, 0x120, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737280
+  },
+  "IOCTL_CAD_GET_CHARGING_STATUS_COMPLETE": {
+    "define": "FILE_DEVICE_BATTERY, 0x122, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737288
+  },
+  "IOCTL_INTERNAL_CAD_POWER_SOURCE_UPDATE": {
+    "define": "FILE_DEVICE_BATTERY, 0x130, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737344
+  },
+  "IOCTL_CAD_GET_BATTERY_PROVISIONING_STATUS": {
+    "define": "FILE_DEVICE_BATTERY, 0x131, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737348
+  },
+  "IOCTL_CAD_POWER_SOURCE_UPDATE_EX": {
+    "define": "FILE_DEVICE_BATTERY, 0x132, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737352
+  },
+  "IOCTL_INTERNAL_CONFIGURE_CHARGER_PROPERTY": {
+    "define": "FILE_DEVICE_BATTERY, 0x140, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\charging.h",
+    "value": 2737408
+  },
+  "IOCTL_HPMI_QUERY_CAPABILITIES": {
+    "define": "FILE_DEVICE_BATTERY, 0x200, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\hpmi.h",
+    "value": 2738176
+  },
+  "IOCTL_HPMI_BATTERY_UTILIZATION_HINT": {
+    "define": "FILE_DEVICE_BATTERY, 0x201, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\hpmi.h",
+    "value": 2738180
+  },
+  "IOCTL_MOUNTDEV_QUERY_UNIQUE_ID": {
+    "define": "MOUNTDEVCONTROLTYPE, 0, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5046272
+  },
+  "IOCTL_MOUNTDEV_QUERY_SUGGESTED_LINK_NAME": {
+    "define": "MOUNTDEVCONTROLTYPE, 3, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5046284
+  },
+  "IOCTL_MOUNTDEV_LINK_CREATED": {
+    "define": "MOUNTDEVCONTROLTYPE, 4, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5095440
+  },
+  "IOCTL_MOUNTDEV_LINK_DELETED": {
+    "define": "MOUNTDEVCONTROLTYPE, 5, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5095444
+  },
+  "IOCTL_MOUNTDEV_QUERY_STABLE_GUID": {
+    "define": "MOUNTDEVCONTROLTYPE, 6, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5046296
+  },
+  "IOCTL_MOUNTDEV_QUERY_INTERFACE_NAME": {
+    "define": "MOUNTDEVCONTROLTYPE, 7, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountdev.h",
+    "value": 5046300
+  },
+  "IOCTL_MOUNTDEV_QUERY_DEVICE_NAME": {
+    "define": "MOUNTDEVCONTROLTYPE, 2, METHOD_BUFFERED, FILE_ANY_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\mountmgr.h",
+    "value": 5046280
+  },
+  "IOCTL_QUERY_DEVICE_POWER_STATE": {
+    "define": "FILE_DEVICE_BATTERY, 0x0, METHOD_BUFFERED, FILE_READ_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\ntpoapi.h",
+    "value": 2703360
+  },
+  "IOCTL_SET_DEVICE_WAKE": {
+    "define": "FILE_DEVICE_BATTERY, 0x1, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\ntpoapi.h",
+    "value": 2719748
+  },
+  "IOCTL_CANCEL_DEVICE_WAKE": {
+    "define": "FILE_DEVICE_BATTERY, 0x2, METHOD_BUFFERED, FILE_WRITE_ACCESS",
+    "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km\\ntpoapi.h",
+    "value": 2719752
+  }
+}

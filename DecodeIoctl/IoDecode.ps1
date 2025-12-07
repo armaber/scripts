@@ -4,8 +4,8 @@
 
 .DESCRIPTION
     Latest Windows SDK version is scanned for matching CTL_CODE, identifying the source
-    macro. winioctl.h, ntdddisk.h, ntddscsi.h, ntddvol.h, trustedrt.h, mountdev.h,
-    mountmgr.h are used.
+    macro. winioctl.h, ntdddisk.h, ntddscsi.h, ntddvol.h, poclass.hm, trustedrt.h,
+    charging.h, hpmi.h, mountdev.h, mountmgr.h, ntpoapi.h are used.
 
     Multiple IOCTLs can be specified in bulk. A table is built for all headers containing
     the macro definitions, reused for each IOCTL.
@@ -161,7 +161,7 @@ $accessHash = @{
     "FILE_READ_ACCESS | FILE_WRITE_ACCESS" = 3;
 };
 
-function UnpackIoctl
+function PrintDefinition
 {
     param([int]$IoControl)
 
@@ -202,23 +202,30 @@ function CTL_CODE
     return ($Type -shl 16) + ($Access -shl 14) + ($Fn -shl 2) + $Method;
 }
 
-$ctlCodeTable = [psobject]::new();
+$CtlCodeTable = [psobject]::new();
 
 function BuildCtlCode
 {
     $kitPath = "${env:ProgramFiles(x86)}\Windows Kits\10\Include";
     $kitVersion = [Version[]](Get-ChildItem -Path "$kitPath\*.*" -ErrorAction SilentlyContinue).Name;
-    if (-not $kitVersion) {
-        return;
+    $kitVersion = $kitVersion | Sort-Object -Descending -Top 1;
+    $storedCodeTable = Get-Content $PSScriptRoot\CtlCodeTable.json -ErrorAction SilentlyContinue -Raw | ConvertFrom-Json;
+    if ($storedCodeTable) {
+        $node = $storedCodeTable.PSObject.Properties.Name[0];
+        $storedVersion = [Version](($storedCodeTable.$node.path -split "Include\\")[-1] -split "\\")[0];
+        if ($storedVersion -ge $kitVersion) {
+            $script:CtlCodeTable = $storedCodeTable;
+            return;
+        }
     }
-    $latestVersion = ($kitVersion | Sort-Object -Descending -Top 1) -join ".";
+    $latestVersion = $kitVersion -join ".";
     $keys = [string[]]$typeHash.Keys;
     $knownPaths = "$kitPath\$latestVersion\um\winioctl.h",
                   "$kitPath\$latestVersion\shared\ntdddisk.h",
                   "$kitPath\$latestVersion\shared\ntddscsi.h",
                   "$kitPath\$latestVersion\shared\ntddvol.h",
-                  "$kitPath\$latestVersion\shared\trustedrt.h",
                   "$kitPath\$latestVersion\shared\poclass.h",
+                  "$kitPath\$latestVersion\shared\trustedrt.h",
                   "$kitPath\$latestVersion\km\charging.h",
                   "$kitPath\$latestVersion\km\hpmi.h",
                   "$kitPath\$latestVersion\km\mountdev.h",
@@ -239,7 +246,7 @@ function BuildCtlCode
                     path = $header;
                     value = $null;
                 };
-                $ctlCodeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $po -ErrorAction SilentlyContinue;
+                $script:CtlCodeTable | Add-Member -NotePropertyName $Matches[1] -NotePropertyValue $po -ErrorAction SilentlyContinue;
                 $singleLine = $true;
             }
         };
@@ -252,11 +259,11 @@ function BuildCtlCode
                     path = $header;
                     value = $null;
                 }
-                $ctlCodeTable | Add-Member -NotePropertyName $_.Groups[1].Value -NotePropertyValue $po -ErrorAction SilentlyContinue;
+                $script:CtlCodeTable | Add-Member -NotePropertyName $_.Groups[1].Value -NotePropertyValue $po -ErrorAction SilentlyContinue;
             }
         }
     }
-    foreach ($ctlProperty in $ctlCodeTable.PSObject.Properties) {
+    foreach ($ctlProperty in $script:CtlCodeTable.PSObject.Properties) {
         $values = $ctlProperty.Value.define -split ", ";
         $type = $values[0];
         $intType = $typeHash.$type;
@@ -284,13 +291,14 @@ function BuildCtlCode
         $ctlValue = CTL_CODE $intType $intFn $intMethod $intAccess;
         $ctlProperty.Value.value = $ctlValue;
     }
+    $script:CtlCodeTable | ConvertTo-Json | Set-Content $PSScriptRoot\CtlCodeTable.json;
 }
 
-function PrintMatch
+function PrintLocation
 {
     param([int]$IoctlCode)
 
-    foreach ($ctlProperty in $ctlCodeTable.PSObject.Properties) {
+    foreach ($ctlProperty in $script:CtlCodeTable.PSObject.Properties) {
         if ($null -eq $ctlProperty.Value.value) {
             continue;
         }
@@ -309,8 +317,8 @@ function PrintMatch
 BuildCtlCode;
 
 foreach ($ic in $IoctlCode) {
-    UnpackIoctl $ic;
-    PrintMatch $ic;
+    PrintDefinition $ic;
+    PrintLocation $ic;
     if ($IoctlCode.Count -gt 1) {
         "";
     }
