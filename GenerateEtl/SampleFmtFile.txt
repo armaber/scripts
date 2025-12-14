@@ -1,0 +1,432 @@
+[0]0004.0008::02/10/2026-08:51:04.502 [driver]AddDevice to PDO FFFFD3819B6A7DB0
+[0]0004.0008::02/10/2026-08:51:04.503 [driver]_DSM(query,0x8,ver.3) 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[2]0004.0090::02/10/2026-08:51:04.746 [driver]Request to begin transition of Extension FFFFD3819E04CA20 to PciStarted
+[2]0004.0090::02/10/2026-08:51:04.746 [driver]-> STATUS_SUCCESS
+[2]0004.0090::02/10/2026-08:51:04.747 [driver]Commit transition of Extension FFFFD3819E04CA20 to PciStarted
+[0]0004.0008::02/10/2026-08:51:04.747 [driver]Request to begin transition of Extension FFFFD3819E04CA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:04.747 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scanning between 0x1 and 0x3e, starting at bus FFFFD3819E04CA20.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.00.00), HeaderType = 0, Old PowerState = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.01.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0001.00.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0002.08.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0003.00.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0003.00.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0003.00.00), HeaderType = 0, Command Saved = 100, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0003.00.00), HeaderType = 0, Command Restored = 100.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x40000, alignment=0x40000. Window size =0x40000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 2: type=0x3, flags=0x84 [0x0 - 0xffffffffffffffff] size=0x10000000, alignment=0x10000000. Window size =0x10000000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 4: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x4000000, alignment=0x4000000. Window size =0x4040000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 5: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x800000, alignment=0x800000. Window size =0x4840000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0002.08.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0002.08.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0002.08.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0002.09.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0004.00.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0004.00.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0004.00.00), HeaderType = 0, Command Saved = 100, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0004.00.00), HeaderType = 0, Command Restored = 100.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x40000, alignment=0x40000. Window size =0x40000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 2: type=0x3, flags=0x84 [0x0 - 0xffffffffffffffff] size=0x10000000, alignment=0x10000000. Window size =0x10000000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 4: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x4000000, alignment=0x4000000. Window size =0x4040000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 5: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x800000, alignment=0x800000. Window size =0x4840000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0002.09.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0002.09.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0002.09.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0001.00.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0001.00.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0001.00.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x40000, alignment=0x40000. Window size =0x40000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0001.00.01), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0001.00.01).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0001.00.01), HeaderType = 0, Command Saved = 100, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0001.00.01), HeaderType = 0, Command Restored = 100.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x2000, alignment=0x2000. Window size =0x9242000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0000.01.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0000.01.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0000.01.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.02.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0000.02.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0000.02.00), HeaderType = 0, Command Saved = 7, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0000.02.00), HeaderType = 0, Command Restored = 7.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x1000000, alignment=0x1000000. Window size =0xa300000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 2: type=0x3, flags=0x84 [0x0 - 0xffffffffffffffff] size=0x10000000, alignment=0x10000000. Window size =0x30000000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 4: type=0x1, flags=0x131 [0x0 - 0xffff] size=0x40, alignment=0x40. Window size =0x40
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.14.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0000.14.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0000.14.00), HeaderType = 0, Command Saved = 106, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0000.14.00), HeaderType = 0, Command Restored = 106.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x10000, alignment=0x10000. Window size =0xa310000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.14.02), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0000.14.02).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0000.14.02), HeaderType = 0, Command Saved = 102, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Reconnected device: (0000.14.02), HeaderType = 0, Command Restored = 102.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x1000, alignment=0x1000. Window size =0xa311000
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Find child device (0000.16.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Scan for BAR requirements for device (0000.16.00).
+[0]0004.0008::02/10/2026-08:51:04.747 [driver][INFO]  Disconnected device: (0000.16.00), HeaderType = 0, Command Saved = 0, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Reconnected device: (0000.16.00), HeaderType = 0, Command Restored = 0.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x1000, alignment=0x1000. Window size =0xa312000
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Find child device (0000.17.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Scan for BAR requirements for device (0000.17.00).
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Disconnected device: (0000.17.00), HeaderType = 0, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Reconnected device: (0000.17.00), HeaderType = 0, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x2000, alignment=0x2000. Window size =0xa314000
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 1: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x100, alignment=0x100. Window size =0xa314100
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 2: type=0x1, flags=0x131 [0x0 - 0xffff] size=0x8, alignment=0x8. Window size =0x48
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 3: type=0x1, flags=0x131 [0x0 - 0xffff] size=0x4, alignment=0x4. Window size =0x4c
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 4: type=0x1, flags=0x131 [0x0 - 0xffff] size=0x20, alignment=0x20. Window size =0x6c
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 5: type=0x3, flags=0x80 [0x0 - 0xffffffff] size=0x800, alignment=0x800. Window size =0xa314900
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Find child device (0000.1c.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Find child device (0005.00.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Scan for BAR requirements for device (0005.00.00).
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Disconnected device: (0005.00.00), HeaderType = 0, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Reconnected device: (0005.00.00), HeaderType = 0, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 0: type=0x1, flags=0x131 [0x0 - 0xffffffff] size=0x100, alignment=0x100. Window size =0x100
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 2: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x1000, alignment=0x1000. Window size =0x1000
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  BAR 4: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x4000, alignment=0x4000. Window size =0x5000
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Scan for BAR requirements for device (0000.1c.00).
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Disconnected device: (0000.1c.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Reconnected device: (0000.1c.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Find child device (0000.1d.00), HeaderType = 1, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Find child device (0006.00.00), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:04.748 [driver][INFO]  Scan for BAR requirements for device (0006.00.00).
+[0]0004.0008::02/10/2026-08:51:04.849 [driver][INFO]  Disconnected device: (0006.00.00), HeaderType = 0, Command Saved = 107, OnDebugPath = 1.
+[0]0004.0008::02/10/2026-08:51:04.849 [driver][INFO]  Reconnected device: (0006.00.00), HeaderType = 0, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:07.535 [driver][INFO]  BAR 0: type=0x1, flags=0x131 [0x0 - 0xffffffff] size=0x100, alignment=0x100. Window size =0x100
+[0]0004.0008::02/10/2026-08:51:07.535 [driver][INFO]  BAR 2: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x1000, alignment=0x1000. Window size =0x1000
+[0]0004.0008::02/10/2026-08:51:07.535 [driver][INFO]  BAR 4: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x4000, alignment=0x4000. Window size =0x5000
+[0]0004.0008::02/10/2026-08:51:07.535 [driver][INFO]  Scan for BAR requirements for device (0000.1d.00).
+[1]0000.0000::02/10/2026-08:51:07.636 [driver][INFO]  Disconnected device: (0000.1d.00), HeaderType = 1, Command Saved = 107, OnDebugPath = 1.
+[1]0000.0000::02/10/2026-08:51:07.637 [driver][INFO]  Reconnected device: (0000.1d.00), HeaderType = 1, Command Restored = 107.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Find child device (0000.1f.00), HeaderType = 0, Old PowerState = 0.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Find child device (0000.1f.02), HeaderType = 0, Old PowerState = 0.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Find child device (0000.1f.03), HeaderType = 0, Old PowerState = 1.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Scan for BAR requirements for device (0000.1f.03).
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Disconnected device: (0000.1f.03), HeaderType = 0, Command Saved = 100, OnDebugPath = 0.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Reconnected device: (0000.1f.03), HeaderType = 0, Command Restored = 100.
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  BAR 0: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x4000, alignment=0x4000. Window size =0xa518900
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  BAR 4: type=0x3, flags=0x80 [0x0 - 0xffffffffffffffff] size=0x10000, alignment=0x10000. Window size =0xa528900
+[0]0004.0008::02/10/2026-08:51:10.322 [driver][INFO]  Find child device (0000.1f.04), HeaderType = 0, Old PowerState = 0.
+[0]0004.0008::02/10/2026-08:51:13.114 [driver][INFO]  Bus 0xFFFFD3819E04CA20 (0x0) has maximum consecutive window of size: Memory=0x0, Prefetch=0x0
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (00:00) PDO FFFFD3819B7E10A0 (!devext FFFFD3819B7E11F0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (01:00) PDO FFFFD3819BF694B0 (!devext FFFFD3819BF69600)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (02:00) PDO FFFFD3819E0BA360 (!devext FFFFD3819E0BA4B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (14:00) PDO FFFFD3819E0BC360 (!devext FFFFD3819E0BC4B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (14:02) PDO FFFFD3819E075360 (!devext FFFFD3819E0754B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (16:00) PDO FFFFD3819E077360 (!devext FFFFD3819E0774B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (17:00) PDO FFFFD3819E079360 (!devext FFFFD3819E0794B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1c:00) PDO FFFFD3819E104360 (!devext FFFFD3819E1044B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1d:00) PDO FFFFD3819E106360 (!devext FFFFD3819E1064B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1f:00) PDO FFFFD3819E10C360 (!devext FFFFD3819E10C4B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1f:02) PDO FFFFD3819E10E360 (!devext FFFFD3819E10E4B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1f:03) PDO FFFFD3819E126360 (!devext FFFFD3819E1264B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  (1f:04) PDO FFFFD3819E128360 (!devext FFFFD3819E1284B0)
+[0]0004.0008::02/10/2026-08:51:13.114 [driver]  Total PDO count = 0x1a (0xd already in list)
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1:0) _DSM(query,0x5,ver.3) 0xc000000d(STATUS_INVALID_PARAMETER)
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](2:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](14:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](14:2) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](16:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](17:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1c:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1d:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1f:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1f:2) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1f:3) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver](1f:4) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:13.121 [driver]Request to cancel transition of Extension FFFFD3819E04CA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:13.121 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:13.122 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[0]0004.0008::02/10/2026-08:51:13.123 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.124 [driver](1:0) _DSM(query,0x9,ver.3) 0xc000000d(STATUS_INVALID_PARAMETER)
+[0]0004.0008::02/10/2026-08:51:13.124 [driver]AddDevice to PDO FFFFD3819BF694B0
+[0]0004.0008::02/10/2026-08:51:13.125 [driver]Root port 0xFFFFD3819E06FA20 checking for DSD_ROOTPORT_SUPPORTS_HOTPLUG_IN_D3: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.126 [driver]Root port 0xFFFFD3819E06FA20 checking for GUID_DSD_ROOTPORT_RESET_PROPERTIES: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.127 [driver]Root port 0xFFFFD3819E06FA20 checking for DSD_EXTERNAL_FACING_PORT: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.127 [driver]AddDevice (new bus FFFFD3819E06FA20 is child of bus 0x0).
+[0]0004.0008::02/10/2026-08:51:13.130 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.131 [driver](2:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.131 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.132 [driver](14:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.132 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[0]0004.0008::02/10/2026-08:51:13.133 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.134 [driver](16:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.134 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.134 [driver](17:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.135 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.136 [driver]AddDevice to PDO FFFFD3819E104360
+[0]0004.0008::02/10/2026-08:51:13.136 [driver]Reporting no runtime wake capability for device (b:0 d:1c f:0) because the BIOS left Express in Compatibility mode
+[0]0004.0008::02/10/2026-08:51:13.137 [driver]Root port 0xFFFFD3819E0F0250 checking for DSD_ROOTPORT_SUPPORTS_HOTPLUG_IN_D3: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.137 [driver]Root port 0xFFFFD3819E0F0250 checking for GUID_DSD_ROOTPORT_RESET_PROPERTIES: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.146 [driver]Root port 0xFFFFD3819E0F0250 checking for DSD_EXTERNAL_FACING_PORT: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.146 [driver]AddDevice (new bus FFFFD3819E0F0250 is child of bus 0x0).
+[0]0004.0008::02/10/2026-08:51:13.149 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.150 [driver]AddDevice to PDO FFFFD3819E106360
+[0]0004.0008::02/10/2026-08:51:13.150 [driver]Reporting no runtime wake capability for device (b:0 d:1d f:0) because the BIOS left Express in Compatibility mode
+[0]0004.0008::02/10/2026-08:51:13.150 [driver]Root port 0xFFFFD3819E0F09A0 checking for DSD_ROOTPORT_SUPPORTS_HOTPLUG_IN_D3: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.151 [driver]Root port 0xFFFFD3819E0F09A0 checking for GUID_DSD_ROOTPORT_RESET_PROPERTIES: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.152 [driver]Root port 0xFFFFD3819E0F09A0 checking for DSD_EXTERNAL_FACING_PORT: 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.152 [driver]AddDevice (new bus FFFFD3819E0F09A0 is child of bus 0x0).
+[0]0004.0008::02/10/2026-08:51:13.155 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.155 [driver](1f:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.156 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.157 [driver](1f:2) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.157 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.158 [driver](1f:3) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0008::02/10/2026-08:51:13.158 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[0]0004.0008::02/10/2026-08:51:13.159 [driver](1f:4) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]Request to begin transition of Extension FFFFD3819B7E11F0 to PciStarted
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]-> STATUS_SUCCESS
+[3]0004.0114::02/10/2026-08:51:13.188 [driver](0:0) -> PowerDeviceD0
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]Commit transition of Extension FFFFD3819B7E11F0 to PciStarted
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]Request to begin transition of Extension FFFFD3819E10C4B0 to PciStarted
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]-> STATUS_SUCCESS
+[3]0004.0114::02/10/2026-08:51:13.188 [driver](1f:0) -> PowerDeviceD0
+[3]0004.0114::02/10/2026-08:51:13.188 [driver]Commit transition of Extension FFFFD3819E10C4B0 to PciStarted
+[0]0004.0114::02/10/2026-08:51:13.189 [driver]Reporting no runtime wake capability for device (b:0 d:1f f:0) because the parent bus was a root bus and the BIOS didn't describe the device as wakeable, as with an _S0W object
+[0]0004.0118::02/10/2026-08:51:13.207 [driver]Request to begin transition of Extension FFFFD3819BF69600 to PciStarted
+[0]0004.0118::02/10/2026-08:51:13.207 [driver]-> STATUS_SUCCESS
+[0]0004.0118::02/10/2026-08:51:13.207 [driver](1:0) -> PowerDeviceD0
+[0]0004.0118::02/10/2026-08:51:13.245 [driver]Commit transition of Extension FFFFD3819BF69600 to PciStarted
+[2]0004.0008::02/10/2026-08:51:13.245 [driver]Request to begin transition of Extension FFFFD3819E06FA20 to PciStarted
+[2]0004.0008::02/10/2026-08:51:13.245 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:13.245 [driver]Commit transition of Extension FFFFD3819E06FA20 to PciStarted
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]Request to begin transition of Extension FFFFD3819E06FA20 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Bus 0xFFFFD3819E06FA20 (0x1) has maximum consecutive window of size: Memory=0xca00000, Prefetch=0x20000000
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Child (0x01.0x00.0x00) has Mem Bar of size 0x40000, aggregrated Mem Requirement: 0x0 -> 0x40000
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Bus 0xFFFFD3819E06FA20 (0x1) has free memory window range available for spreading: 0xc9c0000
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Bus 0xFFFFD3819E06FA20 (0x1) has free prefetch window range available for spreading: 0x20000000
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Child (0x01.0x00.0x00) get extra memory resource: 0xc000000 (Alignment: 0x4000000)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver][INFO]  Child (0x01.0x00.0x00) get extra prefetch resource: 0x20000000 (Alignment: 0x10000000)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]QueryBusRelations
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]  (00:00) PDO FFFFD3819E118060 (!devext FFFFD3819E1181B0)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]  (00:01) PDO FFFFD3819E119060 (!devext FFFFD3819E1191B0)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]  Total PDO count = 0x4 (0x2 already in list)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver](0:0) _DSM(query,0x5,ver.3) 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[2]0004.0008::02/10/2026-08:51:13.246 [driver](0:0) _DSM(ignore boot config): 0
+[2]0004.0008::02/10/2026-08:51:13.246 [driver](0:1) _DSM(ignore boot config): 0
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]Request to cancel transition of Extension FFFFD3819E06FA20 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:13.246 [driver]-> ST_OK
+[2]0004.0008::02/10/2026-08:51:13.247 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[2]0004.0008::02/10/2026-08:51:13.247 [driver](0:0) _DSM(query,0x9,ver.3) 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[2]0004.0008::02/10/2026-08:51:13.248 [driver]AddDevice to PDO FFFFD3819E118060
+[2]0004.0008::02/10/2026-08:51:13.248 [driver]Reporting no runtime wake capability for device (b:1 d:0 f:0) because the BIOS left Express in Compatibility mode
+[2]0004.0008::02/10/2026-08:51:13.248 [driver]AddDevice (new bus FFFFD3819E11A190 is child of bus 0x1).
+[2]0004.0008::02/10/2026-08:51:13.251 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[2]0004.0118::02/10/2026-08:51:13.257 [driver]Request to begin transition of Extension FFFFD3819E1044B0 to PciStarted
+[2]0004.0118::02/10/2026-08:51:13.257 [driver]-> STATUS_SUCCESS
+[2]0004.0118::02/10/2026-08:51:13.257 [driver](1c:0) -> PowerDeviceD0
+[2]0004.0118::02/10/2026-08:51:13.292 [driver]Commit transition of Extension FFFFD3819E1044B0 to PciStarted
+[1]0004.0008::02/10/2026-08:51:13.292 [driver]Request to begin transition of Extension FFFFD3819E0F0250 to PciStarted
+[1]0004.0008::02/10/2026-08:51:13.292 [driver]-> STATUS_SUCCESS
+[1]0004.0008::02/10/2026-08:51:13.292 [driver]Commit transition of Extension FFFFD3819E0F0250 to PciStarted
+[1]0004.0008::02/10/2026-08:51:13.292 [driver]Request to begin transition of Extension FFFFD3819E0F0250 to PciSynchronizedOperation
+[1]0004.0008::02/10/2026-08:51:13.292 [driver]-> STATUS_SUCCESS
+[1]0004.0008::02/10/2026-08:51:13.293 [driver][INFO]  Bus 0xFFFFD3819E0F0250 (0x5) has maximum consecutive window of size: Memory=0x100000, Prefetch=0x0
+[1]0004.0008::02/10/2026-08:51:13.293 [driver]QueryBusRelations
+[1]0004.0008::02/10/2026-08:51:13.293 [driver]  (00:00) PDO FFFFD3819E11E120 (!devext FFFFD3819E11E270)
+[1]0004.0008::02/10/2026-08:51:13.293 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[1]0004.0008::02/10/2026-08:51:13.293 [driver](0:0) _DSM(ignore boot config): 0
+[1]0004.0008::02/10/2026-08:51:13.293 [driver]Request to cancel transition of Extension FFFFD3819E0F0250 to PciSynchronizedOperation
+[1]0004.0008::02/10/2026-08:51:13.293 [driver]-> ST_OK
+[1]0004.0008::02/10/2026-08:51:13.294 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[1]0004.0008::02/10/2026-08:51:13.294 [driver](0:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0118::02/10/2026-08:51:13.300 [driver]Request to begin transition of Extension FFFFD3819E1064B0 to PciStarted
+[0]0004.0118::02/10/2026-08:51:13.300 [driver]-> STATUS_SUCCESS
+[0]0004.0118::02/10/2026-08:51:13.300 [driver](1d:0) -> PowerDeviceD0
+[0]0004.0118::02/10/2026-08:51:16.125 [driver]Commit transition of Extension FFFFD3819E1064B0 to PciStarted
+[2]0004.0008::02/10/2026-08:51:16.125 [driver]Request to begin transition of Extension FFFFD3819E0F09A0 to PciStarted
+[2]0004.0008::02/10/2026-08:51:16.125 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:16.125 [driver]Commit transition of Extension FFFFD3819E0F09A0 to PciStarted
+[2]0004.0008::02/10/2026-08:51:16.126 [driver]Request to begin transition of Extension FFFFD3819E0F09A0 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:16.126 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:18.913 [driver][INFO]  Bus 0xFFFFD3819E0F09A0 (0x6) has maximum consecutive window of size: Memory=0x100000, Prefetch=0x0
+[2]0004.0008::02/10/2026-08:51:18.913 [driver]QueryBusRelations
+[2]0004.0008::02/10/2026-08:51:18.913 [driver]  (00:00) PDO FFFFD3819E120060 (!devext FFFFD3819E1201B0)
+[2]0004.0008::02/10/2026-08:51:18.913 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[2]0004.0008::02/10/2026-08:51:18.913 [driver](0:0) _DSM(ignore boot config): 0
+[2]0004.0008::02/10/2026-08:51:18.913 [driver]Request to cancel transition of Extension FFFFD3819E0F09A0 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:18.913 [driver]-> ST_OK
+[2]0004.0008::02/10/2026-08:51:18.914 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000034(STATUS_OBJECT_NAME_NOT_FOUND)
+[2]0004.0008::02/10/2026-08:51:18.914 [driver](0:0) _DSM(query,0x9,ver.3) 0xc0000004(STATUS_INFO_LENGTH_MISMATCH)
+[0]0004.0118::02/10/2026-08:51:18.935 [driver]Request to begin transition of Extension FFFFD3819E1181B0 to PciStarted
+[0]0004.0118::02/10/2026-08:51:18.935 [driver]-> STATUS_SUCCESS
+[0]0004.0118::02/10/2026-08:51:18.935 [driver](0:0) -> PowerDeviceD0
+[0]0004.0118::02/10/2026-08:51:18.964 [driver]Commit transition of Extension FFFFD3819E1181B0 to PciStarted
+[2]0004.0008::02/10/2026-08:51:18.964 [driver]Request to begin transition of Extension FFFFD3819E11A190 to PciStarted
+[2]0004.0008::02/10/2026-08:51:18.964 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:18.964 [driver]Commit transition of Extension FFFFD3819E11A190 to PciStarted
+[2]0004.0008::02/10/2026-08:51:18.964 [driver]Request to begin transition of Extension FFFFD3819E11A190 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:18.964 [driver]-> STATUS_SUCCESS
+[2]0004.0008::02/10/2026-08:51:18.965 [driver][INFO]  Bus 0xFFFFD3819E11A190 (0x2) has maximum consecutive window of size: Memory=0xc900000, Prefetch=0x20000000
+[2]0004.0008::02/10/2026-08:51:18.965 [driver][INFO]  Child (0x02.0x08.0x00) has Mem Requirement 0x4900000, aggregrated Mem Requirement: 0x0 -> 0x4900000
+[2]0004.0008::02/10/2026-08:51:18.965 [driver][INFO]  Child (0x02.0x08.0x00) has Prefetch Requirement 0x10000000, aggregrated Prefetch Requirement: 0x0 -> 0x10000000
+[2]0004.0008::02/10/2026-08:51:18.965 [driver][INFO]  Child (0x02.0x09.0x00) has Mem Requirement 0x4900000, aggregrated Mem Requirement: 0x4900000 -> 0x9200000
+[2]0004.0008::02/10/2026-08:51:18.965 [driver][INFO]  Child (0x02.0x09.0x00) has Prefetch Requirement 0x10000000, aggregrated Prefetch Requirement: 0x10000000 -> 0x20000000
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]QueryBusRelations
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]  (08:00) PDO FFFFD3819E122060 (!devext FFFFD3819E1221B0)
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]  (09:00) PDO FFFFD3819E0CC0A0 (!devext FFFFD3819E0CC1F0)
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]  Total PDO count = 0x4 (0x2 already in list)
+[2]0004.0008::02/10/2026-08:51:18.965 [driver](8:0) _DSM(ignore boot config): 0
+[2]0004.0008::02/10/2026-08:51:18.965 [driver](9:0) _DSM(ignore boot config): 0
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]Request to cancel transition of Extension FFFFD3819E11A190 to PciSynchronizedOperation
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]-> ST_OK
+[2]0004.0008::02/10/2026-08:51:18.965 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[2]0004.0008::02/10/2026-08:51:18.966 [driver]AddDevice to PDO FFFFD3819E122060
+[2]0004.0008::02/10/2026-08:51:18.966 [driver]Reporting no runtime wake capability for device (b:2 d:8 f:0) because the BIOS left Express in Compatibility mode
+[2]0004.0008::02/10/2026-08:51:18.966 [driver]AddDevice (new bus FFFFD3819E0CD190 is child of bus 0x2).
+[2]0004.0008::02/10/2026-08:51:18.969 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[2]0004.0008::02/10/2026-08:51:18.970 [driver]AddDevice to PDO FFFFD3819E0CC0A0
+[2]0004.0008::02/10/2026-08:51:18.970 [driver]Reporting no runtime wake capability for device (b:2 d:9 f:0) because the BIOS left Express in Compatibility mode
+[2]0004.0008::02/10/2026-08:51:18.970 [driver]AddDevice (new bus FFFFD3819E0CD8E0 is child of bus 0x2).
+[0]0004.0118::02/10/2026-08:51:18.994 [driver]Request to begin transition of Extension FFFFD3819E1221B0 to PciStarted
+[0]0004.0118::02/10/2026-08:51:18.994 [driver]-> STATUS_SUCCESS
+[0]0004.0118::02/10/2026-08:51:18.994 [driver](8:0) -> PowerDeviceD0
+[0]0004.0114::02/10/2026-08:51:18.999 [driver]Request to begin transition of Extension FFFFD3819E0CC1F0 to PciStarted
+[0]0004.0114::02/10/2026-08:51:18.999 [driver]-> STATUS_SUCCESS
+[0]0004.0114::02/10/2026-08:51:19.000 [driver](9:0) -> PowerDeviceD0
+[0]0004.0118::02/10/2026-08:51:19.027 [driver]Commit transition of Extension FFFFD3819E1221B0 to PciStarted
+[0]0004.0118::02/10/2026-08:51:19.027 [driver]Request to begin transition of Extension FFFFD3819E0CD190 to PciStarted
+[0]0004.0118::02/10/2026-08:51:19.027 [driver]-> STATUS_SUCCESS
+[2]0004.0114::02/10/2026-08:51:19.027 [driver]Commit transition of Extension FFFFD3819E0CC1F0 to PciStarted
+[2]0004.0114::02/10/2026-08:51:19.027 [driver]Request to begin transition of Extension FFFFD3819E0CD8E0 to PciStarted
+[2]0004.0114::02/10/2026-08:51:19.027 [driver]-> STATUS_SUCCESS
+[0]0004.0118::02/10/2026-08:51:19.027 [driver]Commit transition of Extension FFFFD3819E0CD190 to PciStarted
+[3]0004.0114::02/10/2026-08:51:19.027 [driver]Commit transition of Extension FFFFD3819E0CD8E0 to PciStarted
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]Request to begin transition of Extension FFFFD3819E0CD190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.027 [driver][INFO]  Bus 0xFFFFD3819E0CD190 (0x3) has maximum consecutive window of size: Memory=0x4900000, Prefetch=0x10000000
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]  (00:00) PDO FFFFD3819E0D3120 (!devext FFFFD3819E0D3270)
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.027 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]Request to cancel transition of Extension FFFFD3819E0CD190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.027 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.028 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[0]0004.0008::02/10/2026-08:51:19.028 [driver]Request to begin transition of Extension FFFFD3819E0CD8E0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.028 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.029 [driver][INFO]  Bus 0xFFFFD3819E0CD8E0 (0x4) has maximum consecutive window of size: Memory=0x4900000, Prefetch=0x10000000
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]  (00:00) PDO FFFFD3819E0D5120 (!devext FFFFD3819E0D5270)
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.029 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]Request to cancel transition of Extension FFFFD3819E0CD8E0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.029 [driver]Checking _DSD GUID_DSD_PORT_DMA_PROPERTIES for property 'DmaProperty': 0xc0000010(STATUS_INVALID_DEVICE_REQUEST)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]Request to begin transition of Extension FFFFD3819E04CA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (00:00) PDO FFFFD3819B7E10A0 (!devext FFFFD3819B7E11F0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (01:00) PDO FFFFD3819BF694B0 (!devext FFFFD3819BF69600)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (02:00) PDO FFFFD3819E0BA360 (!devext FFFFD3819E0BA4B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (14:00) PDO FFFFD3819E0BC360 (!devext FFFFD3819E0BC4B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (14:02) PDO FFFFD3819E075360 (!devext FFFFD3819E0754B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (16:00) PDO FFFFD3819E077360 (!devext FFFFD3819E0774B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (17:00) PDO FFFFD3819E079360 (!devext FFFFD3819E0794B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1c:00) PDO FFFFD3819E104360 (!devext FFFFD3819E1044B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1d:00) PDO FFFFD3819E106360 (!devext FFFFD3819E1064B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1f:00) PDO FFFFD3819E10C360 (!devext FFFFD3819E10C4B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1f:02) PDO FFFFD3819E10E360 (!devext FFFFD3819E10E4B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1f:03) PDO FFFFD3819E126360 (!devext FFFFD3819E1264B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  (1f:04) PDO FFFFD3819E128360 (!devext FFFFD3819E1284B0)
+[0]0004.0008::02/10/2026-08:51:19.031 [driver]  Total PDO count = 0x1a (0xd already in list)
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](2:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](14:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](14:2) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](16:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](17:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](1f:2) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](1f:3) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver](1f:4) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]Request to cancel transition of Extension FFFFD3819E04CA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]Request to begin transition of Extension FFFFD3819E06FA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]  (00:00) PDO FFFFD3819E118060 (!devext FFFFD3819E1181B0)
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]  (00:01) PDO FFFFD3819E119060 (!devext FFFFD3819E1191B0)
+[0]0004.0008::02/10/2026-08:51:19.042 [driver]  Total PDO count = 0x4 (0x2 already in list)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver](0:1) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to cancel transition of Extension FFFFD3819E06FA20 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to begin transition of Extension FFFFD3819E11A190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  (08:00) PDO FFFFD3819E122060 (!devext FFFFD3819E1221B0)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  (09:00) PDO FFFFD3819E0CC0A0 (!devext FFFFD3819E0CC1F0)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  Total PDO count = 0x4 (0x2 already in list)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to cancel transition of Extension FFFFD3819E11A190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to begin transition of Extension FFFFD3819E0CD190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  (00:00) PDO FFFFD3819E0D3120 (!devext FFFFD3819E0D3270)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to cancel transition of Extension FFFFD3819E0CD190 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]Request to begin transition of Extension FFFFD3819E0CD8E0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  (00:00) PDO FFFFD3819E0D5120 (!devext FFFFD3819E0D5270)
+[0]0004.0008::02/10/2026-08:51:19.043 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.044 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]Request to cancel transition of Extension FFFFD3819E0CD8E0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]Request to begin transition of Extension FFFFD3819E0F0250 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]  (00:00) PDO FFFFD3819E11E120 (!devext FFFFD3819E11E270)
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.044 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]Request to cancel transition of Extension FFFFD3819E0F0250 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]-> ST_OK
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]Request to begin transition of Extension FFFFD3819E0F09A0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]-> STATUS_SUCCESS
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]QueryBusRelations
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]  (00:00) PDO FFFFD3819E120060 (!devext FFFFD3819E1201B0)
+[0]0004.0008::02/10/2026-08:51:19.044 [driver]  Total PDO count = 0x2 (0x1 already in list)
+[0]0004.0008::02/10/2026-08:51:19.045 [driver](0:0) _DSM(ignore boot config): 0
+[0]0004.0008::02/10/2026-08:51:19.045 [driver]Request to cancel transition of Extension FFFFD3819E0F09A0 to PciSynchronizedOperation
+[0]0004.0008::02/10/2026-08:51:19.045 [driver]-> ST_OK
+[0]0004.0114::02/10/2026-08:51:19.060 [driver]Request to begin transition of Extension FFFFD3819E0794B0 to PciStarted
+[0]0004.0114::02/10/2026-08:51:19.060 [driver]-> STATUS_SUCCESS
+[0]0004.0114::02/10/2026-08:51:19.060 [driver](17:0) -> PowerDeviceD0
+[2]0004.0114::02/10/2026-08:51:19.089 [driver]Commit transition of Extension FFFFD3819E0794B0 to PciStarted
+[0]0004.0114::02/10/2026-08:51:20.760 [driver]Request to begin transition of Extension FFFFD3819E0BA4B0 to PciStarted
+[0]0004.0114::02/10/2026-08:51:20.760 [driver]-> STATUS_SUCCESS
+[0]0004.0114::02/10/2026-08:51:20.760 [driver](2:0) -> PowerDeviceD0
+[3]0004.0114::02/10/2026-08:51:20.788 [driver]Commit transition of Extension FFFFD3819E0BA4B0 to PciStarted
+[0]0004.0104::02/10/2026-08:51:20.791 [driver]PciExternalWriteDeviceConfig: FFFFD3819E0BC4B0 writing illegal range - offset: 0x74 len: 0x1
+[1]0004.0114::02/10/2026-08:51:20.791 [driver]Request to begin transition of Extension FFFFD3819E11E270 to PciStarted
+[1]0004.0114::02/10/2026-08:51:20.791 [driver]-> STATUS_SUCCESS
+[1]0004.0114::02/10/2026-08:51:20.791 [driver](0:0) -> PowerDeviceD0
+[0]0004.010C::02/10/2026-08:51:20.791 [driver]Request to begin transition of Extension FFFFD3819E0BC4B0 to PciStarted
+[0]0004.010C::02/10/2026-08:51:20.791 [driver]-> STATUS_SUCCESS
+[0]0004.010C::02/10/2026-08:51:20.791 [driver](14:0) -> PowerDeviceD0
+[0]0004.010C::02/10/2026-08:51:20.818 [driver]Commit transition of Extension FFFFD3819E0BC4B0 to PciStarted
+[3]0004.0114::02/10/2026-08:51:20.818 [driver]Commit transition of Extension FFFFD3819E11E270 to PciStarted
+[2]0004.0110::02/10/2026-08:51:20.923 [driver]Request to begin transition of Extension FFFFD3819E1191B0 to PciStarted
+[2]0004.0110::02/10/2026-08:51:20.923 [driver]-> STATUS_SUCCESS
+[2]0004.0110::02/10/2026-08:51:20.923 [driver](0:1) -> PowerDeviceD0
+[3]0004.0094::02/10/2026-08:51:20.926 [driver]Request to begin transition of Extension FFFFD3819E0774B0 to PciStarted
+[3]0004.0094::02/10/2026-08:51:20.926 [driver]-> STATUS_SUCCESS
+[3]0004.0094::02/10/2026-08:51:20.926 [driver](16:0) -> PowerDeviceD0
+[3]0004.0118::02/10/2026-08:51:20.931 [driver]Request to begin transition of Extension FFFFD3819E1264B0 to PciStarted
+[3]0004.0118::02/10/2026-08:51:20.931 [driver]-> STATUS_SUCCESS
+[3]0004.0118::02/10/2026-08:51:20.931 [driver](1f:3) -> PowerDeviceD0
+[2]0004.0110::02/10/2026-08:51:20.956 [driver]Commit transition of Extension FFFFD3819E1191B0 to PciStarted
+[1]0004.0118::02/10/2026-08:51:20.960 [driver]Commit transition of Extension FFFFD3819E1264B0 to PciStarted
+[0]0004.0094::02/10/2026-08:51:20.960 [driver]Commit transition of Extension FFFFD3819E0774B0 to PciStarted
+[0]0004.0094::02/10/2026-08:51:20.961 [driver]Reporting no runtime wake capability for device (b:0 d:16 f:0) because the parent bus was a root bus and the BIOS didn't describe the device as wakeable, as with an _S0W object
+[2]0004.0014::02/10/2026-08:51:22.104 [driver]PciExternalWriteDeviceConfig: FFFFD3819E0BC4B0 writing illegal range - offset: 0x75 len: 0x1
+[0]0004.0014::02/10/2026-08:51:22.106 [driver]FFFFD3819E0BC4B0 (0000:14:00): begin PDO PowerDeviceD3 transition at: beadf2b
+[0]0004.0014::02/10/2026-08:51:22.106 [driver](0): device FFFFD3819E0BC4B0 going to PowerDeviceD3
+[0]0004.0014::02/10/2026-08:51:22.106 [driver](14:0) -> PowerDeviceD3
+[1]0004.0104::02/10/2026-08:51:22.132 [driver]PciExternalWriteDeviceConfig: FFFFD3819E0BC4B0 writing illegal range - offset: 0x74 len: 0x1
+[1]0004.0104::02/10/2026-08:51:22.132 [driver]PciExternalWriteDeviceConfig: FFFFD3819E0BC4B0 writing illegal range - offset: 0x74 len: 0x1

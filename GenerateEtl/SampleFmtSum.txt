@@ -1,0 +1,46 @@
+Files Processed:
+	C:\Users\Calin Iaru\source\repos\StartupProvideEtl.etl
+Total Buffers Processed 10
+Total Events  Processed 436
+Total Events  Lost      0
+Total Format  Errors    0
+Total Formats Unknown   0
+Elapsed Time            244 sec
++-----------------------------------------------------------------------------------+
+|EventCount    EventName            EventType   TMF                                 |
++-----------------------------------------------------------------------------------+
+|         2    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|         2    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|         2    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|         2    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|         1    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|         7    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|        34    driver               Unknown_cxx00  ca4b3317-6afe-3094-65cc-b028c3f4f6f0|
+|        30    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|        17    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|         1    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|        17    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|        17    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|        21    driver               Unknown_cxx00  9210f636-2505-3a5b-fa34-8b497fdb6ab8|
+|         5    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|         2    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|         1    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|         1    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|         1    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|        15    driver               Unknown_cxx00  71b4463e-060f-3269-ef49-73471e8f01c8|
+|        14    driver               Unknown_cxx00  8a17dd43-1260-32e4-cead-3639a637fc37|
+|        42    driver               Unknown_cxx00  8a17dd43-1260-32e4-cead-3639a637fc37|
+|         4    driver               Unknown_cxx00  ef24e18f-4e05-36a9-0dca-1488ec0907a0|
+|        36    driver               Unknown_cxx00  043667a5-d0b0-3cdf-8245-20766092d69a|
+|        36    driver               Unknown_cxx00  043667a5-d0b0-3cdf-8245-20766092d69a|
+|        14    driver               Unknown_cxx00  043667a5-d0b0-3cdf-8245-20766092d69a|
+|        22    driver               Unknown_cxx00  043667a5-d0b0-3cdf-8245-20766092d69a|
+|        21    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|         1    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|        14    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|         3    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|         3    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|         3    driver               Unknown_cxx00  aa86a5b8-0195-33a3-e9de-121af2c97ae9|
+|         6    driver               Unknown_cxx00  d82532ca-cd75-3ba6-3ac9-0397752536ce|
+|         7    driver               Unknown_cxx00  d82532ca-cd75-3ba6-3ac9-0397752536ce|
++-----------------------------------------------------------------------------------+
