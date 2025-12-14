@@ -7,8 +7,11 @@
 #define USER_MODE_DEVICE_NAME L"\\DosDevices\\SlashMemory"
 
 DRIVER_INITIALIZE DriverEntry;
+__drv_dispatchType(IRP_MJ_CREATE)
 DRIVER_DISPATCH SmDispatchCreate;
+__drv_dispatchType(IRP_MJ_CLOSE)
 DRIVER_DISPATCH SmDispatchClose;
+__drv_dispatchType(IRP_MJ_DEVICE_CONTROL)
 DRIVER_DISPATCH SmDispatchIoControl;
 DRIVER_UNLOAD SmUnloadDriver;
 
@@ -218,7 +221,6 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT Driver, PUNICODE_STRING Registry)
         IoDeleteDevice(deviceObject);
         return status;
     }
-    deviceObject->Flags &= ~DO_DEVICE_INITIALIZING;
 
     return STATUS_SUCCESS;
 }
