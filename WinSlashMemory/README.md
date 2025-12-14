@@ -18,12 +18,12 @@ Copy the `.sys` file to **python** folder, launch `py .\test.py` with elevated p
 Sample output
 -
 
-```.powershell
+```powershell
     Copy-Item C:\WinSlashMemory\driver\x64\Debug\slash_memory.sys C:\WinSlashMemory\python
-    py C:\WinSlashMemory\python\test.py
+    py C:\WinSlashMemory\python\test.py f8000000
 ```
 
-```.text
+```text
     Installing "C:\WinSlashMemory\python\slash_memory.sys"
     Memory dump of f8000000
     ----------------------------------------
