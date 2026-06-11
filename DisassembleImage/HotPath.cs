@@ -337,6 +337,32 @@ enum STORPORT_FUNCTION_CODE
 }
 
 
+public class DisassemblyTransform
+{
+    public static string HexToAscii(string value)
+    {
+        string ret = "";
+
+        Byte[] by = new Byte[1];
+        for (int i = 0; i < value.Length; i += 2) {
+            int length = (i + 2 <= value.Length)? 2: 1;
+            string two = value.Substring(i, length);
+            by[0] = Convert.ToByte(two, 16);
+            try
+            {
+                ret += Encoding.ASCII.GetString(by);
+            }
+            catch(ArgumentException)
+            {
+                ret += $"0x{two}";
+            }
+        }
+        ret = $"{value}='{ret}'";
+        return ret;
+    }
+}
+
+
 public class ParseDisassembly
 {
     public class Unreliable
@@ -377,6 +403,7 @@ public class ParseDisassembly
         public Regex CompiledPattern;
         public object RegisterValue;
         public bool Unreliable;
+        public Func<string, string> Transform;
     }
 
     IdentifyArgument[] _indirectSourceBlock =
@@ -404,12 +431,18 @@ public class ParseDisassembly
         new(){
             Target = @"call    \w+!IoQueueWorkItem",
             SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
-            AboveLimit = 5
+            AboveLimit = 10
         },
         new(){
             Target = @"call    \w+!IoQueueWorkItemEx",
             SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
-            AboveLimit = 5
+            AboveLimit = 10
+        },
+        new()
+        {
+            Target = @"call    \w+!PoRequestPowerIrp",
+            SourceDisasm = @"lea     r9,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 8
         },
         new(){
             Target = @"call    storport!StorPortNotification",
@@ -428,6 +461,30 @@ public class ParseDisassembly
             Target = @"call    \w+!IoRegisterPlugPlayNotification",
             SourceDisasm = @"lea     rax,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]\n(.+?\n){0,2}[0-9a-f]+?\s+mov     qword ptr \[rsp\+20h\],rax",
             AboveLimit = 5
+        },
+        new(){
+            Target = @"call    \w+!ExAllocatePoolWithTag",
+            SourceDisasm = @"mov     r8d,(?<solution>.+)h",
+            AboveLimit = 4,
+            Transform = DisassemblyTransform.HexToAscii
+        },
+        new(){
+            Target = @"call    \w+!ExAllocatePoolWithQuotaTag",
+            SourceDisasm = @"mov     r8d,(?<solution>.+)h",
+            AboveLimit = 4,
+            Transform = DisassemblyTransform.HexToAscii
+        },
+        new(){
+            Target = @"call    \w+!ExAllocatePoolWithTagPriority",
+            SourceDisasm = @"mov     r8d,(?<solution>.+)h",
+            AboveLimit = 4,
+            Transform = DisassemblyTransform.HexToAscii
+        },
+        new(){
+            Target = @"call    \w+!ExAllocatePool2",
+            SourceDisasm = @"mov     r8d,(?<solution>.+)h",
+            AboveLimit = 4,
+            Transform = DisassemblyTransform.HexToAscii
         }
     };
 
@@ -734,6 +791,9 @@ public class ParseDisassembly
                     }
                 }
                 finally { }
+            }
+            else if (arg.Transform != null) {
+                str = arg.Transform(str);
             }
             if (!result.Contains(str))
             {
