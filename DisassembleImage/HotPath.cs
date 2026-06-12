@@ -344,9 +344,9 @@ public class DisassemblyTransform
         string ret = "";
 
         Byte[] by = new Byte[1];
-        for (int i = 0; i < value.Length; i += 2) {
-            int length = (i + 2 <= value.Length)? 2: 1;
-            string two = value.Substring(i, length);
+        for (int i = value.Length; i > 0; i -= 2) {
+            int length = (i > 1)? 2: 1;
+            string two = value.Substring(i - length, length);
             by[0] = Convert.ToByte(two, 16);
             try
             {
@@ -357,7 +357,7 @@ public class DisassemblyTransform
                 ret += $"0x{two}";
             }
         }
-        ret = $"{value}='{ret}'";
+        ret = $"{value}\x2B8E'{ret}'";
         return ret;
     }
 }
@@ -485,6 +485,11 @@ public class ParseDisassembly
             SourceDisasm = @"mov     r8d,(?<solution>.+)h",
             AboveLimit = 4,
             Transform = DisassemblyTransform.HexToAscii
+        },
+        new(){
+            Target = @"call    \w+!IoQueryInterface",
+            SourceDisasm = @"lea     r8,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 7
         }
     };
 
