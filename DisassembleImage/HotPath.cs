@@ -483,7 +483,13 @@ public class ParseDisassembly
         new(){
             Target = @"call    \w+!ExAllocatePool2",
             SourceDisasm = @"mov     r8d,(?<solution>.+)h",
-            AboveLimit = 4,
+            AboveLimit = 7,
+            Transform = DisassemblyTransform.HexToAscii
+        },
+        new(){
+            Target = @"call    \w+!ExAllocatePool3",
+            SourceDisasm = @"mov     r8d,(?<solution>.+)h",
+            AboveLimit = 8,
             Transform = DisassemblyTransform.HexToAscii
         },
         new(){
@@ -562,7 +568,7 @@ public class ParseDisassembly
     {
         foreach (var iter in _indirectSourceBlock)
         {
-            iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(.+?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
+            iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(.*?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
         }
     }
 
