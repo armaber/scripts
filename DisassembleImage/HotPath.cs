@@ -1154,7 +1154,7 @@ public class ParseDisassembly
     {
         foreach (var iter in _indirectSourceBlock)
         {
-            iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(.*?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
+            iter.CompiledPattern = new($"{iter.SourceDisasm}\\n(((?!{iter.SourceDisasm}).)*?\\n){{0,{iter.AboveLimit}}}[0-9a-f]+?\\s+{iter.Target}", RegexOptions.Compiled);
         }
     }
 
