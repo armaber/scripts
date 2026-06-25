@@ -1072,6 +1072,11 @@ public class ParseDisassembly
             Target = @"call    \w+!IoQueryInterface",
             SourceDisasm = @"lea     r8,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
             AboveLimit = 7
+        },
+        new(){
+            Target = @"call    \w+!KeRegisterBugCheckReasonCallback",
+            SourceDisasm = @"lea     rdx,\[(?<solution>.+) \([0-9a-f]{8}`[0-9a-f]{8}\)\]",
+            AboveLimit = 13
         }
     };
 
