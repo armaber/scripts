@@ -875,6 +875,32 @@ enum KEBUGCHECKEX_FUNCTION_CODE
     MANUALLY_INITIATED_CRASH1 = unchecked((int)0xDEADDEAD)
 }
 
+enum DEVICE_REGISTRY_PROPERTY {
+    DevicePropertyDeviceDescription,
+    DevicePropertyHardwareID,
+    DevicePropertyCompatibleIDs,
+    DevicePropertyBootConfiguration,
+    DevicePropertyBootConfigurationTranslated,
+    DevicePropertyClassName,
+    DevicePropertyClassGuid,
+    DevicePropertyDriverKeyName,
+    DevicePropertyManufacturer,
+    DevicePropertyFriendlyName,
+    DevicePropertyLocationInformation,
+    DevicePropertyPhysicalDeviceObjectName,
+    DevicePropertyBusTypeGuid,
+    DevicePropertyLegacyBusType,
+    DevicePropertyBusNumber,
+    DevicePropertyEnumeratorName,
+    DevicePropertyAddress,
+    DevicePropertyUINumber,
+    DevicePropertyInstallState,
+    DevicePropertyRemovalPolicy,
+    DevicePropertyResourceRequirements,
+    DevicePropertyAllocatedResources,
+    DevicePropertyContainerID
+}
+
 public class DisassemblyTransform
 {
     public static string HexToAscii(string value)
@@ -996,11 +1022,16 @@ public class ParseDisassembly
             Unreliable = true
         },
         new(){
-            Target = @"call    \w+!KeBugCheckEx",
-            SourceDisasm = @"((mov     ecx,(?<solution>[0-9A-F]+)h)|(lea     ecx,\[r8\+(?<solution>[0-9A-F]+)h\]))",
+            Target = @"call    \w+!IoGetDeviceProperty",
+            SourceDisasm = @"mov     edx,(?<solution>[0-9A-F]+)h",
             AboveLimit = 8,
-            RegisterValue = new KEBUGCHECKEX_FUNCTION_CODE(),
-            Unreliable = true
+            RegisterValue = new DEVICE_REGISTRY_PROPERTY()
+        },
+        new(){
+            Target = @"call    \w+!KeBugCheck(Ex)?",
+            SourceDisasm = @"mov     ecx,(?<solution>[0-9A-F]+)h",
+            AboveLimit = 8,
+            RegisterValue = new KEBUGCHECKEX_FUNCTION_CODE()
         },
         new(){
             Target = @"call    \w+!IoRegisterPlugPlayNotification",
