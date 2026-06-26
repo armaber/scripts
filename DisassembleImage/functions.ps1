@@ -97,7 +97,15 @@ $StopDisassembly = @(
     "!ExAcquireResourceSharedLite$",
     "!ExAcquireFastMutex$",
     "!ExReleaseFastMutex$",
-    "!KiIdleLoop$"
+    "nt!KiIdleLoop$",
+    "!RtlStringCchPrintfA$",
+    "!RtlStringCchPrintfW$",
+    "!RtlAnsiStringToUnicodeString$",
+    "!IopCreateUnicodeFromAnsiBuffer$",
+    "!ObReferenceObjectByHandle$",
+    "!IoGetDeviceAttachmentBaseRefWithTag$",
+    "!ObCloseHandle$",
+    "!RtlFreeUTF8String$"
 );
 
 function TraceMemoryUsage
@@ -963,52 +971,84 @@ Configuration completed.
     & notepad.exe "${script:UfSymbolProfile}";
 }
 
+function GenerateHyperText
+{
+    param([int]$Padding,
+          [int]$Index,
+          [string]$Backend)
+
+    $hyperScape = [char]27;
+    $frontend = "{0:d$Padding}" -f $Index;
+    return "[$hyperScape]8;;$Backend$hyperScape\$frontend$hyperScape]8;;$hyperScape\]";
+}
+
 function ListMetaFiles
 {
     param($List)
 
     LoadDefaultValues;
-    $ascending = "$([char]0x2191)";
+    $ascGlyph = "$([char]0x2191)";
+    $metaFiles = Get-ChildItem -Recurse -Include "*.meta" -LiteralPath $script:Database;
+    $hyperPadding = [math]::Floor([math]::Log10($metaFiles.Count)) + 1;
+    $unsortedTable = & {
+        foreach ($metaFile in $metaFiles) {
+            $obj = Get-Content $metaFile | ConvertFrom-Json;
+            $obj | Add-Member -NotePropertyName disassembly -NotePropertyValue $metaFile.FullName.Replace(".meta", ".disassembly");
+            $obj.disassembly = "file:///" + $obj.disassembly.Replace("\", "/");
+            $obj;
+        }
+    };
+    $sortedIndex = 0;
     if ($List -eq "OS") {
-        Get-ChildItem -Recurse -Include "*.meta" -LiteralPath $script:Database | 
-        Foreach-Object { 
-            Get-Content $PSItem | ConvertFrom-Json 
-        } | Sort-Object os |
-        Format-Table -AutoSize computer, @{ N = "os | basename $ascending"; E = { $PSItem.os; } }, image;
+        $sortedTable = $unsortedTable | Sort-Object os | Foreach-Object {
+            $hyperText = GenerateHyperText $hyperPadding $sortedIndex $PSItem.disassembly;
+            $PSItem | Add-Member -NotePropertyName link -NotePropertyValue $hyperText;
+            $sortedIndex ++;
+            $PSItem;
+        };
+        $sortedTable | Format-Table computer,
+                                    @{ N = "os | basename $ascGlyph"; E = { $PSItem.os; } },
+                                    image,
+                                    link -AutoSize;
         return;
     }
-    Get-ChildItem -Recurse -Include "*.meta" -LiteralPath $script:Database | 
-    Foreach-Object { 
-        Get-Content $PSItem | ConvertFrom-Json 
-    } | Sort-Object -Property @{ E = { [int]$PSItem.stats.duration } } |
-    Format-Table -AutoSize computer, @{ N = "os | basename"; E = { $PSItem.os; } }, 
-                           image, 
-                           @{ N = "GB"; E = {
-                                if ($null -eq $PSItem.stats.size) {
-                                    "";
-                                } else {
-                                    [decimal]$size = $PSItem.stats.size;
-                                    $size /= 1e+9;
-                                    if ($size -lt 1e-3) {
-                                        "{0:F6}" -f $size;
-                                    } elseif ($size -lt 1) {
-                                        "{0:F3}" -f $size;
-                                    } else {
-                                        "{0:F2}" -f $size;
-                                    }
-                                }
-                            } },
-                           @{ N = "duration $ascending";
-                              E = { [string]$duration = $PSItem.stats.duration;
-                                 ("" -eq $duration) ? "": $duration + " s"; } },
-                           @{ N = "cpu"; E = { [string]$PSItem.stats.model; } },
-                           @{ N = "cores"; E = { [string]$PSItem.stats.cpus } };
+    $sortedTable = $unsortedTable | Sort-Object -Property @{ E = { [int]$PSItem.stats.duration } } | ForEach-Object {
+        $hyperText = GenerateHyperText $hyperPadding $sortedIndex $PSItem.disassembly;
+        $PSItem | Add-Member -NotePropertyName link -NotePropertyValue $hyperText;
+        $sortedIndex ++;
+        $PSItem;
+    };
+    $sortedTable | Format-Table computer,
+                                @{ N = "os | basename"; E = { $PSItem.os; } },
+                                image,
+                                link,
+                                @{ N = "GB"; E = {
+                                  if ($null -eq $PSItem.stats.size) {
+                                      "";
+                                  } else {
+                                      [decimal]$size = $PSItem.stats.size;
+                                      $size /= 1e+9;
+                                      if ($size -lt 1e-3) {
+                                          "{0:F6}" -f $size;
+                                      } elseif ($size -lt 1) {
+                                          "{0:F3}" -f $size;
+                                      } else {
+                                          "{0:F2}" -f $size;
+                                      }
+                                  }
+                                } },
+                                @{ N = "duration $ascGlyph";
+                                   E = { [string]$duration = $PSItem.stats.duration;
+                                         ("" -eq $duration) ? "": $duration + " s";
+                                } },
+                                @{ N = "cpu"; E = { [string]$PSItem.stats.model; } },
+                                @{ N = "cores"; E = { [string]$PSItem.stats.cpus } } -AutoSize;
 }
 
 function MigrateFiles
 {
     param([string]$Destination)
-    
+
     if (! (Test-Path $Destination -PathType Container)) {
         throw "Path is not a folder";
     }
